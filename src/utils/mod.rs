@@ -8,7 +8,7 @@
 pub mod is_char_in_range;
 // pub mod is_char_japanese_punctuation;
 // pub mod is_char_japanese;
-// pub mod is_char_kana;
+pub mod is_char_kana;
 pub mod is_char_kanji;
 // pub mod is_char_katakana;
 // pub mod is_char_long_dash;

@@ -22,3 +22,11 @@ pub fn is_kanji(input: &str) -> bool {
   return input.chars().all(is_char_kanji);
 }
 
+#[test]
+fn check_is_kanji() {
+    assert_eq!(is_kanji("刀"), true);
+    assert_eq!(is_kanji("切腹"), true);
+    assert_eq!(is_kanji("勢い"), false);
+    assert_eq!(is_kanji("あAア"), false);
+    assert_eq!(is_kanji("🐸"), false);
+}

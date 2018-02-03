@@ -22,4 +22,11 @@ pub fn is_kana(input: &str) -> bool {
   return input.chars().all(is_char_kana);
 }
 
-export default is_kana;
+#[test]
+fn check_is_kanji() {
+    assert_eq!(is_kana("あ"), true);
+    assert_eq!(is_kana("ア"), true);
+    assert_eq!(is_kana("あーア"), true);
+    assert_eq!(is_kana("A"), false);
+    assert_eq!(is_kana("あAア"), false);
+}

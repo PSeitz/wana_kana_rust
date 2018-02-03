@@ -5,3 +5,6 @@ authors = ["Pascal Seitz <pascal.seitz@gmail.com>"]
 
 [dependencies]
 regex = "0.2"
+phf = "0.7.21"
+phf_macros = "0.7.21"
+lazy_static = "1.0"
