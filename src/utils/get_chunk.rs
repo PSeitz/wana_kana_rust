@@ -5,8 +5,6 @@
  * @param  {Number} end index
  * @return {String} new substring
  */
-fn get_chunk(text = '', start = 0, end) {
-  return text.slice(start, end);
+pub fn get_chunk(text: &str, start: usize, end: usize) -> &str {
+    &text[start..end]
 }
-
-

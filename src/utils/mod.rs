@@ -1,7 +1,6 @@
 // pub mod convert_fullwidth_chars_to_a_s_c_i_i;
-// pub mod get_chunk;
-// pub mod get_chunk_size;
-// pub mod hiragana_to_katakana;
+pub mod get_chunk;
+pub mod hiragana_to_katakana;
 pub mod is_char_consonant;
 pub mod is_char_english_punctuation;
 pub mod is_char_hiragana;
@@ -18,4 +17,4 @@ pub mod is_char_slash_dot;
 pub mod is_char_upper_case;
 pub mod is_char_vowel;
 pub mod katakana_to_hiragana;
-// pub mod romaji_to_hiragana;
+pub mod romaji_to_hiragana;

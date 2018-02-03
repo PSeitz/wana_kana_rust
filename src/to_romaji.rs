@@ -1,6 +1,5 @@
-use constants::{DEFAULT_OPTIONS, TO_ROMAJI};
+use constants::{TO_ROMAJI};
 
-use utils::get_chunk_size::*;
 use utils::get_chunk::*;
 use utils::katakana_to_hiragana::*;
 use is_katakana::*;
@@ -18,7 +17,7 @@ use options::Options;
  * // => 'hiragana KATAKANA'
  */
 fn to_romaji(kana = '', options: Options) {
-  let config = Object.assign({}, DEFAULT_OPTIONS, options);
+  let config = options;
   let len = kana.length;
   // Final output array
   let roma = vec![];
@@ -31,7 +30,7 @@ fn to_romaji(kana = '', options: Options) {
   let next_char_is_double_consonant;
 
   while (cursor < len) {
-    chunk_size = get_chunk_size(max_chunk, len - cursor);
+    chunk_size = std::cmp::min(max_chunk, len - cursor);
     let convert_this_chunk_to_uppercase = false;
     while (chunk_size > 0) {
       chunk = get_chunk(kana, cursor, cursor + chunk_size);

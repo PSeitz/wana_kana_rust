@@ -1,4 +1,3 @@
-use constants::DEFAULT_OPTIONS;
 use utils::katakana_to_hiragana::*;
 use utils::romaji_to_hiragana::*;
 use is_romaji::*;
@@ -20,7 +19,7 @@ use options::Options;
  * // => 'ゐ'
 */
 fn to_hiragana(input: &str, options: Options) {
-  let config = Object.assign({}, DEFAULT_OPTIONS, options);
+  let config = options;
   if (config.pass_romaji) return katakana_to_hiragana(input);
   if (is_romaji(input)) return romaji_to_hiragana(input, config);
   if (is_mixed(input, { pass_kanji: true })) {

@@ -10,6 +10,7 @@ extern crate lazy_static;
 
 mod is_kanji;
 mod is_kana;
+mod to_kana;
 mod utils;
 mod constants;
 mod options;
