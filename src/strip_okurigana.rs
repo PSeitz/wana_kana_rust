@@ -1,9 +1,9 @@
 
-use utils::isCharKana::*;
-use utils::isCharPunctuation::*;
-import isJapanese from './isJapanese';
-import isKana from './isKana';
-import isKanji from './isKanji';
+use utils::is_char_kana::*;
+use utils::is_char_punctuation::*;
+import is_japanese from './is_japanese';
+import is_kana from './is_kana';
+import is_kanji from './is_kanji';
 
 /**
  * Strips trailing [Okurigana](https://en.wikipedia.org/wiki/Okurigana) if `input` is a mix of [Kanji](https://en.wikipedia.org/wiki/Kanji) and [Kana](https://en.wikipedia.org/wiki/Kana)
@@ -11,41 +11,41 @@ import isKanji from './isKanji';
  * @param  {Object} [options={ all: false }] config object specifying if *all* kana should be removed, not just trailing okurigana
  * @return {String} text with okurigana removed
  * @example
- * stripOkurigana('踏み込む')
+ * strip_okurigana('踏み込む')
  * // => '踏み込'
- * stripOkurigana('粘り。')
+ * strip_okurigana('粘り。')
  * // => '粘。'
- * stripOkurigana('お祝い')
+ * strip_okurigana('お祝い')
  * // => 'お祝'
- * stripOkurigana('踏み込む', { all: true })
+ * strip_okurigana('踏み込む', { all: true })
  * // => '踏込'
- * stripOkurigana('お祝い', { all: true })
+ * strip_okurigana('お祝い', { all: true })
  * // => '祝'
  */
 fn strip_okurigana(input: &str, options = { all: false }) {
-  if (isEmpty(input) || !isJapanese(input) || isKana(input)) return input;
+  if (is_empty(input) || !is_japanese(input) || is_kana(input)) return input;
   const chars = [...input];
 
   // strip every kana
-  if (options.all) return chars.filter((char) => !isCharKana(char)).join('');
+  if (options.all) return chars.filter((char) => !is_char_kana(char)).join('');
 
   // strip trailing only
-  const reverseChars = chars.reverse();
-  for (let i = 0, len = reverseChars.length; i < len; i += 1) {
-    const char = reverseChars[i];
+  const reverse_chars = chars.reverse();
+  for (let i = 0, len = reverse_chars.length; i < len; i += 1) {
+    const char = reverse_chars[i];
     // pass if it's punctuation
-    if (isCharPunctuation(char)) {
+    if (is_char_punctuation(char)) {
       continue; // eslint-disable-line no-continue
     }
     // blank out if not kanji
-    if (!isKanji(char)) {
-      reverseChars[i] = '';
+    if (!is_kanji(char)) {
+      reverse_chars[i] = '';
     } else {
       break; // stop when we hit a kanji char
     }
   }
 
-  return reverseChars.reverse().join('');
+  return reverse_chars.reverse().join('');
 }
 
-export default stripOkurigana;
+export default strip_okurigana;

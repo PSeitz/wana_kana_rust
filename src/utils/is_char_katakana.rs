@@ -3,7 +3,7 @@ import {
   KATAKANA_END,
 } from '../constants';
 
-use utils::isCharInRange::*;
+use utils::is_char_inRange::*;
 
 /**
  * Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).
@@ -11,7 +11,7 @@ use utils::isCharInRange::*;
  * @return {Boolean}
  */
 pub fn is_char_katakana(char: char) -> bool {
-  return isCharInRange(char, KATAKANA_START, KATAKANA_END);
+  return is_char_inRange(char, KATAKANA_START, KATAKANA_END);
 }
 
-export default isCharKatakana;
+export default is_char_katakana;

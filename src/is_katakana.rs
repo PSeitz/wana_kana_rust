@@ -1,23 +1,23 @@
 
-use utils::isCharKatakana::*;
+use utils::is_char_katakana::*;
 
 /**
  * Test if `input` is [Katakana](https://en.wikipedia.org/wiki/Katakana)
  * @param  {String} [input=''] text
  * @return {Boolean} true if all [Katakana](https://en.wikipedia.org/wiki/Katakana)
  * @example
- * isKatakana('ゲーム')
+ * is_katakana('ゲーム')
  * // => true
- * isKatakana('あ')
+ * is_katakana('あ')
  * // => false
- * isKatakana('A')
+ * is_katakana('A')
  * // => false
- * isKatakana('あア')
+ * is_katakana('あア')
  * // => false
  */
 pub fn is_katakana(input: &str) -> bool {
   if input.is_empty(){return false;}
-  return input.chars().all(isCharKatakana);
+  return input.chars().all(is_char_katakana);
 }
 
-export default isKatakana;
+export default is_katakana;

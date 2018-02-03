@@ -9,7 +9,7 @@
 pub fn is_char_consonant(char: char, includey = true) -> bool {
   
   const regexp = includeY ? /[bcdfghjklmnpqrstvwxyz]/ : /[bcdfghjklmnpqrstvwxz]/;
-  return char.toLowerCase().charAt(0).search(regexp) !== -1;
+  return char.to_lower_case().char_at(0).search(regexp) !== -1;
 }
 
-export default isCharConsonant;
+export default is_char_consonant;

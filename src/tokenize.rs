@@ -1,16 +1,16 @@
 
-use utils::isCharJapanesePunctuation::*;
-use utils::isCharKanji::*;
-use utils::isCharHiragana::*;
-use utils::isCharKatakana::*;
+use utils::is_char_japanesePunctuation::*;
+use utils::is_char_kanji::*;
+use utils::is_char_hiragana::*;
+use utils::is_char_katakana::*;
 
 // TODO: worth splitting into utils? so far not used anywhere else
 fn get_type(input) {
   switch (true) {
-    case (isCharJapanesePunctuation(input)): return 'japanesePunctuation';
-    case (isCharKanji(input)): return 'kanji';
-    case (isCharHiragana(input)): return 'hiragana';
-    case (isCharKatakana(input)): return 'katakana';
+    case (is_char_japanesePunctuation(input)): return 'japanese_punctuation';
+    case (is_char_kanji(input)): return 'kanji';
+    case (is_char_hiragana(input)): return 'hiragana';
+    case (is_char_katakana(input)): return 'katakana';
     default: return 'romaji';
   }
 }
@@ -31,16 +31,16 @@ fn get_type(input) {
  * // => ['what the...', '私', 'は', '「', '悲', 'しい', '」。']
  */
 fn tokenize(input: &str) {
-  if (isEmpty(input)) return [''];
+  if (is_empty(input)) return [''];
   const chars = [...input];
   const head = chars.shift();
-  let prevType = getType(head);
+  let prev_type = get_type(head);
 
   const result = chars.reduce((tokens, char) => {
-    const currType = getType(char);
-    const sameType = currType === prevType;
-    prevType = getType(char);
-    if (sameType) {
+    const curr_type = get_type(char);
+    const same_type = curr_type === prev_type;
+    prev_type = get_type(char);
+    if (same_type) {
       const prev = tokens.pop();
       return tokens.concat(prev.concat(char));
     }

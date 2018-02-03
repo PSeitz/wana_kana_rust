@@ -1,33 +1,33 @@
 import { DEFAULT_OPTIONS } from './constants';
-use utils::katakanaToHiragana::*;
-use utils::romajiToHiragana::*;
-import isRomaji from './isRomaji';
-import isMixed from './isMixed';
+use utils::katakana_to_hiragana::*;
+use utils::romaji_to_hiragana::*;
+import is_romaji from './is_romaji';
+import is_mixed from './is_mixed';
 
 /**
  * Convert input to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
  * @param  {String} [input=''] text
- * @param  {DefaultOptions} [options=defaultOptions]
+ * @param  {DefaultOptions} [options=default_options]
  * @return {String} converted text
  * @example
- * toHiragana('toukyou, オオサカ')
+ * to_hiragana('toukyou, オオサカ')
  * // => 'とうきょう、　おおさか'
- * toHiragana('only カナ', { passRomaji: true })
+ * to_hiragana('only カナ', { pass_romaji: true })
  * // => 'only かな'
- * toHiragana('wi')
+ * to_hiragana('wi')
  * // => 'うぃ'
- * toHiragana('wi', { useObsoleteKana: true })
+ * to_hiragana('wi', { use_obsolete_kana: true })
  * // => 'ゐ'
 */
 fn to_hiragana(input: &str, options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
-  if (config.passRomaji) return katakanaToHiragana(input);
-  if (isRomaji(input)) return romajiToHiragana(input, config);
-  if (isMixed(input, { passKanji: true })) {
-    const romaji = katakanaToHiragana(input);
-    return romajiToHiragana(romaji, config);
+  if (config.pass_romaji) return katakana_to_hiragana(input);
+  if (is_romaji(input)) return romaji_to_hiragana(input, config);
+  if (is_mixed(input, { pass_kanji: true })) {
+    const romaji = katakana_to_hiragana(input);
+    return romaji_to_hiragana(romaji, config);
   }
-  return katakanaToHiragana(input);
+  return katakana_to_hiragana(input);
 }
 
-export default toHiragana;
+export default to_hiragana;

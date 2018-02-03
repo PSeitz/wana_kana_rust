@@ -1,5 +1,5 @@
 
-use utils::isCharInRange::*;
+use utils::is_char_inRange::*;
 import { ROMAJI_RANGES } from '../constants';
 
 /**
@@ -9,7 +9,7 @@ import { ROMAJI_RANGES } from '../constants';
  */
 pub fn is_char_romaji(char: char) -> bool {
   
-  return ROMAJI_RANGES.some(([start, end]) => isCharInRange(char, start, end));
+  return ROMAJI_RANGES.some(([start, end]) => is_char_inRange(char, start, end));
 }
 
-export default isCharRomaji;
+export default is_char_romaji;

@@ -1,26 +1,26 @@
 /**
   * @typedef {Object} DefaultOptions
-  * @property {Boolean} [useObsoleteKana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
+  * @property {Boolean} [use_obsolete_kana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
   * @example
-  * toHiragana('we', { useObsoleteKana: true })
+  * to_hiragana('we', { use_obsolete_kana: true })
   * // => 'ゑ'
-  * @property {Boolean} [passRomaji=false] - Set to true to pass romaji when using mixed syllabaries with toKatakana() or toHiragana()
+  * @property {Boolean} [pass_romaji=false] - Set to true to pass romaji when using mixed syllabaries with to_katakana() or to_hiragana()
   * @example
-  * toHiragana('only convert the katakana: ヒラガナ', { passRomaji: true })
+  * to_hiragana('only convert the katakana: ヒラガナ', { pass_romaji: true })
   * // => "only convert the katakana: ひらがな"
-  * @property {Boolean} [upcaseKatakana=false] - Set to true to convert katakana to uppercase using toRomaji()
+  * @property {Boolean} [upcase_katakana=false] - Set to true to convert katakana to uppercase using to_romaji()
   * @example
-  * toRomaji('ひらがな カタカナ', { upcaseKatakana: true })
+  * to_romaji('ひらがな カタカナ', { upcase_katakana: true })
   * // => "hiragana KATAKANA"
-  * @property {Boolean} [IMEMode=false] - Set to true, 'toHiragana', or 'toKatakana' to handle conversion from a text input while it is being typed
+  * @property {Boolean} [IMEMode=false] - Set to true, 'to_hiragana', or 'to_katakana' to handle conversion from a text input while it is being typed
 */
 
 
 #[derive(Debug, Default)]
 struct Options {
-    useObsoleteKana: bool,
-    passRomaji: bool,
-    upcaseKatakana: bool,
+    use_obsolete_kana: bool,
+    pass_romaji: bool,
+    upcase_katakana: bool,
     IMEMode: bool,
 }
 
@@ -30,9 +30,9 @@ struct Options {
 //  * @ignore
 //  */
 // export const DEFAULT_OPTIONS = {
-//   useObsoleteKana: false,
-//   passRomaji: false,
-//   upcaseKatakana: false,
+//   use_obsolete_kana: false,
+//   pass_romaji: false,
+//   upcase_katakana: false,
 //   IMEMode: false,
 // };
 

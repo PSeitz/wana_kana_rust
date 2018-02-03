@@ -8,7 +8,7 @@ import { KANA_SLASH_DOT } from '../constants';
  */
 pub fn is_char_slash_dot(char: char) -> bool {
   
-  return char.charCodeAt(0) === KANA_SLASH_DOT;
+  return char.char_code_at(0) === KANA_SLASH_DOT;
 }
 
-export default isCharSlashDot;
+export default is_char_slashDot;

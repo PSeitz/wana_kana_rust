@@ -9,7 +9,7 @@
 pub fn is_char_vowel(char: char, includey = true) -> bool {
   
   const regexp = includeY ? /[aeiouy]/ : /[aeiou]/;
-  return char.toLowerCase().charAt(0).search(regexp) !== -1;
+  return char.to_lower_case().char_at(0).search(regexp) !== -1;
 }
 
-export default isCharVowel;
+export default is_char_vowel;

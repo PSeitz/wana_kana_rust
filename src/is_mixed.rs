@@ -1,32 +1,32 @@
-import isKanji from './isKanji';
-import isHiragana from './isHiragana';
-import isKatakana from './isKatakana';
-import isRomaji from './isRomaji';
+import is_kanji from './is_kanji';
+import is_hiragana from './is_hiragana';
+import is_katakana from './is_katakana';
+import is_romaji from './is_romaji';
 
 /**
  * Test if `input` contains a mix of [Romaji](https://en.wikipedia.org/wiki/Romaji) *and* [Kana](https://en.wikipedia.org/wiki/Kana), defaults to pass through [Kanji](https://en.wikipedia.org/wiki/Kanji)
  * @param  {String} input text
- * @param  {Object} [options={ passKanji: true }] optional config to pass through kanji
+ * @param  {Object} [options={ pass_kanji: true }] optional config to pass through kanji
  * @return {Boolean} true if mixed
  * @example
- * isMixed('Abあア'))
+ * is_mixed('Abあア'))
  * // => true
- * isMixed('お腹A'))
+ * is_mixed('お腹A'))
  * // => true
- * isMixed('お腹A', { passKanji: false }))
+ * is_mixed('お腹A', { pass_kanji: false }))
  * // => false
- * isMixed('ab'))
+ * is_mixed('ab'))
  * // => false
- * isMixed('あア'))
+ * is_mixed('あア'))
  * // => false
  */
 pub fn is_mixed(input: &str, options = { passkanji: true }) -> bool {
   const chars = [...input];
-  let hasKanji = false;
-  if (!options.passKanji) {
-    hasKanji = chars.some(isKanji);
+  let has_kanji = false;
+  if (!options.pass_kanji) {
+    has_kanji = chars.some(is_kanji);
   }
-  return (chars.some(isHiragana) || chars.some(isKatakana)) && chars.some(isRomaji) && !hasKanji;
+  return (chars.some(is_hiragana) || chars.some(is_katakana)) && chars.some(is_romaji) && !has_kanji;
 }
 
-export default isMixed;
+export default is_mixed;

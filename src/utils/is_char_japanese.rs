@@ -1,4 +1,4 @@
-use utils::isCharInRange::*;
+use utils::is_char_inRange::*;
 import { JAPANESE_RANGES } from '../constants';
 
 /**
@@ -7,7 +7,7 @@ import { JAPANESE_RANGES } from '../constants';
  * @return {Boolean}
  */
 pub fn is_char_japanese(char: char) -> bool {
-  return JAPANESE_RANGES.some(([start, end]) => isCharInRange(char, start, end));
+  return JAPANESE_RANGES.some(([start, end]) => is_char_inRange(char, start, end));
 }
 
-export default isCharJapanese;
+export default is_char_japanese;

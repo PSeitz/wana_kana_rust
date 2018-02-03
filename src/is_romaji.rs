@@ -1,25 +1,25 @@
 
-use utils::isCharRomaji::*;
+use utils::is_char_romaji::*;
 
 /**
  * Test if `input` is [Romaji](https://en.wikipedia.org/wiki/Romaji) (allowing [Hepburn romanisation](https://en.wikipedia.org/wiki/Hepburn_romanization))
  * @param  {String} [input=''] text
  * @return {Boolean} true if [Romaji](https://en.wikipedia.org/wiki/Romaji)
  * @example
- * isRomaji('Tōkyō and Ōsaka')
+ * is_romaji('Tōkyō and Ōsaka')
  * // => true
- * isRomaji('12a*b&c-d')
+ * is_romaji('12a*b&c-d')
  * // => true
- * isRomaji('あアA')
+ * is_romaji('あアA')
  * // => false
- * isRomaji('お願い')
+ * is_romaji('お願い')
  * // => false
- * isRomaji('a！b&cーd') // Full-width punctuation fails
+ * is_romaji('a！b&cーd') // Full-width punctuation fails
  * // => false
  */
 pub fn is_romaji(input: &str) -> bool {
   if input.is_empty(){return false;}
-  return input.chars().all(isCharRomaji);
+  return input.chars().all(is_char_romaji);
 }
 
-export default isRomaji;
+export default is_romaji;

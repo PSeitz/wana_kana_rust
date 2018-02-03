@@ -1,21 +1,21 @@
 
-use utils::isCharHiragana::*;
+use utils::is_char_hiragana::*;
 
 /**
  * Test if `input` is [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
  * @param  {String} [input=''] text
  * @return {Boolean} true if all [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
  * @example
- * isHiragana('げーむ')
+ * is_hiragana('げーむ')
  * // => true
- * isHiragana('A')
+ * is_hiragana('A')
  * // => false
- * isHiragana('あア')
+ * is_hiragana('あア')
  * // => false
  */
 pub fn is_hiragana(input: &str) -> bool {
   if input.is_empty(){return false;}
-  return input.chars().all(isCharHiragana);
+  return input.chars().all(is_char_hiragana);
 }
 
-export default isHiragana;
+export default is_hiragana;

@@ -1,6 +1,6 @@
 
 import { JA_PUNCTUATION_RANGES } from '../constants';
-use utils::isCharInRange::*;
+use utils::is_char_inRange::*;
 
 /**
  * Tests a character. Returns true if the character is considered English punctuation.
@@ -9,7 +9,7 @@ use utils::isCharInRange::*;
  */
 pub fn is_char_japanese_punctuation(char: char) -> bool {
   
-  return JA_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
+  return JA_PUNCTUATION_RANGES.some(([start, end]) => is_char_inRange(char, start, end));
 }
 
-export default isCharJapanesePunctuation;
+export default is_char_japanesePunctuation;
