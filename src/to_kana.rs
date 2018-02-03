@@ -1,14 +1,15 @@
 
 use constants::{DEFAULT_OPTIONS, UPPERCASE_START, UPPERCASE_END, FOUR_CHAR_EDGECASES, FROM_ROMAJI,};
 
-use utils::is_char_inRange::*;
-use utils::is_char_upperCase::*;
+use utils::is_char_in_range::*;
+use utils::is_char_upper_case::*;
 use utils::get_chunk_size::*;
 use utils::get_chunk::*;
 use utils::is_char_consonant::*;
 use utils::is_char_vowel::*;
 use utils::hiragana_to_katakana::*;
 use is_kana::*;
+use options::Options;
 
 /**
  * Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
@@ -29,21 +30,21 @@ use is_kana::*;
  * to_kana('we', { use_obsolete_kana: true })
  * // => 'ゑ'
  */
-export fn to_kana(input: &str, options = {}) {
+export fn to_kana(input: &str, options: Options) {
   // just throw away the substring index information and just concatenate all the kana
   return split_into_kana(input, options)
     .map((kana_token) => kana_token[2])
     .join('');
 }
 
-export fn split_into_kana(input: &str, options = {}) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options);
+export fn split_into_kana(input: &str, options: Options) {
+  let config = Object.assign({}, DEFAULT_OPTIONS, options);
   // Final output array containing arrays [start index of the translitterated substring, end index, kana]
-  const kana = [];
+  let kana = vec![];
   // Position in the string that is being evaluated
   let cursor = 0;
-  const len = input.length;
-  const max_chunk = 3;
+  let len = input.length;
+  let max_chunk = 3;
   let chunk_size = 3;
   let chunk = '';
   let chunkLC = '';
@@ -57,23 +58,23 @@ export fn split_into_kana(input: &str, options = {}) {
     chunk_size = get_chunk_size(max_chunk, len - cursor);
     while (chunk_size > 0) {
       chunk = get_chunk(input, cursor, cursor + chunk_size);
-      chunkLC = chunk.to_lower_case();
+      chunkLC = chunk.to_lowercase();
       // Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
       if (FOUR_CHAR_EDGECASES.includes(chunkLC) && len - cursor >= 4) {
         chunk_size += 1;
         chunk = get_chunk(input, cursor, cursor + chunk_size);
-        chunkLC = chunk.to_lower_case();
+        chunkLC = chunk.to_lowercase();
       } else {
         // Handle edge case of n followed by consonant
-        if (chunkLC.chars().nth(0).unwrap() === 'n') {
-          if (chunk_size === 2) {
+        if (chunkLC.chars().nth(0).unwrap() == 'n') {
+          if (chunk_size == 2) {
             // Handle edge case of n followed by a space (only if not in IME mode)
-            if (!config.IMEMode && chunkLC.chars().nth(1).unwrap() === ' ') {
+            if (!config.IMEMode && chunkLC.chars().nth(1).unwrap() == ' ') {
               kana_char = 'ん ';
               break;
             }
             // Convert IME input of n' to "ん"
-            if (config.IMEMode && chunkLC === "n'") {
+            if (config.IMEMode && chunkLC == "n'") {
               kana_char = 'ん';
               break;
             }
@@ -85,19 +86,19 @@ export fn split_into_kana(input: &str, options = {}) {
           ) {
             chunk_size = 1;
             chunk = get_chunk(input, cursor, cursor + chunk_size);
-            chunkLC = chunk.to_lower_case();
+            chunkLC = chunk.to_lowercase();
           }
         }
 
         // Handle case of double consonants
         if (
           chunkLC.chars().nth(0).unwrap() !== 'n' &&
-          is_char_consonant(chunkLC.chars().nth(0).unwrap()) &&
-          chunk.chars().nth(0).unwrap() === chunk.chars().nth(1).unwrap()
+          is_char_consonant(chunkLC.chars().nth(0).unwrap(), true) &&
+          chunk.chars().nth(0).unwrap() == chunk.chars().nth(1).unwrap()
         ) {
           chunk_size = 1;
           // Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
-          if (is_char_inRange(chunk.chars().nth(0).unwrap(), UPPERCASE_START, UPPERCASE_END)) {
+          if (is_char_in_range(chunk.chars().nth(0).unwrap(), UPPERCASE_START, UPPERCASE_END)) {
             chunkLC = 'ッ';
             chunk = 'ッ';
           } else {
@@ -114,7 +115,7 @@ export fn split_into_kana(input: &str, options = {}) {
       }
       // Step down the chunk size.
       // If chunk_size was 4, step down twice.
-      if (chunk_size === 4) {
+      if (chunk_size == 4) {
         chunk_size -= 2;
       } else {
         chunk_size -= 1;
@@ -128,15 +129,15 @@ export fn split_into_kana(input: &str, options = {}) {
 
     // Handle special cases.
     if (config.use_obsolete_kana) {
-      if (chunkLC === 'wi') kana_char = 'ゐ';
-      if (chunkLC === 'we') kana_char = 'ゑ';
+      if (chunkLC == 'wi') kana_char = 'ゐ';
+      if (chunkLC == 'we') kana_char = 'ゑ';
     }
 
-    if (!!config.IMEMode && chunkLC.chars().nth(0).unwrap() === 'n') {
+    if (!!config.IMEMode && chunkLC.chars().nth(0).unwrap() == 'n') {
       if (
-        (input.char_at(cursor + 1).to_lower_case() === 'y' &&
-          is_char_vowel(input.char_at(cursor + 2)) === false) ||
-        cursor === len - 1 ||
+        (input.char_at(cursor + 1).to_lowercase() == 'y' &&
+          is_char_vowel(input.char_at(cursor + 2)) == false) ||
+        cursor == len - 1 ||
         is_kana(input.char_at(cursor + 1))
       ) {
         // Don't transliterate this yet.
@@ -145,11 +146,11 @@ export fn split_into_kana(input: &str, options = {}) {
     }
 
     // Use katakana if first letter in chunk is uppercase
-    if (is_char_upperCase(chunk.chars().nth(0).unwrap())) {
+    if (is_char_upper_case(chunk.chars().nth(0).unwrap())) {
       kana_char = hiragana_to_katakana(kana_char);
     }
 
-    const next_cursor = cursor + (chunk_size || 1);
+    let next_cursor = cursor + (chunk_size || 1);
     kana.push([cursor, next_cursor, kana_char]);
     cursor = next_cursor;
   }

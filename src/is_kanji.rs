@@ -1,4 +1,3 @@
-
 use utils::is_char_kanji::*;
 
 /**
@@ -18,8 +17,10 @@ use utils::is_char_kanji::*;
  * // => false
  */
 pub fn is_kanji(input: &str) -> bool {
-  if input.is_empty(){return false;}
-  return input.chars().all(is_char_kanji);
+    if input.is_empty() {
+        return false;
+    }
+    return input.chars().all(is_char_kanji);
 }
 
 #[test]

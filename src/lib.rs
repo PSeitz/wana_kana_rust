@@ -1,17 +1,18 @@
 #![feature(plugin)]
 #![plugin(phf_macros)]
+#![feature(slice_patterns)]
 
 extern crate phf;
 extern crate regex;
 
-
 #[macro_use]
 extern crate lazy_static;
 
-
 mod is_kanji;
+mod is_kana;
 mod utils;
 mod constants;
+mod options;
 
 #[cfg(test)]
 mod tests {
@@ -19,7 +20,7 @@ mod tests {
     #[test]
     fn it_works() {
         assert_eq!(is_kanji("刀"), true);
-    }    
+    }
 
     // #[test]
     // fn convert() {
@@ -28,7 +29,6 @@ mod tests {
     //     use regex::Regex;
 
     //     let re = Regex::new(r"([A-Z])").unwrap();
-        
 
     //     let paths = fs::read_dir("src/utils").unwrap();
 

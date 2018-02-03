@@ -1,4 +1,3 @@
-
 use constants::KANA_SLASH_DOT;
 
 /**
@@ -7,8 +6,5 @@ use constants::KANA_SLASH_DOT;
  * @return {Boolean} true if '・'
  */
 pub fn is_char_slash_dot(char: char) -> bool {
-  
-  return char.char_code_at(0) === KANA_SLASH_DOT;
+    return char as u32 == KANA_SLASH_DOT;
 }
-
-

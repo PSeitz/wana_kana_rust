@@ -1,6 +1,5 @@
-
-use utils::is_char_englishPunctuation::*;
-use utils::is_char_japanesePunctuation::*;
+use utils::is_char_english_punctuation::*;
+use utils::is_char_japanese_punctuation::*;
 
 /**
  * Tests a character. Returns true if the character is considered Japanese or English punctuation.
@@ -8,8 +7,5 @@ use utils::is_char_japanesePunctuation::*;
  * @return {Boolean}
  */
 pub fn is_char_punctuation(char: char) -> bool {
-  
-  return is_char_englishPunctuation(char) || is_char_japanesePunctuation(char);
+    return is_char_english_punctuation(char) || is_char_japanese_punctuation(char);
 }
-
-

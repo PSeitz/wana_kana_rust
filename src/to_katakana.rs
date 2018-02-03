@@ -3,6 +3,7 @@ use is_romaji::*;
 use is_mixed::*;
 use utils::hiragana_to_katakana::*;
 use utils::romaji_to_hiragana::*;
+use options::Options;
 
 /**
  * Convert input to [Katakana](https://en.wikipedia.org/wiki/Katakana)
@@ -19,11 +20,11 @@ use utils::romaji_to_hiragana::*;
  * to_katakana('wi', { use_obsolete_kana: true })
  * // => 'ヰ'
 */
-fn to_katakana(input: &str, options = {}) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options);
+fn to_katakana(input: &str, options: Options) {
+  let config = Object.assign({}, DEFAULT_OPTIONS, options);
   if (config.pass_romaji) return hiragana_to_katakana(input);
   if (is_romaji(input) || is_mixed(input)) {
-    const romaji = romaji_to_hiragana(input, config);
+    let romaji = romaji_to_hiragana(input, config);
     return hiragana_to_katakana(romaji);
   }
   return hiragana_to_katakana(input);

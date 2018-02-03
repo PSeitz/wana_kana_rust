@@ -1,5 +1,5 @@
 use to_kana::to_kana;
-
+use options::Options;
 /**
  * Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
  * @param  {String} [input=''] text
@@ -10,8 +10,8 @@ use to_kana::to_kana;
  * // => "ひらがな"
  * @ignore
  */
-fn romaji_to_hiragana(input: &str, options = {}) {
-  const text = input.to_lower_case(); // ensure hiragana
+fn romaji_to_hiragana(input: &str, options: Options) {
+  let text = input.to_lowercase(); // ensure hiragana
   return to_kana(text, options);
 }
 

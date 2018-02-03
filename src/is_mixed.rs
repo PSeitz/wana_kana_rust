@@ -21,7 +21,7 @@ use is_romaji::*;
  * // => false
  */
 pub fn is_mixed(input: &str, options = { passkanji: true }) -> bool {
-  const chars = [...input];
+  let chars = [...input];
   let has_kanji = false;
   if (!options.pass_kanji) {
     has_kanji = chars.iter().any(is_kanji);

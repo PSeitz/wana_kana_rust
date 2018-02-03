@@ -24,15 +24,15 @@ use is_kanji::*;
  */
 fn strip_okurigana(input: &str, options = { all: false }) {
   if (is_empty(input) || !is_japanese(input) || is_kana(input)) return input;
-  const chars = [...input];
+  let chars = [...input];
 
   // strip every kana
   if (options.all) return chars.filter((char) => !is_char_kana(char)).join('');
 
   // strip trailing only
-  const reverse_chars = chars.reverse();
+  let reverse_chars = chars.reverse();
   for (let i = 0, len = reverse_chars.length; i < len; i += 1) {
-    const char = reverse_chars[i];
+    let char = reverse_chars[i];
     // pass if it's punctuation
     if (is_char_punctuation(char)) {
       continue; // eslint-disable-line no-continue

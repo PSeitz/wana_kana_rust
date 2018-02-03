@@ -4,6 +4,7 @@ use utils::get_chunk_size::*;
 use utils::get_chunk::*;
 use utils::katakana_to_hiragana::*;
 use is_katakana::*;
+use options::Options;
 
 /**
  * Convert kana to romaji
@@ -16,14 +17,14 @@ use is_katakana::*;
  * to_romaji('ひらがな　カタカナ', { upcase_katakana: true })
  * // => 'hiragana KATAKANA'
  */
-fn to_romaji(kana = '', options = {}) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options);
-  const len = kana.length;
+fn to_romaji(kana = '', options: Options) {
+  let config = Object.assign({}, DEFAULT_OPTIONS, options);
+  let len = kana.length;
   // Final output array
-  const roma = [];
+  let roma = vec![];
   // Position in the string that is being evaluated
   let cursor = 0;
-  const max_chunk = 2;
+  let max_chunk = 2;
   let chunk_size = 2;
   let chunk = '';
   let romachar: char;
@@ -39,7 +40,7 @@ fn to_romaji(kana = '', options = {}) {
         chunk = katakana_to_hiragana(chunk);
       }
       // special case for small tsus
-      if (chunk.chars().nth(0).unwrap() === 'っ' && chunk_size === 1 && cursor < (len - 1)) {
+      if (chunk.chars().nth(0).unwrap() == 'っ' && chunk_size == 1 && cursor < (len - 1)) {
         next_char_is_double_consonant = true;
         romachar: char;
         break;

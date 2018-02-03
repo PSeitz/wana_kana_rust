@@ -1,5 +1,5 @@
 
-use utils::is_char_japanesePunctuation::*;
+use utils::is_char_japanese_punctuation::*;
 use utils::is_char_kanji::*;
 use utils::is_char_hiragana::*;
 use utils::is_char_katakana::*;
@@ -7,7 +7,7 @@ use utils::is_char_katakana::*;
 // TODO: worth splitting into utils? so far not used anywhere else
 fn get_type(input) {
   switch (true) {
-    case (is_char_japanesePunctuation(input)): return 'japanese_punctuation';
+    case (is_char_japanese_punctuation(input)): return 'japanese_punctuation';
     case (is_char_kanji(input)): return 'kanji';
     case (is_char_hiragana(input)): return 'hiragana';
     case (is_char_katakana(input)): return 'katakana';
@@ -32,16 +32,16 @@ fn get_type(input) {
  */
 fn tokenize(input: &str) {
   if (is_empty(input)) return [''];
-  const chars = [...input];
-  const head = chars.shift();
+  let chars = [...input];
+  let head = chars.shift();
   let prev_type = get_type(head);
 
-  const result = chars.reduce((tokens, char) => {
-    const curr_type = get_type(char);
-    const same_type = curr_type === prev_type;
+  let result = chars.reduce((tokens, char) => {
+    let curr_type = get_type(char);
+    let same_type = curr_type == prev_type;
     prev_type = get_type(char);
     if (same_type) {
-      const prev = tokens.pop();
+      let prev = tokens.pop();
       return tokens.concat(prev.concat(char));
     }
     return tokens.concat(char);

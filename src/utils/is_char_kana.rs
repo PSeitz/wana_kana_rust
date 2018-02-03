@@ -1,4 +1,3 @@
-
 use utils::is_char_hiragana::*;
 use utils::is_char_katakana::*;
 
@@ -8,8 +7,5 @@ use utils::is_char_katakana::*;
  * @return {Boolean}
  */
 pub fn is_char_kana(char: char) -> bool {
-  
-  return is_char_hiragana(char) || is_char_katakana(char);
+    return is_char_hiragana(char) || is_char_katakana(char);
 }
-
-

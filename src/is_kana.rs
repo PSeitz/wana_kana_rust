@@ -1,4 +1,3 @@
-
 use utils::is_char_kana::*;
 
 /**
@@ -18,12 +17,14 @@ use utils::is_char_kana::*;
  * // => false
  */
 pub fn is_kana(input: &str) -> bool {
-  if input.is_empty(){return false;}
-  return input.chars().all(is_char_kana);
+    if input.is_empty() {
+        return false;
+    }
+    return input.chars().all(is_char_kana);
 }
 
 #[test]
-fn check_is_kanji() {
+fn check_is_kana() {
     assert_eq!(is_kana("あ"), true);
     assert_eq!(is_kana("ア"), true);
     assert_eq!(is_kana("あーア"), true);

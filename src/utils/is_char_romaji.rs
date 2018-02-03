@@ -1,5 +1,4 @@
-
-use utils::is_char_inRange::*;
+use utils::is_char_in_range::*;
 use constants::ROMAJI_RANGES;
 
 /**
@@ -8,8 +7,7 @@ use constants::ROMAJI_RANGES;
  * @return {Boolean}
  */
 pub fn is_char_romaji(char: char) -> bool {
-  
-  return ROMAJI_RANGES.iter().any(([start, end]) => is_char_inRange(char, start, end));
+    return ROMAJI_RANGES
+        .iter()
+        .any(|el: &[u32; 2]| is_char_in_range(char, el[0], el[1]));
 }
-
-

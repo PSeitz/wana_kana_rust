@@ -1,4 +1,3 @@
-
 use constants::PROLONGED_SOUND_MARK;
 
 /**
@@ -6,9 +5,6 @@ use constants::PROLONGED_SOUND_MARK;
  * @param  {String} char to test
  * @return {Boolean}
  */
-pub fn is_char_longdash(char: char) -> bool {
-  
-  return char.char_code_at(0) === PROLONGED_SOUND_MARK;
+pub fn is_char_long_dash(char: char) -> bool {
+    return char as u32 == PROLONGED_SOUND_MARK;
 }
-
-

@@ -3,7 +3,7 @@ use utils::katakana_to_hiragana::*;
 use utils::romaji_to_hiragana::*;
 use is_romaji::*;
 use is_mixed::*;
-
+use options::Options;
 /**
  * Convert input to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
  * @param  {String} [input=''] text
@@ -19,12 +19,12 @@ use is_mixed::*;
  * to_hiragana('wi', { use_obsolete_kana: true })
  * // => 'ゐ'
 */
-fn to_hiragana(input: &str, options = {}) {
-  const config = Object.assign({}, DEFAULT_OPTIONS, options);
+fn to_hiragana(input: &str, options: Options) {
+  let config = Object.assign({}, DEFAULT_OPTIONS, options);
   if (config.pass_romaji) return katakana_to_hiragana(input);
   if (is_romaji(input)) return romaji_to_hiragana(input, config);
   if (is_mixed(input, { pass_kanji: true })) {
-    const romaji = katakana_to_hiragana(input);
+    let romaji = katakana_to_hiragana(input);
     return romaji_to_hiragana(romaji, config);
   }
   return katakana_to_hiragana(input);
