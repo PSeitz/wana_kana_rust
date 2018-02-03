@@ -1,15 +1,15 @@
 extern crate regex;
 
-// mod isKanji;
+mod is_kanji;
 mod utils;
 
 #[cfg(test)]
 mod tests {
-    // use isKanji::*;
-    // #[test]
-    // fn it_works() {
-    //     assert_eq!(isKanji("刀"), true);
-    // }    
+    use is_kanji::*;
+    #[test]
+    fn it_works() {
+        assert_eq!(is_kanji("刀"), true);
+    }    
 
     #[test]
     fn convert() {

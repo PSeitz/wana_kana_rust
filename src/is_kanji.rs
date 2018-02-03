@@ -17,7 +17,7 @@ use utils::isCharKanji::*;
  * isKanji('🐸')
  * // => false
  */
-pub fn isKanji(input: &str) -> bool {
+pub fn is_kanji(input: &str) -> bool {
   if input.is_empty(){return false;}
   return input.chars().all(isCharKanji);
 }

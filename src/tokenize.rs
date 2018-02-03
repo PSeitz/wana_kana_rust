@@ -5,7 +5,7 @@ use utils::isCharHiragana::*;
 use utils::isCharKatakana::*;
 
 // TODO: worth splitting into utils? so far not used anywhere else
-fn getType(input) {
+fn get_type(input) {
   switch (true) {
     case (isCharJapanesePunctuation(input)): return 'japanesePunctuation';
     case (isCharKanji(input)): return 'kanji';

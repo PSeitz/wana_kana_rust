@@ -19,7 +19,7 @@ import isKatakana from './isKatakana';
  * toRomaji('ひらがな　カタカナ', { upcaseKatakana: true })
  * // => 'hiragana KATAKANA'
  */
-fn toRomaji(kana = '', options = {}) {
+fn to_romaji(kana = '', options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   const len = kana.length;
   // Final output array

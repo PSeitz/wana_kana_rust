@@ -22,7 +22,7 @@ import isKanji from './isKanji';
  * stripOkurigana('お祝い', { all: true })
  * // => '祝'
  */
-fn stripOkurigana(input: &str, options = { all: false }) {
+fn strip_okurigana(input: &str, options = { all: false }) {
   if (isEmpty(input) || !isJapanese(input) || isKana(input)) return input;
   const chars = [...input];
 

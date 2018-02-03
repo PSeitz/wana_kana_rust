@@ -19,7 +19,7 @@ use utils::romajiToHiragana::*;
  * toKatakana('wi', { useObsoleteKana: true })
  * // => 'ヰ'
 */
-fn toKatakana(input: &str, options = {}) {
+fn to_katakana(input: &str, options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   if (config.passRomaji) return hiraganaToKatakana(input);
   if (isRomaji(input) || isMixed(input)) {

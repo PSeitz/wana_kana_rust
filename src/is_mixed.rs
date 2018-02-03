@@ -20,7 +20,7 @@ import isRomaji from './isRomaji';
  * isMixed('あア'))
  * // => false
  */
-pub fn isMixed(input: &str, options = { passKanji: true }) -> bool {
+pub fn is_mixed(input: &str, options = { passkanji: true }) -> bool {
   const chars = [...input];
   let hasKanji = false;
   if (!options.passKanji) {

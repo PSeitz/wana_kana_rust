@@ -19,7 +19,7 @@ import isMixed from './isMixed';
  * toHiragana('wi', { useObsoleteKana: true })
  * // => 'ゐ'
 */
-fn toHiragana(input: &str, options = {}) {
+fn to_hiragana(input: &str, options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   if (config.passRomaji) return katakanaToHiragana(input);
   if (isRomaji(input)) return romajiToHiragana(input, config);

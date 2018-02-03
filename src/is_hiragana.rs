@@ -13,7 +13,7 @@ use utils::isCharHiragana::*;
  * isHiragana('あア')
  * // => false
  */
-pub fn isHiragana(input: &str) -> bool {
+pub fn is_hiragana(input: &str) -> bool {
   if input.is_empty(){return false;}
   return input.chars().all(isCharHiragana);
 }

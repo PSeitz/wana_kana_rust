@@ -21,7 +21,7 @@ use utils::isCharJapanese::*;
  * isJapanese('A')
  * // => false
  */
-pub fn isJapanese(input: &str) -> bool {
+pub fn is_japanese(input: &str) -> bool {
   if input.is_empty(){return false;}
   return input.chars().all(isCharJapanese);
 }

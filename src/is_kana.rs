@@ -17,7 +17,7 @@ use utils::isCharKana::*;
  * isKana('あAア')
  * // => false
  */
-pub fn isKana(input: &str) -> bool {
+pub fn is_kana(input: &str) -> bool {
   if input.is_empty(){return false;}
   return input.chars().all(isCharKana);
 }

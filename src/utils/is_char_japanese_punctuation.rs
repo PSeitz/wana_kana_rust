@@ -7,7 +7,7 @@ use utils::isCharInRange::*;
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-pub fn is_char_japanesepunctuation(char: char) -> bool {
+pub fn is_char_japanese_punctuation(char: char) -> bool {
   
   return JA_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
 }

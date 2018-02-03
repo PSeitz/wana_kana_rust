@@ -17,7 +17,7 @@ use utils::isCharRomaji::*;
  * isRomaji('a！b&cーd') // Full-width punctuation fails
  * // => false
  */
-pub fn isRomaji(input: &str) -> bool {
+pub fn is_romaji(input: &str) -> bool {
   if input.is_empty(){return false;}
   return input.chars().all(isCharRomaji);
 }

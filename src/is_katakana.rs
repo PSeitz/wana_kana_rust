@@ -15,7 +15,7 @@ use utils::isCharKatakana::*;
  * isKatakana('あア')
  * // => false
  */
-pub fn isKatakana(input: &str) -> bool {
+pub fn is_katakana(input: &str) -> bool {
   if input.is_empty(){return false;}
   return input.chars().all(isCharKatakana);
 }

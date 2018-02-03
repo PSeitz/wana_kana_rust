@@ -34,7 +34,7 @@ import isKana from './isKana';
  * toKana('we', { useObsoleteKana: true })
  * // => 'ゑ'
  */
-export fn toKana(input: &str, options = {}) {
+export fn to_kana(input: &str, options = {}) {
   // just throw away the substring index information and just concatenate all the kana
   return splitIntoKana(input, options)
     .map((kanaToken) => kanaToken[2])
