@@ -1,5 +1,5 @@
 
-use isCharInRange::*;
+use utils::isCharInRange::*;
 import {
   UPPERCASE_START,
   UPPERCASE_END,

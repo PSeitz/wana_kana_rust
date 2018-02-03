@@ -3,7 +3,7 @@ import {
   KATAKANA_END,
 } from '../constants';
 
-use isCharInRange::*;
+use utils::isCharInRange::*;
 
 /**
  * Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).

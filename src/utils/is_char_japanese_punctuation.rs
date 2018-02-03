@@ -1,6 +1,6 @@
 
 import { JA_PUNCTUATION_RANGES } from '../constants';
-use isCharInRange::*;
+use utils::isCharInRange::*;
 
 /**
  * Tests a character. Returns true if the character is considered English punctuation.

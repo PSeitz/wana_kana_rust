@@ -1,5 +1,5 @@
 
-use isCharInRange::*;
+use utils::isCharInRange::*;
 
 static KANJI_START:u32 = 0x4E00;
 static KANJI_END:u32 = 0x9FAF;

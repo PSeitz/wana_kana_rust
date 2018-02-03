@@ -1,6 +1,6 @@
 
 import isCharLongDash from './isCharLongDash';
-use isCharInRange::*;
+use utils::isCharInRange::*;
 import {
   HIRAGANA_START,
   HIRAGANA_END,

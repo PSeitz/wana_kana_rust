@@ -1,4 +1,4 @@
-use isCharInRange::*;
+use utils::isCharInRange::*;
 import { JAPANESE_RANGES } from '../constants';
 
 /**

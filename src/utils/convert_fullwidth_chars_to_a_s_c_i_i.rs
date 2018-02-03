@@ -7,7 +7,7 @@ import {
   UPPERCASE_FULLWIDTH_END,
 } from '../constants';
 
-use isCharInRange::*;
+use utils::isCharInRange::*;
 
 /**
  * Converts all fullwidth roman letters in string to proper ASCII

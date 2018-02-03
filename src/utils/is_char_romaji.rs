@@ -1,5 +1,5 @@
 
-use isCharInRange::*;
+use utils::isCharInRange::*;
 import { ROMAJI_RANGES } from '../constants';
 
 /**
