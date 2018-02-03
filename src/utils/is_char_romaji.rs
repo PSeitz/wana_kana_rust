@@ -7,7 +7,7 @@ import { ROMAJI_RANGES } from '../constants';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-pub fn isCharRomaji(char: char) -> bool {
+pub fn is_char_romaji(char: char) -> bool {
   
   return ROMAJI_RANGES.some(([start, end]) => isCharInRange(char, start, end));
 }

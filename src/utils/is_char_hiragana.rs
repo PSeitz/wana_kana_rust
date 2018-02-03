@@ -11,7 +11,7 @@ import {
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-pub fn isCharHiragana(char: char) -> bool {
+pub fn is_char_hiragana(char: char) -> bool {
   
   if (isCharLongDash(char)) return true;
   return isCharInRange(char, HIRAGANA_START, HIRAGANA_END);

@@ -10,7 +10,7 @@ import {
  * @param  {String} char
  * @return {Boolean}
  */
-pub fn isCharUpperCase(char: char) -> bool {
+pub fn is_char_uppercase(char: char) -> bool {
   
   return isCharInRange(char, UPPERCASE_START, UPPERCASE_END);
 }

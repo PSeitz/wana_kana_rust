@@ -10,7 +10,7 @@ import toKana from '../toKana';
  * // => "ひらがな"
  * @ignore
  */
-fn romajiToHiragana(input: &str, options = {}) {
+fn romaji_to_hiragana(input: &str, options = {}) {
   const text = input.toLowerCase(); // ensure hiragana
   return toKana(text, options);
 }

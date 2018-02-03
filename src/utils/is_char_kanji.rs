@@ -10,7 +10,7 @@ static KANJI_END:u32 = 0x9FAF;
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-pub fn isCharKanji(char: char) -> bool {
+pub fn is_char_kanji(char: char) -> bool {
   return isCharInRange(char, KANJI_START, KANJI_END);
 }
 

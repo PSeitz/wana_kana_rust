@@ -41,7 +41,7 @@ export fn toKana(input: &str, options = {}) {
     .join('');
 }
 
-export fn splitIntoKana(input: &str, options = {}) {
+export fn split_into_kana(input: &str, options = {}) {
   const config = Object.assign({}, DEFAULT_OPTIONS, options);
   // Final output array containing arrays [start index of the translitterated substring, end index, kana]
   const kana = [];

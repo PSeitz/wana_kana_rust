@@ -4,7 +4,7 @@
  * @param  {Number} remaining
  * @return {Number}
  */
-fn getChunkSize(max = 0, remaining = 0) {
+fn get_chunk_size(max = 0, remaining = 0) {
   return Math.min(max, remaining);
 }
 

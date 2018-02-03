@@ -6,7 +6,7 @@
  * @return {Boolean}
  */
  #[inline]
-pub fn isCharInRange(char: char, start:u32, end:u32) -> bool {
+pub fn is_char_inrange(char: char, start:u32, end:u32) -> bool {
   return start <= char as u32 && char as u32 <= end;
 }
 

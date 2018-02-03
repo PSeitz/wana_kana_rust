@@ -7,7 +7,7 @@ import isCharJapanesePunctuation from './isCharJapanesePunctuation';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-pub fn isCharPunctuation(char: char) -> bool {
+pub fn is_char_punctuation(char: char) -> bool {
   
   return isCharEnglishPunctuation(char) || isCharJapanesePunctuation(char);
 }

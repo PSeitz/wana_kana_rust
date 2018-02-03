@@ -6,7 +6,7 @@ import { JAPANESE_RANGES } from '../constants';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-pub fn isCharJapanese(char: char) -> bool {
+pub fn is_char_japanese(char: char) -> bool {
   return JAPANESE_RANGES.some(([start, end]) => isCharInRange(char, start, end));
 }
 

@@ -7,7 +7,7 @@ use utils::isCharInRange::*;
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-pub fn isCharEnglishPunctuation(char: char) -> bool {
+pub fn is_char_englishpunctuation(char: char) -> bool {
   
   return EN_PUNCTUATION_RANGES.some(([start, end]) => isCharInRange(char, start, end));
 }

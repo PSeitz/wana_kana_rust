@@ -14,7 +14,7 @@ use utils::isCharInRange::*;
  * @param  {String} text Full Width roman letters
  * @return {String} ASCII
  */
-fn convertFullwidthCharsToASCII(text = '') {
+fn convert_fullwidth_charstoascii(text = '') {
   const asciiChars = [...text].map((char, index) => {
     const code = char.charCodeAt(0);
     const lower = isCharInRange(char, LOWERCASE_FULLWIDTH_START, LOWERCASE_FULLWIDTH_END);

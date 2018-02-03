@@ -19,7 +19,7 @@ import isCharHiragana from './isCharHiragana';
  * // => "ヒラガナ is a type of kana"
  * @ignore
  */
-fn hiraganaToKatakana(input: &str) {
+fn hiragana_to_katakana(input: &str) {
   const kata = [];
   input.split('').forEach((char) => {
     // Short circuit to avoid incorrect codeshift for 'ー' and '・'

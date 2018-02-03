@@ -21,7 +21,7 @@ import isCharKatakana from './isCharKatakana';
  * // => "かたかな is a type of kana"
  * @ignore
  */
-fn katakanaToHiragana(input: &str) {
+fn katakana_to_hiragana(input: &str) {
   const hira = [];
   let previousKana = '';
   const iterable = input.split('');

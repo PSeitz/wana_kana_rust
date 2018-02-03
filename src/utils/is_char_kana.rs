@@ -7,7 +7,7 @@ import isCharKatakana from './isCharKatakana';
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-pub fn isCharKana(char: char) -> bool {
+pub fn is_char_kana(char: char) -> bool {
   
   return isCharHiragana(char) || isCharKatakana(char);
 }

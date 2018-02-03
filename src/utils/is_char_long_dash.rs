@@ -6,7 +6,7 @@ import { PROLONGED_SOUND_MARK } from '../constants';
  * @param  {String} char to test
  * @return {Boolean}
  */
-pub fn isCharLongDash(char: char) -> bool {
+pub fn is_char_longdash(char: char) -> bool {
   
   return char.charCodeAt(0) === PROLONGED_SOUND_MARK;
 }

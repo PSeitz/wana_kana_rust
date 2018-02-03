@@ -10,7 +10,7 @@ use utils::isCharInRange::*;
  * @param  {String} char character string to test
  * @return {Boolean}
  */
-pub fn isCharKatakana(char: char) -> bool {
+pub fn is_char_katakana(char: char) -> bool {
   return isCharInRange(char, KATAKANA_START, KATAKANA_END);
 }
 
