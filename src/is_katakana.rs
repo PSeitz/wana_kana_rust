@@ -20,4 +20,4 @@ pub fn is_katakana(input: &str) -> bool {
   return input.chars().all(is_char_katakana);
 }
 
-export default is_katakana;
+

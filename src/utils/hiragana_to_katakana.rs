@@ -3,9 +3,9 @@ import {
   HIRAGANA_START,
 } from '../constants';
 
-import is_char_longDash from './is_char_longDash';
-import is_char_slashDot from './is_char_slashDot';
-import is_char_hiragana from './is_char_hiragana';
+use utils::is_char_longDash::*;
+use utils::is_char_slashDot::*;
+use utils::is_char_hiragana::*;
 
 /**
  * Convert [Hiragana](https://en.wikipedia.org/wiki/Hiragana) to [Katakana](https://en.wikipedia.org/wiki/Katakana)
@@ -38,4 +38,4 @@ fn hiragana_to_katakana(input: &str) {
   return kata.join('');
 }
 
-export default hiragana_to_katakana;
+

@@ -18,4 +18,4 @@ pub fn is_hiragana(input: &str) -> bool {
   return input.chars().all(is_char_hiragana);
 }
 
-export default is_hiragana;
+

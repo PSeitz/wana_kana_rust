@@ -29,4 +29,4 @@ pub fn is_mixed(input: &str, options = { passkanji: true }) -> bool {
   return (chars.some(is_hiragana) || chars.some(is_katakana)) && chars.some(is_romaji) && !has_kanji;
 }
 
-export default is_mixed;
+

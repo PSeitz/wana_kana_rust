@@ -161,4 +161,4 @@ export fn split_into_kana(input: &str, options = {}) {
   return kana;
 }
 
-export default to_kana;
+

@@ -74,4 +74,4 @@ fn to_romaji(kana = '', options = {}) {
   return roma.join('');
 }
 
-export default to_romaji;
+

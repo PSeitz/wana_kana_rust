@@ -26,4 +26,4 @@ pub fn is_japanese(input: &str) -> bool {
   return input.chars().all(is_char_japanese);
 }
 
-export default is_japanese;
+

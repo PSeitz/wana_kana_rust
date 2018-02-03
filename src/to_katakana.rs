@@ -29,4 +29,4 @@ fn to_katakana(input: &str, options = {}) {
   return hiragana_to_katakana(input);
 }
 
-export default to_katakana;
+

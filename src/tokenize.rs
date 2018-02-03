@@ -50,4 +50,4 @@ fn tokenize(input: &str) {
   return result;
 }
 
-export default tokenize;
+

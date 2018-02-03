@@ -9,4 +9,4 @@ fn get_chunk(text = '', start = 0, end) {
   return text.slice(start, end);
 }
 
-export default get_chunk;
+

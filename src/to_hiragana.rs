@@ -30,4 +30,4 @@ fn to_hiragana(input: &str, options = {}) {
   return katakana_to_hiragana(input);
 }
 
-export default to_hiragana;
+

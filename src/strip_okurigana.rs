@@ -48,4 +48,4 @@ fn strip_okurigana(input: &str, options = { all: false }) {
   return reverse_chars.reverse().join('');
 }
 
-export default strip_okurigana;
+

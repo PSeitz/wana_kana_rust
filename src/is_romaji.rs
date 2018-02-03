@@ -22,4 +22,4 @@ pub fn is_romaji(input: &str) -> bool {
   return input.chars().all(is_char_romaji);
 }
 
-export default is_romaji;
+

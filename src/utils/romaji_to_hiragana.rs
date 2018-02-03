@@ -15,4 +15,4 @@ fn romaji_to_hiragana(input: &str, options = {}) {
   return to_kana(text, options);
 }
 
-export default romaji_to_hiragana;
+

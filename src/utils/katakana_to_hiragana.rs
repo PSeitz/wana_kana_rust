@@ -5,9 +5,9 @@ import {
   TO_ROMAJI,
 } from '../constants';
 
-import is_char_longDash from './is_char_longDash';
-import is_char_slashDot from './is_char_slashDot';
-import is_char_katakana from './is_char_katakana';
+use utils::is_char_longDash::*;
+use utils::is_char_slashDot::*;
+use utils::is_char_katakana::*;
 
 /**
  * Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
@@ -51,4 +51,4 @@ fn katakana_to_hiragana(input: &str) {
   return hira.join('');
 }
 
-export default katakana_to_hiragana;
+

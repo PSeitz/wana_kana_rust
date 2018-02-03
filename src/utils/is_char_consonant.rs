@@ -12,4 +12,4 @@ pub fn is_char_consonant(char: char, includey = true) -> bool {
   return char.to_lower_case().char_at(0).search(regexp) !== -1;
 }
 
-export default is_char_consonant;
+

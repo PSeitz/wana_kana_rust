@@ -29,4 +29,4 @@ fn convert_fullwidth_charstoascii(text = '') {
   return ascii_chars.join('');
 }
 
-export default convert_fullwidth_chars_to_aSCII;
+

@@ -8,4 +8,4 @@ fn get_chunk_size(max = 0, remaining = 0) {
   return Math.min(max, remaining);
 }
 
-export default get_chunk_size;
+

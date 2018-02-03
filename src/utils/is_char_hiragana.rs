@@ -1,5 +1,5 @@
 
-import is_char_longDash from './is_char_longDash';
+use utils::is_char_longDash::*;
 use utils::is_char_inRange::*;
 import {
   HIRAGANA_START,
@@ -17,4 +17,4 @@ pub fn is_char_hiragana(char: char) -> bool {
   return is_char_inRange(char, HIRAGANA_START, HIRAGANA_END);
 }
 
-export default is_char_hiragana;
+

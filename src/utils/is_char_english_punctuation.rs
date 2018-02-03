@@ -12,4 +12,4 @@ pub fn is_char_englishpunctuation(char: char) -> bool {
   return EN_PUNCTUATION_RANGES.some(([start, end]) => is_char_inRange(char, start, end));
 }
 
-export default is_char_englishPunctuation;
+
