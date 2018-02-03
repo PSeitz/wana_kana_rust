@@ -42,7 +42,7 @@ fn to_romaji(kana = '', options = {}) {
         chunk = katakana_to_hiragana(chunk);
       }
       // special case for small tsus
-      if (chunk.char_at(0) === 'っ' && chunk_size === 1 && cursor < (len - 1)) {
+      if (chunk.chars().nth(0).unwrap() === 'っ' && chunk_size === 1 && cursor < (len - 1)) {
         next_char_is_double_consonant = true;
         romachar: char;
         break;
@@ -51,7 +51,7 @@ fn to_romaji(kana = '', options = {}) {
       roma_char = TO_ROMAJI[chunk];
 
       if ((roma_char != null) && next_char_is_double_consonant) {
-        roma_char = roma_char.char_at(0).concat(roma_char);
+        roma_char = roma_char.chars().nth(0).unwrap().concat(roma_char);
         next_char_is_double_consonant = false;
       }
       // console.log(`${cursor}x${chunk_size}:${chunk} => ${roma_char}`);
