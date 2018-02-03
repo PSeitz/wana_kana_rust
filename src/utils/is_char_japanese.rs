@@ -1,5 +1,5 @@
 use utils::is_char_inRange::*;
-import { JAPANESE_RANGES } from '../constants';
+use constants::JAPANESE_RANGES;
 
 /**
  * Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).

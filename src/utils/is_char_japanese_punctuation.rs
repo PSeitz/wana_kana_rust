@@ -1,5 +1,5 @@
 
-import { JA_PUNCTUATION_RANGES } from '../constants';
+use constants::JA_PUNCTUATION_RANGES;
 use utils::is_char_inRange::*;
 
 /**

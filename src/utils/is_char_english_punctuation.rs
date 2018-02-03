@@ -1,5 +1,5 @@
 
-import { EN_PUNCTUATION_RANGES } from '../constants';
+use constants::EN_PUNCTUATION_RANGES;
 use utils::is_char_inRange::*;
 
 /**

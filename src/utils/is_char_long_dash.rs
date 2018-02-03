@@ -1,5 +1,5 @@
 
-import { PROLONGED_SOUND_MARK } from '../constants';
+use constants::PROLONGED_SOUND_MARK;
 
 /**
  * Returns true if char is 'ー'

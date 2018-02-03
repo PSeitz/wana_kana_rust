@@ -1,6 +1,6 @@
 
 use utils::is_char_inRange::*;
-import { ROMAJI_RANGES } from '../constants';
+use constants::ROMAJI_RANGES;
 
 /**
  * Tests a character. Returns true if the character is [Romaji](https://en.wikipedia.org/wiki/Romaji) (allowing [Hepburn romanisation](https://en.wikipedia.org/wiki/Hepburn_romanization))

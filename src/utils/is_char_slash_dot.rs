@@ -1,5 +1,5 @@
 
-import { KANA_SLASH_DOT } from '../constants';
+use constants::KANA_SLASH_DOT;
 
 /**
  * Tests if char is '・'

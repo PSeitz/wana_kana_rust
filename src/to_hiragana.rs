@@ -1,4 +1,4 @@
-import { DEFAULT_OPTIONS } from './constants';
+use constants::DEFAULT_OPTIONS;
 use utils::katakana_to_hiragana::*;
 use utils::romaji_to_hiragana::*;
 use is_romaji::*;
