@@ -7,7 +7,7 @@ use constants::JAPANESE_RANGES;
  * @return {Boolean}
  */
 pub fn is_char_japanese(char: char) -> bool {
-  return JAPANESE_RANGES.some(([start, end]) => is_char_inRange(char, start, end));
+  return JAPANESE_RANGES.iter().any(([start, end]) => is_char_inRange(char, start, end));
 }
 
 

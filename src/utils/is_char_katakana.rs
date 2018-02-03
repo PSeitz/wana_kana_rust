@@ -1,7 +1,4 @@
-import {
-  KATAKANA_START,
-  KATAKANA_END,
-} from '../constants';
+use constants::{KATAKANA_START, KATAKANA_END,};
 
 use utils::is_char_inRange::*;
 

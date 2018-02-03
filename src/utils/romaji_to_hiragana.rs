@@ -1,4 +1,4 @@
-import to_kana from '../to_kana';
+use to_kana::to_kana;
 
 /**
  * Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)

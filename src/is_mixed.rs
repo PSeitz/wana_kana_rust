@@ -24,9 +24,9 @@ pub fn is_mixed(input: &str, options = { passkanji: true }) -> bool {
   const chars = [...input];
   let has_kanji = false;
   if (!options.pass_kanji) {
-    has_kanji = chars.some(is_kanji);
+    has_kanji = chars.iter().any(is_kanji);
   }
-  return (chars.some(is_hiragana) || chars.some(is_katakana)) && chars.some(is_romaji) && !has_kanji;
+  return (chars.iter().any(is_hiragana) || chars.iter().any(is_katakana)) && chars.iter().any(is_romaji) && !has_kanji;
 }
 
 

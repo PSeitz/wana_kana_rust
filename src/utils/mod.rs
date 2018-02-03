@@ -4,7 +4,7 @@
 // pub mod hiragana_to_katakana;
 // pub mod is_char_consonant;
 // pub mod is_char_english_punctuation;
-// pub mod is_char_hiragana;
+pub mod is_char_hiragana;
 pub mod is_char_in_range;
 // pub mod is_char_japanese_punctuation;
 // pub mod is_char_japanese;

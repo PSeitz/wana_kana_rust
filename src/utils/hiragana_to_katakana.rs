@@ -1,9 +1,5 @@
-import {
-  KATAKANA_START,
-  HIRAGANA_START,
-} from '../constants';
-
-use utils::is_char_longDash::*;
+use constants::{KATAKANA_START, HIRAGANA_START};
+use utils::is_char_long_dash::*;
 use utils::is_char_slashDot::*;
 use utils::is_char_hiragana::*;
 
@@ -23,7 +19,7 @@ fn hiragana_to_katakana(input: &str) {
   const kata = [];
   input.split('').for_each((char) => {
     // Short circuit to avoid incorrect codeshift for 'ー' and '・'
-    if (is_char_longDash(char) || is_char_slashDot(char)) {
+    if (is_char_long_dash(char) || is_char_slashDot(char)) {
       kata.push(char);
     } else if (is_char_hiragana(char)) {
       // Shift charcode.

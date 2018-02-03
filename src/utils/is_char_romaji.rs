@@ -9,7 +9,7 @@ use constants::ROMAJI_RANGES;
  */
 pub fn is_char_romaji(char: char) -> bool {
   
-  return ROMAJI_RANGES.some(([start, end]) => is_char_inRange(char, start, end));
+  return ROMAJI_RANGES.iter().any(([start, end]) => is_char_inRange(char, start, end));
 }
 
 

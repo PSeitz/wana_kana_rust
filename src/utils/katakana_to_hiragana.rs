@@ -1,11 +1,5 @@
-import {
-  LONG_VOWELS,
-  KATAKANA_START,
-  HIRAGANA_START,
-  TO_ROMAJI,
-} from '../constants';
-
-use utils::is_char_longDash::*;
+use constants::{LONG_VOWELS, KATAKANA_START, HIRAGANA_START, TO_ROMAJI,};
+use utils::is_char_long_dash::*;
 use utils::is_char_slashDot::*;
 use utils::is_char_katakana::*;
 
@@ -27,7 +21,7 @@ fn katakana_to_hiragana(input: &str) {
   const iterable = input.split('');
   for (let index = 0; index < iterable.length; index += 1) {
     const char = iterable[index];
-    const [slash_dot, long_dash] = [is_char_slashDot(char), is_char_longDash(char)];
+    const [slash_dot, long_dash] = [is_char_slashDot(char), is_char_long_dash(char)];
     // Short circuit to avoid incorrect codeshift for 'ー' and '・'
     if (slash_dot || (long_dash && index < 1)) {
       hira.push(char);

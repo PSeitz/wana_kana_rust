@@ -1,10 +1,5 @@
-import {
-  DEFAULT_OPTIONS,
-  UPPERCASE_START,
-  UPPERCASE_END,
-  FOUR_CHAR_EDGECASES,
-  FROM_ROMAJI,
-} from './constants';
+
+use constants::{DEFAULT_OPTIONS, UPPERCASE_START, UPPERCASE_END, FOUR_CHAR_EDGECASES, FROM_ROMAJI,};
 
 use utils::is_char_inRange::*;
 use utils::is_char_upperCase::*;

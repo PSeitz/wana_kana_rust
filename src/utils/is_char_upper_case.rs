@@ -1,10 +1,7 @@
 
 use utils::is_char_inRange::*;
-import {
-  UPPERCASE_START,
-  UPPERCASE_END,
-} from '../constants';
 
+use constants::{UPPERCASE_START, UPPERCASE_END};
 /**
  * Tests if char is in English unicode uppercase range
  * @param  {String} char

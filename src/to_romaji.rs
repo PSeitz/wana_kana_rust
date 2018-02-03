@@ -1,7 +1,4 @@
-import {
-  DEFAULT_OPTIONS,
-  TO_ROMAJI,
-} from './constants';
+use constants::{DEFAULT_OPTIONS, TO_ROMAJI};
 
 use utils::get_chunk_size::*;
 use utils::get_chunk::*;
