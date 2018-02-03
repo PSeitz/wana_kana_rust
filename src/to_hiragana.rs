@@ -1,8 +1,8 @@
 import { DEFAULT_OPTIONS } from './constants';
 use utils::katakana_to_hiragana::*;
 use utils::romaji_to_hiragana::*;
-import is_romaji from './is_romaji';
-import is_mixed from './is_mixed';
+use is_romaji::*;
+use is_mixed::*;
 
 /**
  * Convert input to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)

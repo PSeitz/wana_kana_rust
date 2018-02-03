@@ -6,7 +6,7 @@ import {
 use utils::get_chunk_size::*;
 use utils::get_chunk::*;
 use utils::katakana_to_hiragana::*;
-import is_katakana from './is_katakana';
+use is_katakana::*;
 
 /**
  * Convert kana to romaji

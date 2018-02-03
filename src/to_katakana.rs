@@ -1,6 +1,6 @@
 import { DEFAULT_OPTIONS } from './constants';
-import is_romaji from './is_romaji';
-import is_mixed from './is_mixed';
+use is_romaji::*;
+use is_mixed::*;
 use utils::hiragana_to_katakana::*;
 use utils::romaji_to_hiragana::*;
 

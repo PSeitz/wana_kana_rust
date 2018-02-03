@@ -1,7 +1,7 @@
-import is_kanji from './is_kanji';
-import is_hiragana from './is_hiragana';
-import is_katakana from './is_katakana';
-import is_romaji from './is_romaji';
+use is_kanji::*;
+use is_hiragana::*;
+use is_katakana::*;
+use is_romaji::*;
 
 /**
  * Test if `input` contains a mix of [Romaji](https://en.wikipedia.org/wiki/Romaji) *and* [Kana](https://en.wikipedia.org/wiki/Kana), defaults to pass through [Kanji](https://en.wikipedia.org/wiki/Kanji)

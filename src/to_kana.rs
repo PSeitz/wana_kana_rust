@@ -13,7 +13,7 @@ use utils::get_chunk::*;
 use utils::is_char_consonant::*;
 use utils::is_char_vowel::*;
 use utils::hiragana_to_katakana::*;
-import is_kana from './is_kana';
+use is_kana::*;
 
 /**
  * Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).

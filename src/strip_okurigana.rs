@@ -1,9 +1,9 @@
 
 use utils::is_char_kana::*;
 use utils::is_char_punctuation::*;
-import is_japanese from './is_japanese';
-import is_kana from './is_kana';
-import is_kanji from './is_kanji';
+use is_japanese::*;
+use is_kana::*;
+use is_kanji::*;
 
 /**
  * Strips trailing [Okurigana](https://en.wikipedia.org/wiki/Okurigana) if `input` is a mix of [Kanji](https://en.wikipedia.org/wiki/Kanji) and [Kana](https://en.wikipedia.org/wiki/Kana)
