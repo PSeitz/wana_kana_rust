@@ -8,12 +8,19 @@ extern crate regex;
 #[macro_use]
 extern crate lazy_static;
 
-mod is_kanji;
-mod is_kana;
-mod to_kana;
-mod utils;
-mod constants;
-mod options;
+pub mod is_kanji;
+pub mod is_kana;
+pub mod is_katakana;
+pub mod is_romaji;
+pub mod is_japanese;
+pub mod is_hiragana;
+pub mod is_mixed;
+pub mod to_kana;
+pub mod to_katakana;
+pub mod to_romaji;
+pub mod utils;
+pub mod constants;
+pub mod options;
 
 #[cfg(test)]
 mod tests {

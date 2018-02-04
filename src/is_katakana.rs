@@ -1,4 +1,3 @@
-
 use utils::is_char_katakana::*;
 
 /**
@@ -16,8 +15,16 @@ use utils::is_char_katakana::*;
  * // => false
  */
 pub fn is_katakana(input: &str) -> bool {
-  if input.is_empty(){return false;}
-  return input.chars().all(is_char_katakana);
+    if input.is_empty() {
+        return false;
+    }
+    return input.chars().all(is_char_katakana);
 }
 
-
+#[test]
+fn check_is_katakana() {
+    assert_eq!(is_katakana("ゲーム"), true);
+    assert_eq!(is_katakana("あ"), false);
+    assert_eq!(is_katakana("A"), false);
+    assert_eq!(is_katakana("あア"), false);
+}

@@ -14,7 +14,7 @@ use phf;
  * @example
  * to_romaji('ひらがな カタカナ', { upcase_katakana: true })
  * // => "hiragana KATAKANA"
- * @property {Boolean} [IMEMode=false] - Set to true, 'to_hiragana', or 'to_katakana' to handle conversion from a text input while it is being typed
+ * @property {Boolean} [imemode=false] - Set to true, 'to_hiragana', or 'to_katakana' to handle conversion from a text input while it is being typed
 */
 
 // /**
@@ -26,7 +26,7 @@ use phf;
 //   use_obsolete_kana: false,
 //   pass_romaji: false,
 //   upcase_katakana: false,
-//   IMEMode: false,
+//   imemode: false,
 // };
 
 // CharCode References

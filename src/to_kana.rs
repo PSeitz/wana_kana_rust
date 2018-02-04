@@ -45,81 +45,84 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
     let mut kana = String::new();
     // Position in the string that is being evaluated
     let mut cursor = 0;
-    let len = input.len();
+    let len = input.chars().count();
+    // let chars:Vec<char> = input.chars().collect();
     let max_chunk = 3;
-    let mut chunk_size = 3;
-    let mut chunk = "";
-    let mut chunkLC = "".to_string();
+    // let mut chunk_size = 3;
+    let mut chunk = "".to_string();
+    let mut chunk_lc = "".to_string();
 
     // Steps through the string pulling out chunks of characters. Each chunk will be evaluated
     // against the romaji to kana table. If there is no match, the last character in the chunk
     // is dropped and the chunk is reevaluated. If nothing matches, the character is assumed
     // to be invalid or punctuation or other and gets passed through.
-    while (cursor < len) {
+    while cursor < len {
         let mut kana_char = Cow::from("".to_string());
-        chunk_size = std::cmp::min(max_chunk, len - cursor);
-        while (chunk_size > 0) {
+        let mut chunk_size = std::cmp::min(max_chunk, len - cursor);
+        while chunk_size > 0 {
             chunk = get_chunk(input, cursor, cursor + chunk_size);
-            chunkLC = chunk.to_lowercase();
+            chunk_lc = chunk.to_lowercase();
             // Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
-            if FOUR_CHAR_EDGECASES.contains(&(&chunkLC as &str)) && len - cursor >= 4 {
+            if FOUR_CHAR_EDGECASES.contains(&(&chunk_lc as &str)) && len - cursor >= 4 {
                 chunk_size += 1;
                 chunk = get_chunk(input, cursor, cursor + chunk_size);
-                chunkLC = chunk.to_lowercase();
-            } else {
+                chunk_lc = chunk.to_lowercase();
+            } else if let (Some(lc), Some(c)) = (chunk_lc.chars().nth(0), chunk.chars().nth(0)) {
                 // Handle edge case of n followed by consonant
-                if (chunkLC.chars().nth(0).unwrap() == 'n') {
-                    if (chunk_size == 2) {
+                if lc == 'n' {
+                    if chunk_size == 2 {
                         // Handle edge case of n followed by a space (only if not in IME mode)
-                        if (!config.IMEMode && chunkLC.chars().nth(1).unwrap() == ' ') {
+                        if !config.imemode && chunk_lc.chars().nth(1).unwrap() == ' ' {
                             kana_char = Cow::from("ん ");
                             break;
                         }
                         // Convert IME input of n' to "ん"
-                        if (config.IMEMode && chunkLC == "n'") {
+                        if config.imemode && chunk_lc == "n'" {
                             kana_char = Cow::from("ん");
                             break;
                         }
                     }
                     // Handle edge case of n followed by n and vowel
-                    if (is_char_consonant(chunkLC.chars().nth(1).unwrap(), false)
-                        && is_char_vowel(chunkLC.chars().nth(2).unwrap()))
+                    if chunk_lc
+                        .chars()
+                        .nth(1)
+                        .map(|c| is_char_consonant(c, false))
+                        .unwrap_or(false)
+                        && chunk_lc.chars().nth(2).map(is_char_vowel).unwrap_or(false)
                     {
                         chunk_size = 1;
                         chunk = get_chunk(input, cursor, cursor + chunk_size);
-                        chunkLC = chunk.to_lowercase();
+                        chunk_lc = chunk.to_lowercase();
                     }
                 }
 
                 // Handle case of double consonants
-                if (chunkLC.chars().nth(0).unwrap() != 'n'
-                    && is_char_consonant(chunkLC.chars().nth(0).unwrap(), true)
-                    && chunk.chars().nth(0).unwrap() == chunk.chars().nth(1).unwrap())
-                {
+                if lc != 'n' && is_char_consonant(lc, true) && c == chunk.chars().nth(1).unwrap() {
                     chunk_size = 1;
                     // Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
-                    if (is_char_in_range(
+                    if is_char_in_range(
                         chunk.chars().nth(0).unwrap(),
                         UPPERCASE_START,
                         UPPERCASE_END,
-                    )) {
-                        chunkLC = "ッ".to_string();
-                        chunk = "ッ";
+                    ) {
+                        chunk_lc = "ッ".to_string();
+                        chunk = "ッ".to_string();
                     } else {
-                        chunkLC = "っ".to_string();
-                        chunk = "っ";
+                        chunk_lc = "っ".to_string();
+                        chunk = "っ".to_string();
                     }
                 }
             }
 
-            kana_char = Cow::from(FROM_ROMAJI[&chunkLC as &str]);
-            // console.log(`${chunkLC}, ${cursor}x${chunk_size}:${chunk} => ${kana_char}`); // DEBUG
-            if (kana_char != "") {
+            if let Some(char) = FROM_ROMAJI.get(&chunk_lc as &str) {
+                kana_char = Cow::from(*char);
                 break;
+            } else {
+                kana_char = Cow::from("");
             }
             // Step down the chunk size.
             // If chunk_size was 4, step down twice.
-            if (chunk_size == 4) {
+            if chunk_size == 4 {
                 chunk_size -= 2;
             } else {
                 chunk_size -= 1;
@@ -127,30 +130,30 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
         }
 
         // Passthrough undefined values
-        if (kana_char == "") {
-            kana_char = Cow::from(chunk);
+        if kana_char == "" {
+            kana_char = Cow::from(&chunk as &str);
         }
 
         // Handle special cases.
-        if (config.use_obsolete_kana) {
-            if (chunkLC == "wi") {
+        if config.use_obsolete_kana {
+            if chunk_lc == "wi" {
                 kana_char = Cow::from("ゐ")
             };
-            if (chunkLC == "we") {
+            if chunk_lc == "we" {
                 kana_char = Cow::from("ゑ")
             };
         }
 
-        if (!!config.IMEMode && chunkLC.chars().nth(0).unwrap() == 'n') {
-            if ((input
+        if !!config.imemode && chunk_lc.chars().nth(0).unwrap() == 'n' {
+            if input
                 .chars()
                 .nth(cursor + 1)
                 .unwrap()
                 .to_string()
                 .to_lowercase() == "y"
-                && is_char_vowel(input.chars().nth(cursor + 2).unwrap()) == false)
+                && is_char_vowel(input.chars().nth(cursor + 2).unwrap()) == false
                 || cursor == len - 1
-                || is_kana(&input.chars().nth(cursor + 1).unwrap().to_string()))
+                || is_kana(&input.chars().nth(cursor + 1).unwrap().to_string())
             {
                 // Don't transliterate this yet.
                 kana_char = Cow::from(chunk.chars().nth(0).unwrap().to_string());
@@ -158,25 +161,58 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
         }
 
         // Use katakana if first letter in chunk is uppercase
-        if (is_char_upper_case(chunk.chars().nth(0).unwrap())) {
+        if is_char_upper_case(chunk.chars().nth(0).unwrap()) {
             kana_char = Cow::from(hiragana_to_katakana(&kana_char));
         }
 
-        let next_cursor = cursor + (std::cmp::max(chunk_size, 1));
+        cursor += std::cmp::max(chunk_size, 1);
         // kana.push([cursor, next_cursor, kana_char]);
+
         kana.push_str(&kana_char);
-        cursor = next_cursor;
     }
     return kana;
 }
 
-
 #[test]
 fn check_to_kana() {
-    assert_eq!(to_kana("onaji BUTTSUUJI"), "おなじ ブッツウジ");
-    assert_eq!(to_kana("ONAJI buttsuuji"), "オナジ ぶっつうじ");
-    assert_eq!(to_kana("座禅‘zazen’スタイル"), "座禅「ざぜん」スタイル");
-    assert_eq!(to_kana("batsuge-mu"),      "ばつげーむ");
-    // assert_eq!(to_kana("🐸"), false);
-    // assert_eq!(to_kana("🐸"), false);
+    assert_eq!(to_kana("o", Options::default()), "お");
+    assert_eq!(to_kana("ona", Options::default()), "おな");
+    assert_eq!(to_kana("onaji", Options::default()), "おなじ");
+    assert_eq!(
+        to_kana("onaji BUTTSUUJI", Options::default()),
+        "おなじ ブッツウジ"
+    );
+    assert_eq!(
+        to_kana("ONAJI buttsuuji", Options::default()),
+        "オナジ ぶっつうじ"
+    );
+    assert_eq!(
+        to_kana("座禅‘zazen’スタイル", Options::default()),
+        "座禅「ざぜん」スタイル"
+    );
+    assert_eq!(
+        to_kana(
+            "batsuge-mu",
+            Options {
+                use_obsolete_kana: true,
+                ..Default::default()
+            }
+        ),
+        "ばつげーむ"
+    );
+    assert_eq!(
+        to_kana("!?./,~-‘’“”[](){}", Options::default()),
+        "！？。・、〜ー「」『』［］（）｛｝"
+    );
+    // assert_eq!(to_kana(":", Options::default()), "：");
+    assert_eq!(
+        to_kana(
+            "we",
+            Options {
+                use_obsolete_kana: true,
+                ..Default::default()
+            }
+        ),
+        "ゑ"
+    );
 }

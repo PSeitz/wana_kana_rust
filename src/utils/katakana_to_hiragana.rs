@@ -15,7 +15,7 @@ use std;
  * // => "かたかな is a type of kana"
  * @ignore
  */
-fn katakana_to_hiragana(input: &str) -> String {
+pub fn katakana_to_hiragana(input: &str) -> String {
     let mut hira = vec![];
     let mut previous_kana: Option<char> = None; //"".to_string();
                                                 // let iterable = ;

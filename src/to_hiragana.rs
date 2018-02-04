@@ -1,5 +1,5 @@
 use utils::katakana_to_hiragana::*;
-use utils::romaji_to_hiragana::*;
+use utils::romaji_to_hiragana::romaji_to_hiragana;
 use is_romaji::*;
 use is_mixed::*;
 use options::Options;
@@ -22,7 +22,7 @@ fn to_hiragana(input: &str, options: Options) {
   let config = options;
   if (config.pass_romaji) return katakana_to_hiragana(input);
   if (is_romaji(input)) return romaji_to_hiragana(input, config);
-  if (is_mixed(input, { pass_kanji: true })) {
+  if (is_mixed(input, true)) {
     let romaji = katakana_to_hiragana(input);
     return romaji_to_hiragana(romaji, config);
   }

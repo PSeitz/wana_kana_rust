@@ -1,4 +1,3 @@
-
 use utils::is_char_hiragana::*;
 
 /**
@@ -14,8 +13,15 @@ use utils::is_char_hiragana::*;
  * // => false
  */
 pub fn is_hiragana(input: &str) -> bool {
-  if input.is_empty(){return false;}
-  return input.chars().all(is_char_hiragana);
+    if input.is_empty() {
+        return false;
+    }
+    return input.chars().all(is_char_hiragana);
 }
 
-
+#[test]
+fn check_is_hiragana() {
+    assert_eq!(is_hiragana("げーむ"), true);
+    assert_eq!(is_hiragana("A"), false);
+    assert_eq!(is_hiragana("あア"), false);
+}

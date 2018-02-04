@@ -8,7 +8,7 @@ use constants::{HIRAGANA_END, HIRAGANA_START};
  * @return {Boolean}
  */
 pub fn is_char_hiragana(char: char) -> bool {
-    if (is_char_long_dash(char)) {
+    if is_char_long_dash(char) {
         return true;
     };
     return is_char_in_range(char, HIRAGANA_START, HIRAGANA_END);

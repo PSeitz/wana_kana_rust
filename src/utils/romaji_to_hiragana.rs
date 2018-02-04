@@ -10,7 +10,7 @@ use options::Options;
  * // => "ひらがな"
  * @ignore
  */
-fn romaji_to_hiragana(input: &str, options: Options) -> String {
+pub fn romaji_to_hiragana(input: &str, options: Options) -> String {
     let text = input.to_lowercase(); // ensure hiragana
     to_kana(&text, options)
 }

@@ -1,4 +1,3 @@
-
 use utils::is_char_romaji::*;
 
 /**
@@ -18,8 +17,17 @@ use utils::is_char_romaji::*;
  * // => false
  */
 pub fn is_romaji(input: &str) -> bool {
-  if input.is_empty(){return false;}
-  return input.chars().all(is_char_romaji);
+    if input.is_empty() {
+        return false;
+    }
+    return input.chars().all(is_char_romaji);
 }
 
-
+#[test]
+fn check_is_romaji() {
+    assert_eq!(is_romaji("Tōkyō and Ōsaka"), true);
+    assert_eq!(is_romaji("12a*b&c-d"), true);
+    assert_eq!(is_romaji("あアA"), false);
+    assert_eq!(is_romaji("お願い"), false);
+    assert_eq!(is_romaji("a！b&cーd"), false);
+}
