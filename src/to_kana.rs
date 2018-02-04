@@ -87,8 +87,7 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
                         .chars()
                         .nth(1)
                         .map(|c| is_char_consonant(c, false))
-                        .unwrap_or(false)
-                        && chunk_lc.chars().nth(2).map(is_char_vowel).unwrap_or(false)
+                        .unwrap_or(false) && chunk_lc.chars().nth(2).map(is_char_vowel).unwrap_or(false)
                     {
                         chunk_size = 1;
                         chunk = get_chunk(input, cursor, cursor + chunk_size);
@@ -150,10 +149,7 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
                 .nth(cursor + 1)
                 .unwrap()
                 .to_string()
-                .to_lowercase() == "y"
-                && is_char_vowel(input.chars().nth(cursor + 2).unwrap()) == false
-                || cursor == len - 1
-                || is_kana(&input.chars().nth(cursor + 1).unwrap().to_string())
+                .to_lowercase() == "y" && is_char_vowel(input.chars().nth(cursor + 2).unwrap()) == false || cursor == len - 1 || is_kana(&input.chars().nth(cursor + 1).unwrap().to_string())
             {
                 // Don't transliterate this yet.
                 kana_char = Cow::from(chunk.chars().nth(0).unwrap().to_string());

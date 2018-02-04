@@ -12,8 +12,7 @@
 
 pub fn is_char_consonant(char: char, includey: bool) -> bool {
     match char {
-        'b' | 'c' | 'd' | 'f' | 'g' | 'h' | 'j' | 'k' | 'l' | 'm' | 'n' | 'p' | 'q' | 'r' | 's'
-        | 't' | 'v' | 'w' | 'x' | 'z' => true,
+        'b' | 'c' | 'd' | 'f' | 'g' | 'h' | 'j' | 'k' | 'l' | 'm' | 'n' | 'p' | 'q' | 'r' | 's' | 't' | 'v' | 'w' | 'x' | 'z' => true,
         'y' if includey => true,
         _ => false,
     }
