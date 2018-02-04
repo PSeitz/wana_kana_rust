@@ -1,22 +1,22 @@
-
 use utils::is_char_japanese_punctuation::*;
 use utils::is_char_kanji::*;
 use utils::is_char_hiragana::*;
 use utils::is_char_katakana::*;
+use itertools::Itertools;
 
-// TODO: worth splitting into utils? so far not used anywhere else
-fn get_type(input) {
-  switch (true) {
-    case (is_char_japanese_punctuation(input)): return 'japanese_punctuation';
-    case (is_char_kanji(input)): return 'kanji';
-    case (is_char_hiragana(input)): return 'hiragana';
-    case (is_char_katakana(input)): return 'katakana';
-    default: return 'romaji';
-  }
+fn get_type(input: char) -> &'static str {
+    match input {
+        input if is_char_japanese_punctuation(input) => "japanese_punctuation",
+        input if is_char_kanji(input) => "kanji",
+        input if is_char_hiragana(input) => "hiragana",
+        input if is_char_katakana(input) => "katakana",
+        _ => "romaji",
+    }
 }
 
 /**
- * Splits input into array of [Kanji](https://en.wikipedia.org/wiki/Kanji), [Hiragana](https://en.wikipedia.org/wiki/Hiragana), [Katakana](https://en.wikipedia.org/wiki/Katakana), and [Romaji](https://en.wikipedia.org/wiki/Romaji) tokens.
+ * Splits input into array of [Kanji](https://en.wikipedia.org/wiki/Kanji), [Hiragana](https://en.wikipedia.org/wiki/Hiragana),
+ * [Katakana](https://en.wikipedia.org/wiki/Katakana), and [Romaji](https://en.wikipedia.org/wiki/Romaji) tokens.
  * Does not split into parts of speech!
  * @param  {String} input text
  * @return {Array} text split into tokens
@@ -30,24 +30,34 @@ fn get_type(input) {
  * tokenize('what the...私は「悲しい」。')
  * // => ['what the...', '私', 'は', '「', '悲', 'しい', '」。']
  */
-fn tokenize(input: &str) {
-  if (is_empty(input)) return [''];
-  let chars = [...input];
-  let head = chars.shift();
-  let prev_type = get_type(head);
-
-  let result = chars.reduce((tokens, char) => {
-    let curr_type = get_type(char);
-    let same_type = curr_type == prev_type;
-    prev_type = get_type(char);
-    if (same_type) {
-      let prev = tokens.pop();
-      return tokens.concat(prev.concat(char));
+pub fn tokenize(input: &str) -> Vec<String> {
+    let mut result = vec![];
+    for (_, group) in &input.chars().group_by(|elt| get_type(*elt)) {
+        result.push(group.collect());
     }
-    return tokens.concat(char);
-  }, [head]);
-
-  return result;
+    result
 }
 
-
+#[test]
+fn check_tokenize() {
+    let empty:Vec<String> = vec![];
+    assert_eq!(tokenize(""), empty);
+    assert_eq!(tokenize("ふふフフ"), vec!["ふふ", "フフ"]);
+    assert_eq!(tokenize("感じ"), vec!["感", "じ"]);
+    assert_eq!(
+        tokenize("私は悲しい"),
+        vec!["私", "は", "悲", "しい"]
+    );
+    assert_eq!(
+        tokenize("what the...私は「悲しい」。"),
+        vec![
+            "what the...",
+            "私",
+            "は",
+            "「",
+            "悲",
+            "しい",
+            "」。",
+        ]
+    );
+}

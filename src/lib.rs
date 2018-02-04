@@ -1,10 +1,15 @@
 #![feature(plugin)]
 #![plugin(phf_macros)]
 #![feature(slice_patterns)]
+#![feature(test)]
 
+#![feature(plugin)]
+#![cfg_attr(test, plugin(stainless))]
+
+extern crate test;
 extern crate phf;
 extern crate regex;
-
+extern crate itertools;
 #[macro_use]
 extern crate lazy_static;
 
@@ -15,40 +20,40 @@ pub mod is_romaji;
 pub mod is_japanese;
 pub mod is_hiragana;
 pub mod is_mixed;
+
+
 pub mod to_kana;
 pub mod to_katakana;
+pub mod to_hiragana;
 pub mod to_romaji;
+
+pub mod strip_okurigana;
+pub mod tokenize;
+
 pub mod utils;
 pub mod constants;
 pub mod options;
 
+
+
 #[cfg(test)]
-mod tests {
-    use is_kanji::*;
-    #[test]
-    fn it_works() {
-        assert_eq!(is_kanji("刀"), true);
-    }
+mod tests;
 
-    // #[test]
-    // fn convert() {
-    //     use std::fs::rename;
-    //     use std::fs;
-    //     use regex::Regex;
-
-    //     let re = Regex::new(r"([A-Z])").unwrap();
-
-    //     let paths = fs::read_dir("src/utils").unwrap();
-
-    //     for path in paths {
-    //         let path = path.unwrap().path();
-    //         let path_str = path.to_string_lossy();
-    //         println!("Name: {}", path_str);
-
-    //         let after = re.replace_all(&path_str, "_$1").to_string().to_lowercase();
-    //         println!("Name: {}", after);
-    //         fs::rename(path_str.to_string(), after).unwrap();
-    //         // var result = text.replace(/([A-Z])/g, "_$1");
-    //     }
-    // }
+#[bench]
+fn bench_kana_1(b: &mut test::Bencher) {
+    b.iter(|| to_kana::to_kana("aiueosashisusesonaninunenokakikukeko"))
 }
+#[bench]
+fn bench_kana_2(b: &mut test::Bencher) {
+    b.iter(|| to_kana::to_kana("AIUEOSASHISUSESONANINUNENOKAKIKUKEKO"))
+}
+
+#[bench]
+fn bench_romaji_1(b: &mut test::Bencher) {
+    b.iter(|| to_romaji::to_romaji("あいうえおさしすせそなにぬねのかきくけこ"))
+}
+#[bench]
+fn bench_romaji_2(b: &mut test::Bencher) {
+    b.iter(|| to_romaji::to_romaji("アイウエオサシスセソナニヌネノカキクケコ"))
+}
+

@@ -1,4 +1,3 @@
-
 use utils::is_char_kana::*;
 use utils::is_char_punctuation::*;
 use is_japanese::*;
@@ -22,30 +21,45 @@ use is_kanji::*;
  * strip_okurigana('お祝い', { all: true })
  * // => '祝'
  */
-fn strip_okurigana(input: &str, options = { all: false }) {
-  if (is_empty(input) || !is_japanese(input) || is_kana(input)) return input;
-  let chars = [...input];
-
-  // strip every kana
-  if (options.all) return chars.filter((char) => !is_char_kana(char)).join('');
-
-  // strip trailing only
-  let reverse_chars = chars.reverse();
-  for (let i = 0, len = reverse_chars.length; i < len; i += 1) {
-    let char = reverse_chars[i];
-    // pass if it's punctuation
-    if (is_char_punctuation(char)) {
-      continue; // eslint-disable-line no-continue
+pub fn strip_okurigana(input: &str, all: bool) -> String {
+    if input.is_empty() || !is_japanese(input) || is_kana(input) {
+        return input.to_string();
     }
-    // blank out if not kanji
-    if (!is_kanji(char)) {
-      reverse_chars[i] = '';
-    } else {
-      break; // stop when we hit a kanji char
-    }
-  }
 
-  return reverse_chars.reverse().join('');
+    if all {
+        return input
+            .chars()
+            .filter(|char| !is_char_kana(*char))
+            .into_iter()
+            .collect();
+    }
+
+    // strip trailing only
+    let mut reverse_chars = input.chars().rev().collect::<Vec<char>>();
+
+    let mut i = 0;
+    while i != reverse_chars.len() {
+        let char = reverse_chars[i];
+        if is_char_punctuation(char) {
+            i += 1;
+            continue;
+        }
+
+        if !is_kanji(&char.to_string()) {
+            reverse_chars.remove(i);
+        } else {
+            break; // stop when we hit a kanji char
+        }
+    }
+
+    return reverse_chars.into_iter().rev().collect();
 }
 
-
+#[test]
+fn check_to_strip_okurigana() {
+    assert_eq!(strip_okurigana("踏み込む", false), "踏み込");
+    assert_eq!(strip_okurigana("粘り。", true), "粘。");
+    assert_eq!(strip_okurigana("お祝い", false), "お祝");
+    assert_eq!(strip_okurigana("踏み込む", true), "踏込");
+    assert_eq!(strip_okurigana("お祝い", true), "祝");
+}

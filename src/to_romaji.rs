@@ -16,7 +16,10 @@ use std;
  * to_romaji('ひらがな　カタカナ', { upcase_katakana: true })
  * // => 'hiragana KATAKANA'
  */
-pub fn to_romaji(kana: &str, options: Options) -> String {
+pub fn to_romaji(kana: &str) -> String {
+  to_romaji_with_opt(kana, Options::default())
+}
+pub fn to_romaji_with_opt(kana: &str, options: Options) -> String {
     let config = options;
     let len = kana.chars().count();
     // Final output array
@@ -74,11 +77,11 @@ pub fn to_romaji(kana: &str, options: Options) -> String {
 #[test]
 fn check_to_to_romaji() {
     assert_eq!(
-        to_romaji("ひらがな　カタカナ", Options::default()),
+        to_romaji("ひらがな　カタカナ"),
         "hiragana katakana"
     );
     assert_eq!(
-        to_romaji(
+        to_romaji_with_opt(
             "ひらがな　カタカナ",
             Options {
                 upcase_katakana: true,

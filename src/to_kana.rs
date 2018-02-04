@@ -30,12 +30,11 @@ use std::borrow::Cow;
  * to_kana('we', { use_obsolete_kana: true })
  * // => 'ゑ'
  */
-pub fn to_kana(input: &str, options: Options) -> String {
-    // just throw away the substring index information and just concatenate all the kana
-    // return split_into_kana(input, options)
-    // .iter()
-    //   .map(|kana_token| kana_token[2])
-    //   .into_iter().collect()
+pub fn to_kana(input: &str) -> String {
+    to_kana_with_opt(input, Options::default())
+}
+
+pub fn to_kana_with_opt(input: &str, options: Options) -> String {
     split_into_kana(input, options)
 }
 
@@ -149,7 +148,8 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
                 .nth(cursor + 1)
                 .unwrap()
                 .to_string()
-                .to_lowercase() == "y" && is_char_vowel(input.chars().nth(cursor + 2).unwrap()) == false || cursor == len - 1 || is_kana(&input.chars().nth(cursor + 1).unwrap().to_string())
+                .to_lowercase() == "y" && is_char_vowel(input.chars().nth(cursor + 2).unwrap()) == false || cursor == len - 1
+                || is_kana(&input.chars().nth(cursor + 1).unwrap().to_string())
             {
                 // Don't transliterate this yet.
                 kana_char = Cow::from(chunk.chars().nth(0).unwrap().to_string());
@@ -171,23 +171,23 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
 
 #[test]
 fn check_to_kana() {
-    assert_eq!(to_kana("o", Options::default()), "お");
-    assert_eq!(to_kana("ona", Options::default()), "おな");
-    assert_eq!(to_kana("onaji", Options::default()), "おなじ");
+    assert_eq!(to_kana_with_opt("o", Options::default()), "お");
+    assert_eq!(to_kana_with_opt("ona", Options::default()), "おな");
+    assert_eq!(to_kana_with_opt("onaji", Options::default()), "おなじ");
     assert_eq!(
-        to_kana("onaji BUTTSUUJI", Options::default()),
+        to_kana_with_opt("onaji BUTTSUUJI", Options::default()),
         "おなじ ブッツウジ"
     );
     assert_eq!(
-        to_kana("ONAJI buttsuuji", Options::default()),
+        to_kana_with_opt("ONAJI buttsuuji", Options::default()),
         "オナジ ぶっつうじ"
     );
     assert_eq!(
-        to_kana("座禅‘zazen’スタイル", Options::default()),
+        to_kana_with_opt("座禅‘zazen’スタイル", Options::default()),
         "座禅「ざぜん」スタイル"
     );
     assert_eq!(
-        to_kana(
+        to_kana_with_opt(
             "batsuge-mu",
             Options {
                 use_obsolete_kana: true,
@@ -197,12 +197,12 @@ fn check_to_kana() {
         "ばつげーむ"
     );
     assert_eq!(
-        to_kana("!?./,~-‘’“”[](){}", Options::default()),
+        to_kana_with_opt("!?./,~-‘’“”[](){}", Options::default()),
         "！？。・、〜ー「」『』［］（）｛｝"
     );
-    // assert_eq!(to_kana(":", Options::default()), "：");
+    // assert_eq!(to_kana_with_opt(":", Options::default()), "：");
     assert_eq!(
-        to_kana(
+        to_kana_with_opt(
             "we",
             Options {
                 use_obsolete_kana: true,

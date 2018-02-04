@@ -1,4 +1,4 @@
 comment_width = 140
 max_width = 140
-use_field_init_shorthand= true
-indent_style = "Visual"
+combine_control_expr = false
+fn_args_density = "Compressed"
