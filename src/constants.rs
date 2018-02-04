@@ -461,7 +461,7 @@ pub const FROM_ROMAJI: phf::Map<&'static str, &'static str> = phf_map! {
   "xwa" => "ゎ",
   "n" => "ん",
   "nn" => "ん",
-  "n\"" => "ん", // n" should equal single ん
+  "n'" => "ん", // n" should equal single ん
   "n " => "ん", // n + space
   "xn" => "ん",
   "ltsu" => "っ",  // 4 character code
@@ -704,12 +704,12 @@ pub static TO_ROMAJI: phf::Map<&'static str, &'static str> = phf_map! {
   "ゎ" => "wa",
 
   // Ambiguous consonant vowel pairs
-  "んあ" => "n\"a",
-  "んい" => "n\"i",
-  "んう" => "n\"u",
-  "んえ" => "n\"e",
-  "んお" => "n\"o",
-  "んや" => "n\"ya",
-  "んゆ" => "n\"yu",
-  "んよ" => "n\"yo",
+  "んあ" => "n'a",
+  "んい" => "n'i",
+  "んう" => "n'u",
+  "んえ" => "n'e",
+  "んお" => "n'o",
+  "んや" => "n'ya",
+  "んゆ" => "n'yu",
+  "んよ" => "n'yo",
 };

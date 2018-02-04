@@ -18,7 +18,10 @@ use options::Options;
  * to_hiragana('wi', { use_obsolete_kana: true })
  * // => 'ゐ'
 */
-pub fn to_hiragana(input: &str, options: Options) -> String {
+pub fn to_hiragana(input: &str) -> String {
+    to_hiragana_with_opt(input, Options::default())
+}
+pub fn to_hiragana_with_opt(input: &str, options: Options) -> String {
     let config = options;
     if config.pass_romaji {
         return katakana_to_hiragana(input);
@@ -36,11 +39,11 @@ pub fn to_hiragana(input: &str, options: Options) -> String {
 #[test]
 fn check_to_hiragana() {
     assert_eq!(
-        to_hiragana("toukyou,オオサカ", Options::default()),
+        to_hiragana("toukyou,オオサカ"),
         "とうきょう、おおさか"
     );
     assert_eq!(
-        to_hiragana(
+        to_hiragana_with_opt(
             "only かな",
             Options {
                 pass_romaji: true,
@@ -49,9 +52,9 @@ fn check_to_hiragana() {
         ),
         "only かな"
     );
-    assert_eq!(to_hiragana("wi", Options::default()), "うぃ");
+    assert_eq!(to_hiragana("wi"), "うぃ");
     assert_eq!(
-        to_hiragana(
+        to_hiragana_with_opt(
             "wi",
             Options {
                 use_obsolete_kana: true,

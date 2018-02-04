@@ -19,7 +19,10 @@ use options::Options;
  * to_katakana('wi', { use_obsolete_kana: true })
  * // => 'ヰ'
 */
-pub fn to_katakana(input: &str, options: Options) -> String {
+pub fn to_katakana(input: &str) -> String {
+    to_katakana_with_opt(input, Options::default())
+}
+pub fn to_katakana_with_opt(input: &str, options: Options) -> String {
     let config = options;
     if config.pass_romaji {
         return hiragana_to_katakana(input);
@@ -34,11 +37,11 @@ pub fn to_katakana(input: &str, options: Options) -> String {
 #[test]
 fn check_to_katakana() {
     assert_eq!(
-        to_katakana("toukyou,おおさか", Options::default()),
+        to_katakana("toukyou,おおさか"),
         "トウキョウ、オオサカ"
     );
     assert_eq!(
-        to_katakana(
+        to_katakana_with_opt(
             "only かな",
             Options {
                 pass_romaji: true,
@@ -47,9 +50,9 @@ fn check_to_katakana() {
         ),
         "only カナ"
     );
-    assert_eq!(to_katakana("wi", Options::default()), "ウィ");
+    assert_eq!(to_katakana("wi"), "ウィ");
     assert_eq!(
-        to_katakana(
+        to_katakana_with_opt(
             "wi",
             Options {
                 use_obsolete_kana: true,

@@ -27,7 +27,6 @@ pub fn to_romaji_with_opt(kana: &str, options: Options) -> String {
     // Position in the string that is being evaluated
     let mut cursor = 0;
     let max_chunk = 2;
-    // let mut chunk_size = 2;
     let mut chunk = "".to_string();
     let mut roma_char = "".to_string();
     let mut next_char_is_double_consonant = false;
@@ -47,8 +46,6 @@ pub fn to_romaji_with_opt(kana: &str, options: Options) -> String {
                 roma_char = "".to_string();
                 break;
             }
-
-            // roma_char = TO_ROMAJI[&chunk as &str].to_string();
             if let Some(char) = TO_ROMAJI.get(&chunk as &str) {
                 roma_char = char.to_string();
                 if next_char_is_double_consonant {

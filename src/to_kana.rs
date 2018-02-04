@@ -50,7 +50,6 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
     // let mut chunk_size = 3;
     let mut chunk = "".to_string();
     let mut chunk_lc = "".to_string();
-
     // Steps through the string pulling out chunks of characters. Each chunk will be evaluated
     // against the romaji to kana table. If there is no match, the last character in the chunk
     // is dropped and the chunk is reevaluated. If nothing matches, the character is assumed
@@ -95,11 +94,11 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
                 }
 
                 // Handle case of double consonants
-                if lc != 'n' && is_char_consonant(lc, true) && c == chunk.chars().nth(1).unwrap() {
+                if lc != 'n' && is_char_consonant(lc, true) && Some(c) == chunk.chars().nth(1) {
                     chunk_size = 1;
                     // Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
                     if is_char_in_range(
-                        chunk.chars().nth(0).unwrap(),
+                        c,
                         UPPERCASE_START,
                         UPPERCASE_END,
                     ) {
@@ -142,7 +141,7 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
             };
         }
 
-        if !!config.imemode && chunk_lc.chars().nth(0).unwrap() == 'n' {
+        if config.imemode && chunk_lc.chars().nth(0).unwrap() == 'n' {
             if input
                 .chars()
                 .nth(cursor + 1)
