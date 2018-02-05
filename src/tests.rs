@@ -13,7 +13,7 @@ mod tests {
     use to_romaji::*;
     use strip_okurigana::*;
     use tokenize::*;
-    use options::*;
+    use Options;
 
     describe! methods_should_return_valid_defaults_when_given_no_input {
         it "is_kana() with no input" {
@@ -658,14 +658,14 @@ mod tests {
         }
     }
 
-    ///Simulate real typing by calling the function on every character in sequence
-///
-    ///@param  {String} input
-///
-    ///@param  {Object} options
-///
-    
-///
+    /// Simulate real typing by calling the function on every character in sequence
+    ///
+    /// @param  {String} input
+    ///
+    /// @param  {Object} options
+    ///
+
+    ///
     fn test_typing(input: &str, options: Options) -> String {
         let mut pos = 1;
         let mut text = input.to_string();

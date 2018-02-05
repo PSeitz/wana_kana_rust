@@ -1,34 +1,17 @@
+
+//! Test if all chars of `input` are [Kana](https://en.wikipedia.org/wiki/Kana) ([Katakana](https://en.wikipedia.org/wiki/Katakana) and/or [Hiragana](https://en.wikipedia.org/wiki/Hiragana))
+//!
+//! # Examples
+//! ```
+//! use wana_kana::is_kana::*;
+//! assert_eq!(is_kana("あ"), true);
+//! assert_eq!(is_kana("ア"), true);
+//! assert_eq!(is_kana("あーア"), true);
+//! assert_eq!(is_kana("A"), false);
+//! assert_eq!(is_kana("あAア"), false);
+//! ```
+
 use utils::is_char_kana::*;
-
-
-///Test if `input` is [Kana](https://en.wikipedia.org/wiki/Kana) ([Katakana](https://en.wikipedia.org/wiki/Katakana) and/or [Hiragana](https://en.wikipedia.org/wiki/Hiragana))
-///
-///@param  {String} [input=''] text
-///
-/// # Examples
-///
-///
-///
-///is_kana('あ')
-///
-/// => true
-///
-///is_kana('ア')
-///
-/// => true
-///
-///is_kana('あーア')
-///
-/// => true
-///
-///is_kana('A')
-///
-/// => false
-///
-///is_kana('あAア')
-///
-/// => false
-///
 
 pub fn is_kana(input: &str) -> bool {
     if input.is_empty() {
@@ -37,11 +20,3 @@ pub fn is_kana(input: &str) -> bool {
     return input.chars().all(is_char_kana);
 }
 
-#[test]
-fn check_is_kana() {
-    assert_eq!(is_kana("あ"), true);
-    assert_eq!(is_kana("ア"), true);
-    assert_eq!(is_kana("あーア"), true);
-    assert_eq!(is_kana("A"), false);
-    assert_eq!(is_kana("あAア"), false);
-}

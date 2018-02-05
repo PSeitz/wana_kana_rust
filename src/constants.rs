@@ -1,56 +1,5 @@
 use phf;
 
-
-///@typedef {Object} DefaultOptions
-///
-///@property {Boolean} [use_obsolete_kana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
-///
-/// # Examples
-///
-///
-///to_hiragana('we', { use_obsolete_kana: true })
-///
-/// => 'ゑ'
-///
-///@property {Boolean} [pass_romaji=false] - Set to true to pass romaji when using mixed syllabaries with to_katakana() or to_hiragana()
-///
-/// # Examples
-///
-///
-///
-///to_hiragana('only convert the katakana: ヒラガナ', { pass_romaji: true })
-///
-/// => "only convert the katakana: ひらがな"
-///
-///@property {Boolean} [upcase_katakana=false] - Set to true to convert katakana to uppercase using to_romaji()
-///
-/// # Examples
-///
-///
-///
-///to_romaji('ひらがな カタカナ', { upcase_katakana: true })
-///
-/// => "hiragana KATAKANA"
-///
-///@property {Boolean} [imemode=false] - Set to true, 'to_hiragana', or 'to_katakana' to handle conversion from a text input while it is being typed
-///
-
-
-// 
-// ///Default config for WanaKana, user passed options will be merged with this
-///
-// ///@type {DefaultOptions}
-///
-// ///@ignore
-///
-//  */
-// export const DEFAULT_OPTIONS = {
-//   use_obsolete_kana: false,
-//   pass_romaji: false,
-//   upcase_katakana: false,
-//   imemode: false,
-// };
-
 // CharCode References
 // http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
 // http://unicode-table.com
@@ -83,11 +32,6 @@ pub const SMART_QUOTE_RANGES: [[u32; 2]; 2] = [
     [0x201C, 0x201D], // “ ”
 ];
 
-pub const SMART_QUOTE_RANGES2: [[u32; 2]; 2] = [
-    KATAKANA_PUNCTUATION, // ‘ ’
-    [0x201C, 0x201D],     // “ ”
-];
-
 // // pub const FULL_LATIN_RANGES = [
 // //   [0x0001-0x007F],
 // //   [0x0080-0x00FF],
@@ -115,36 +59,19 @@ pub const KANA_RANGES: [[u32; 2]; 4] = [
 ];
 
 lazy_static! {
-  // *
-  // ///All Japanese unicode start and end ranges
-///
-  // ///Includes full-width punctuation and number ranges.
-///
-  // ///Incudes latin numbers since they are used in Japanese text as well.
-///
-  // ///@type {Array}
-///
-  // ///@ignore
-///
-
+    /// All Japanese unicode start and end ranges
+    /// Includes full-width punctuation and number ranges.
+    /// Incudes latin numbers since they are used in Japanese text as well.
     pub static ref JAPANESE_RANGES: Vec<[u32; 2]> = {
         let mut m = vec![LATIN_NUMBERS, ZENKAKU_NUMBERS, COMMON_CJK, RARE_CJK,];
         m.extend(&KANA_RANGES);
         m.extend(&JA_PUNCTUATION_RANGES);
         m
     };
-    // 
-    ///Basic Latin unicode regex, for determining Romaji + Hepburn romanisation
-///
-    ///Includes upper/lowercase long vowels like "ā, ī, ū, ē, ō"
-///
-    ///Includes smart quotes ‘’ “”
-///
-    ///@type {Array}
-///
-    ///@ignore
-///
-    // */
+
+    /// Basic Latin unicode regex, for determining Romaji + Hepburn romanisation
+    /// Includes upper/lowercase long vowels like "ā, ī, ū, ē, ō"
+    /// Includes smart quotes ‘’ “”
     pub static ref ROMAJI_RANGES: Vec<[u32; 2]> = {
         let mut m = vec![MODERN_ENGLISH,];
         m.extend(&HEPBURN_MACRON_RANGES);
@@ -159,20 +86,12 @@ lazy_static! {
 
 }
 
-pub const LOWERCASE_START: u32 = 0x61;
-pub const LOWERCASE_END: u32 = 0x7A;
 pub const UPPERCASE_START: u32 = 0x41;
 pub const UPPERCASE_END: u32 = 0x5A;
-pub const LOWERCASE_FULLWIDTH_START: u32 = 0xFF41;
-pub const LOWERCASE_FULLWIDTH_END: u32 = 0xFF5A;
-pub const UPPERCASE_FULLWIDTH_START: u32 = 0xFF21;
-pub const UPPERCASE_FULLWIDTH_END: u32 = 0xFF3A;
 pub const HIRAGANA_START: u32 = 0x3041;
 pub const HIRAGANA_END: u32 = 0x3096;
 pub const KATAKANA_START: u32 = 0x30A1;
 pub const KATAKANA_END: u32 = 0x30FC;
-// export const KANJI_START = 0x4E00;
-// export const KANJI_END = 0x9FAF;
 pub const PROLONGED_SOUND_MARK: u32 = 0x30FC;
 pub const KANA_SLASH_DOT: u32 = 0x30FB;
 

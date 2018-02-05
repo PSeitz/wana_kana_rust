@@ -1,3 +1,18 @@
+//!
+//! ### ワナカナ <--> WanaKana <--> わなかな
+//!
+//! Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana)
+//! # Examples
+//! ```
+//! use wana_kana::to_romaji::*;
+//! use wana_kana::to_kana::*;
+//! use wana_kana::to_hiragana::*;
+//! use wana_kana::Options;
+//! assert_eq!(to_romaji("ワナカナ"), "wanakana");
+//! assert_eq!(to_hiragana("WanaKana"), "わなかな");
+//! assert_eq!(to_kana("WANAKANA"), "ワナカナ");
+//! ```
+
 #![feature(plugin)]
 #![plugin(phf_macros)]
 #![feature(slice_patterns)]
@@ -29,14 +44,15 @@ pub mod to_romaji;
 pub mod strip_okurigana;
 pub mod tokenize;
 
-pub mod utils;
-pub mod options;
+mod utils;
+mod options;
 mod constants;
+
+pub use options::Options;
 
 
 #[cfg(test)]
 mod tests;
-
 
 #[bench]
 fn bench_kana_1(b: &mut test::Bencher) {

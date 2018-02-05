@@ -4,23 +4,21 @@ use utils::is_char_slash_dot::*;
 use utils::is_char_katakana::*;
 use std;
 
-///Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
+/// Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
 ///
-///Passes through any non-katakana chars
+/// Passes through any non-katakana chars
 ///
-///@param  {String} [input=''] text input
+/// @param  {String} [input=''] text input
 ///
 /// # Examples
 ///
-///katakana_to_hiragana('カタカナ')
+/// katakana_to_hiragana('カタカナ')
 ///
-/// => "かたかな"
+/// // => "かたかな"
 ///
-///katakana_to_hiragana('カタカナ is a type of kana')
+/// katakana_to_hiragana('カタカナ is a type of kana')
 ///
-/// => "かたかな is a type of kana"
-///
-///@ignore
+/// // => "かたかな is a type of kana"
 ///
 
 pub fn katakana_to_hiragana(input: &str) -> String {

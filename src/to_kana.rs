@@ -1,3 +1,20 @@
+//! Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
+//!
+//! # Examples
+//! ```
+//! use wana_kana::to_kana::*;
+//! use wana_kana::Options;
+//! assert_eq!(to_kana_with_opt("o", Options::default()), "お");
+//! assert_eq!(to_kana_with_opt("ona", Options::default()), "おな");
+//! assert_eq!(to_kana_with_opt("onaji", Options::default()), "おなじ");
+//! assert_eq!(to_kana_with_opt("onaji BUTTSUUJI", Options::default()), "おなじ ブッツウジ");
+//! assert_eq!(to_kana_with_opt("ONAJI buttsuuji", Options::default()), "オナジ ぶっつうじ");
+//! assert_eq!(to_kana_with_opt("座禅‘zazen’スタイル", Options::default()), "座禅「ざぜん」スタイル");
+//! assert_eq!(to_kana_with_opt("batsuge-mu", Options {use_obsolete_kana: true, ..Default::default() } ), "ばつげーむ");
+//! assert_eq!(to_kana_with_opt("!?./,~-‘’“”[](){}", Options::default()), "！？。・、〜ー「」『』［］（）｛｝");
+//! assert_eq!(to_kana_with_opt("we", Options {use_obsolete_kana: true, ..Default::default() } ), "ゑ");
+//! ```
+
 use constants::{FOUR_CHAR_EDGECASES, FROM_ROMAJI, UPPERCASE_END, UPPERCASE_START};
 
 use utils::is_char_in_range::*;
@@ -12,38 +29,6 @@ use std;
 use std::borrow::Cow;
 
 
-///Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
-///
-///@param  {String} [input=''] text
-///
-///@param  {DefaultOptions} [options=default_options]
-///
-/// # Examples
-///
-///to_kana('onaji BUTTSUUJI')
-///
-/// => 'おなじ ブッツウジ'
-///
-///to_kana('ONAJI buttsuuji')
-///
-/// => 'オナジ ぶっつうじ'
-///
-///to_kana('座禅‘zazen’スタイル')
-///
-/// => '座禅「ざぜん」スタイル'
-///
-///to_kana('batsuge-mu')
-///
-/// => 'ばつげーむ'
-///
-///to_kana('!?.:/,~-‘’“”[](){}') // Punctuation conversion
-///
-/// => '！？。：・、〜ー「」『』［］（）｛｝'
-///
-///to_kana('we', { use_obsolete_kana: true })
-///
-/// => 'ゑ'
-///
 
 pub fn to_kana(input: &str) -> String {
     to_kana_with_opt(input, Options::default())
@@ -56,7 +41,6 @@ fn lower_cow<'a>(text: &Cow<'a, str>) -> Cow<'a, str> {
         Cow::from(text.to_lowercase())
     }
 }
-
 
 pub fn to_kana_with_opt(input: &str, options: Options) -> String {
     let config = options;
@@ -89,7 +73,7 @@ pub fn to_kana_with_opt(input: &str, options: Options) -> String {
                 if lc == 'n' {
                     if chunk_size == 2 {
                         // Handle edge case of n followed by a space (only if not in IME mode)
-                        if !config.imemode && chunk_lc.chars().nth(1).map(|c|c == ' ').unwrap_or(false) {
+                        if !config.imemode && chunk_lc.chars().nth(1).map(|c| c == ' ').unwrap_or(false) {
                             kana_char = Cow::from("ん ");
                             break;
                         }
@@ -179,7 +163,12 @@ pub fn to_kana_with_opt(input: &str, options: Options) -> String {
         }
 
         // Use katakana if first letter in chunk is uppercase
-        if chunk.chars().nth(0).map(|c| is_char_upper_case(c)).unwrap_or(false) {
+        if chunk
+            .chars()
+            .nth(0)
+            .map(|c| is_char_upper_case(c))
+            .unwrap_or(false)
+        {
             kana_char = Cow::from(hiragana_to_katakana(&kana_char));
         }
 
@@ -190,46 +179,3 @@ pub fn to_kana_with_opt(input: &str, options: Options) -> String {
     return kana;
 }
 
-#[test]
-fn check_to_kana() {
-    assert_eq!(to_kana_with_opt("o", Options::default()), "お");
-    assert_eq!(to_kana_with_opt("ona", Options::default()), "おな");
-    assert_eq!(to_kana_with_opt("onaji", Options::default()), "おなじ");
-    assert_eq!(
-        to_kana_with_opt("onaji BUTTSUUJI", Options::default()),
-        "おなじ ブッツウジ"
-    );
-    assert_eq!(
-        to_kana_with_opt("ONAJI buttsuuji", Options::default()),
-        "オナジ ぶっつうじ"
-    );
-    assert_eq!(
-        to_kana_with_opt("座禅‘zazen’スタイル", Options::default()),
-        "座禅「ざぜん」スタイル"
-    );
-    assert_eq!(
-        to_kana_with_opt(
-            "batsuge-mu",
-            Options {
-                use_obsolete_kana: true,
-                ..Default::default()
-            }
-        ),
-        "ばつげーむ"
-    );
-    assert_eq!(
-        to_kana_with_opt("!?./,~-‘’“”[](){}", Options::default()),
-        "！？。・、〜ー「」『』［］（）｛｝"
-    );
-    // assert_eq!(to_kana_with_opt(":", Options::default()), "：");
-    assert_eq!(
-        to_kana_with_opt(
-            "we",
-            Options {
-                use_obsolete_kana: true,
-                ..Default::default()
-            }
-        ),
-        "ゑ"
-    );
-}

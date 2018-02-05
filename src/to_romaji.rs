@@ -1,3 +1,13 @@
+//! Convert kana to romaji
+//!
+//! # Examples
+//! ```
+//! use wana_kana::to_romaji::*;
+//! use wana_kana::Options;
+//! assert_eq!(to_romaji("ひらがな　カタカナ"), "hiragana katakana");
+//! assert_eq!(to_romaji_with_opt("ひらがな　カタカナ", Options {upcase_katakana: true, ..Default::default() } ), "hiragana KATAKANA");
+//! ```
+
 use constants::TO_ROMAJI;
 
 use utils::get_chunk::*;
@@ -6,23 +16,6 @@ use is_katakana::*;
 use options::Options;
 use std;
 use std::borrow::Cow;
-
-///Convert kana to romaji
-///
-///@param  {String} kana text input
-///
-///@param  {DefaultOptions} [options=default_options]
-///
-/// # Examples
-///
-///to_romaji('ひらがな　カタカナ')
-///
-/// => 'hiragana katakana'
-///
-///to_romaji('ひらがな　カタカナ', { upcase_katakana: true })
-///
-/// => 'hiragana KATAKANA'
-///
 
 pub fn to_romaji(kana: &str) -> String {
     to_romaji_with_opt(kana, Options::default())
@@ -79,20 +72,3 @@ pub fn to_romaji_with_opt(kana: &str, options: Options) -> String {
     roma
 }
 
-#[test]
-fn check_to_to_romaji() {
-    assert_eq!(
-        to_romaji("ひらがな　カタカナ"),
-        "hiragana katakana"
-    );
-    assert_eq!(
-        to_romaji_with_opt(
-            "ひらがな　カタカナ",
-            Options {
-                upcase_katakana: true,
-                ..Default::default()
-            }
-        ),
-        "hiragana KATAKANA"
-    );
-}

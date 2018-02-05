@@ -1,9 +1,8 @@
 use constants::KANA_SLASH_DOT;
 
-
-///Tests if char is '・'
+/// Tests if char is '・'
 ///
-///@param  {String} char
+/// @param  {String} char
 ///
 
 pub fn is_char_slash_dot(char: char) -> bool {

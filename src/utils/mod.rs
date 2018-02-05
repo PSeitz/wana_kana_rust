@@ -1,4 +1,4 @@
-// pub mod convert_fullwidth_chars_to_a_s_c_i_i;
+pub mod convert_fullwidth_chars_to_ascii;
 pub mod get_chunk;
 pub mod hiragana_to_katakana;
 pub mod is_char_consonant;

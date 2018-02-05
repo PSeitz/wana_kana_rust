@@ -1,11 +1,10 @@
-
-///Takes a character and a unicode range. Returns true if the char is in the range.
+/// Takes a character and a unicode range. Returns true if the char is in the range.
 ///
-///@param  {String}  char  unicode character
+/// @param  {String}  char  unicode character
 ///
-///@param  {Number}  start unicode start range
+/// @param  {Number}  start unicode start range
 ///
-///@param  {Number}  end   unicode end range
+/// @param  {Number}  end   unicode end range
 ///
 
 #[inline]
