@@ -32,7 +32,6 @@ pub fn katakana_to_hiragana(input: &str) -> String {
                     hira.push(*hit);
                 }
             }
-            
         } else if !long_dash && is_char_katakana(char) {
             // Shift charcode.
             let code = char as i32 + (HIRAGANA_START as i32 - KATAKANA_START as i32) as i32;

@@ -34,43 +34,47 @@ pub fn to_kana(input: &str) -> String {
     to_kana_with_opt(input, Options::default())
 }
 
-pub fn to_kana_with_opt(input: &str, options: Options) -> String {
-    split_into_kana(input, options)
+fn lower_cow<'a>(text: &Cow<'a, str>) -> Cow<'a, str> {
+    if text.chars().all(char::is_lowercase) {
+        text.clone()
+    } else {
+        Cow::from(text.to_lowercase())
+    }
 }
 
-pub fn split_into_kana(input: &str, options: Options) -> String {
+
+pub fn to_kana_with_opt(input: &str, options: Options) -> String {
     let config = options;
     // Final output array containing arrays [start index of the translitterated substring, end index, kana]
-    let mut kana = String::new();
+    let mut kana = String::with_capacity(input.len());
     // Position in the string that is being evaluated
     let mut cursor = 0;
     let len = input.chars().count();
-    // let chars:Vec<char> = input.chars().collect();
     let max_chunk = 3;
     // let mut chunk_size = 3;
-    let mut chunk = "".to_string();
-    let mut chunk_lc = "".to_string();
     // Steps through the string pulling out chunks of characters. Each chunk will be evaluated
     // against the romaji to kana table. If there is no match, the last character in the chunk
     // is dropped and the chunk is reevaluated. If nothing matches, the character is assumed
     // to be invalid or punctuation or other and gets passed through.
     while cursor < len {
-        let mut kana_char = Cow::from("".to_string());
+        let mut chunk = Cow::from("");
+        let mut chunk_lc = Cow::from("");
+        let mut kana_char = Cow::from("");
         let mut chunk_size = std::cmp::min(max_chunk, len - cursor);
         while chunk_size > 0 {
-            chunk = get_chunk(input, cursor, cursor + chunk_size);
-            chunk_lc = chunk.to_lowercase();
+            chunk = Cow::from(get_chunk(input, cursor, cursor + chunk_size));
+            chunk_lc = lower_cow(&chunk);
             // Handle super-rare edge cases with 4 char chunks (like ltsu, chya, shya)
             if FOUR_CHAR_EDGECASES.contains(&(&chunk_lc as &str)) && len - cursor >= 4 {
                 chunk_size += 1;
-                chunk = get_chunk(input, cursor, cursor + chunk_size);
-                chunk_lc = chunk.to_lowercase();
+                chunk = Cow::from(get_chunk(input, cursor, cursor + chunk_size));
+                chunk_lc = lower_cow(&chunk);
             } else if let (Some(lc), Some(c)) = (chunk_lc.chars().nth(0), chunk.chars().nth(0)) {
                 // Handle edge case of n followed by consonant
                 if lc == 'n' {
                     if chunk_size == 2 {
                         // Handle edge case of n followed by a space (only if not in IME mode)
-                        if !config.imemode && chunk_lc.chars().nth(1).unwrap() == ' ' {
+                        if !config.imemode && chunk_lc.chars().nth(1).map(|c|c == ' ').unwrap_or(false) {
                             kana_char = Cow::from("ん ");
                             break;
                         }
@@ -88,8 +92,8 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
                         .unwrap_or(false) && chunk_lc.chars().nth(2).map(is_char_vowel).unwrap_or(false)
                     {
                         chunk_size = 1;
-                        chunk = get_chunk(input, cursor, cursor + chunk_size);
-                        chunk_lc = chunk.to_lowercase();
+                        chunk = Cow::from(get_chunk(input, cursor, cursor + chunk_size));
+                        chunk_lc = lower_cow(&chunk);
                     }
                 }
 
@@ -97,16 +101,12 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
                 if lc != 'n' && is_char_consonant(lc, true) && Some(c) == chunk.chars().nth(1) {
                     chunk_size = 1;
                     // Return katakana ッ if chunk is uppercase, otherwise return hiragana っ
-                    if is_char_in_range(
-                        c,
-                        UPPERCASE_START,
-                        UPPERCASE_END,
-                    ) {
-                        chunk_lc = "ッ".to_string();
-                        chunk = "ッ".to_string();
+                    if is_char_in_range(c, UPPERCASE_START, UPPERCASE_END) {
+                        chunk_lc = Cow::from("ッ");
+                        chunk = Cow::from("ッ");
                     } else {
-                        chunk_lc = "っ".to_string();
-                        chunk = "っ".to_string();
+                        chunk_lc = Cow::from("っ");
+                        chunk = Cow::from("っ");
                     }
                 }
             }
@@ -128,7 +128,7 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
 
         // Passthrough undefined values
         if kana_char == "" {
-            kana_char = Cow::from(&chunk as &str);
+            kana_char = chunk.clone();
         }
 
         // Handle special cases.
@@ -141,14 +141,22 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
             };
         }
 
-        if config.imemode && chunk_lc.chars().nth(0).unwrap() == 'n' {
+        if config.imemode && chunk_lc.chars().nth(0).map(|c| c == 'n').unwrap_or(false) {
             if input
                 .chars()
                 .nth(cursor + 1)
-                .unwrap()
-                .to_string()
-                .to_lowercase() == "y" && is_char_vowel(input.chars().nth(cursor + 2).unwrap()) == false || cursor == len - 1
-                || is_kana(&input.chars().nth(cursor + 1).unwrap().to_string())
+                .map(|c| c.to_string().to_lowercase() == "y")
+                .unwrap_or(false)
+                && input
+                    .chars()
+                    .nth(cursor + 2)
+                    .map(|c| !is_char_vowel(c))
+                    .unwrap_or(true) || cursor == len - 1
+                || input
+                    .chars()
+                    .nth(cursor + 1)
+                    .map(|c| is_kana(&c.to_string()))
+                    .unwrap_or(false)
             {
                 // Don't transliterate this yet.
                 kana_char = Cow::from(chunk.chars().nth(0).unwrap().to_string());
@@ -156,12 +164,11 @@ pub fn split_into_kana(input: &str, options: Options) -> String {
         }
 
         // Use katakana if first letter in chunk is uppercase
-        if is_char_upper_case(chunk.chars().nth(0).unwrap()) {
+        if chunk.chars().nth(0).map(|c| is_char_upper_case(c)).unwrap_or(false) {
             kana_char = Cow::from(hiragana_to_katakana(&kana_char));
         }
 
         cursor += std::cmp::max(chunk_size, 1);
-        // kana.push([cursor, next_cursor, kana_char]);
 
         kana.push_str(&kana_char);
     }

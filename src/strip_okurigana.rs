@@ -21,7 +21,10 @@ use is_kanji::*;
  * strip_okurigana('お祝い', { all: true })
  * // => '祝'
  */
-pub fn strip_okurigana(input: &str, all: bool) -> String {
+pub fn strip_okurigana(input: &str) -> String {
+    strip_okurigana_all(input, false)
+}
+pub fn strip_okurigana_all(input: &str, all: bool) -> String {
     if input.is_empty() || !is_japanese(input) || is_kana(input) {
         return input.to_string();
     }
@@ -57,9 +60,9 @@ pub fn strip_okurigana(input: &str, all: bool) -> String {
 
 #[test]
 fn check_to_strip_okurigana() {
-    assert_eq!(strip_okurigana("踏み込む", false), "踏み込");
-    assert_eq!(strip_okurigana("粘り。", true), "粘。");
-    assert_eq!(strip_okurigana("お祝い", false), "お祝");
-    assert_eq!(strip_okurigana("踏み込む", true), "踏込");
-    assert_eq!(strip_okurigana("お祝い", true), "祝");
+    assert_eq!(strip_okurigana_all("踏み込む", false), "踏み込");
+    assert_eq!(strip_okurigana_all("粘り。", true), "粘。");
+    assert_eq!(strip_okurigana_all("お祝い", false), "お祝");
+    assert_eq!(strip_okurigana_all("踏み込む", true), "踏込");
+    assert_eq!(strip_okurigana_all("お祝い", true), "祝");
 }

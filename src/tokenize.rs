@@ -40,7 +40,7 @@ pub fn tokenize(input: &str) -> Vec<String> {
 
 #[test]
 fn check_tokenize() {
-    let empty:Vec<String> = vec![];
+    let empty: Vec<String> = vec![];
     assert_eq!(tokenize(""), empty);
     assert_eq!(tokenize("ふふフフ"), vec!["ふふ", "フフ"]);
     assert_eq!(tokenize("感じ"), vec!["感", "じ"]);
