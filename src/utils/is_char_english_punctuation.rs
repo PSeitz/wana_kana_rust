@@ -3,8 +3,9 @@ use utils::is_char_in_range::*;
 
 
 ///Tests a character. Returns true if the character is considered English punctuation.
+///
 ///@param  {String} char character string to test
-///@return {Boolean}
+///
 
 pub fn is_char_english_punctuation(char: char) -> bool {
     return EN_PUNCTUATION_RANGES

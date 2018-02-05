@@ -2,25 +2,47 @@ use phf;
 
 
 ///@typedef {Object} DefaultOptions
+///
 ///@property {Boolean} [use_obsolete_kana=false] - Set to true to use obsolete characters, such as ゐ and ゑ.
-///@example
+///
+/// # Examples
+///
+///
 ///to_hiragana('we', { use_obsolete_kana: true })
+///
 /// => 'ゑ'
+///
 ///@property {Boolean} [pass_romaji=false] - Set to true to pass romaji when using mixed syllabaries with to_katakana() or to_hiragana()
-///@example
+///
+/// # Examples
+///
+///
+///
 ///to_hiragana('only convert the katakana: ヒラガナ', { pass_romaji: true })
+///
 /// => "only convert the katakana: ひらがな"
+///
 ///@property {Boolean} [upcase_katakana=false] - Set to true to convert katakana to uppercase using to_romaji()
-///@example
+///
+/// # Examples
+///
+///
+///
 ///to_romaji('ひらがな カタカナ', { upcase_katakana: true })
+///
 /// => "hiragana KATAKANA"
+///
 ///@property {Boolean} [imemode=false] - Set to true, 'to_hiragana', or 'to_katakana' to handle conversion from a text input while it is being typed
+///
 
 
 // 
 // ///Default config for WanaKana, user passed options will be merged with this
+///
 // ///@type {DefaultOptions}
+///
 // ///@ignore
+///
 //  */
 // export const DEFAULT_OPTIONS = {
 //   use_obsolete_kana: false,
@@ -95,10 +117,15 @@ pub const KANA_RANGES: [[u32; 2]; 4] = [
 lazy_static! {
   // *
   // ///All Japanese unicode start and end ranges
+///
   // ///Includes full-width punctuation and number ranges.
+///
   // ///Incudes latin numbers since they are used in Japanese text as well.
+///
   // ///@type {Array}
+///
   // ///@ignore
+///
 
     pub static ref JAPANESE_RANGES: Vec<[u32; 2]> = {
         let mut m = vec![LATIN_NUMBERS, ZENKAKU_NUMBERS, COMMON_CJK, RARE_CJK,];
@@ -108,10 +135,15 @@ lazy_static! {
     };
     // 
     ///Basic Latin unicode regex, for determining Romaji + Hepburn romanisation
+///
     ///Includes upper/lowercase long vowels like "ā, ī, ū, ē, ō"
+///
     ///Includes smart quotes ‘’ “”
+///
     ///@type {Array}
+///
     ///@ignore
+///
     // */
     pub static ref ROMAJI_RANGES: Vec<[u32; 2]> = {
         let mut m = vec![MODERN_ENGLISH,];

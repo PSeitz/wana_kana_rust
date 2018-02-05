@@ -2,17 +2,27 @@ use utils::is_char_katakana::*;
 
 
 ///Test if `input` is [Katakana](https://en.wikipedia.org/wiki/Katakana)
+///
 ///@param  {String} [input=''] text
-///@return {Boolean} true if all [Katakana](https://en.wikipedia.org/wiki/Katakana)
-///@example
+///
+/// # Examples
+///
 ///is_katakana('ゲーム')
+///
 /// => true
+///
 ///is_katakana('あ')
+///
 /// => false
+///
 ///is_katakana('A')
+///
 /// => false
+///
 ///is_katakana('あア')
+///
 /// => false
+///
 
 pub fn is_katakana(input: &str) -> bool {
     if input.is_empty() {

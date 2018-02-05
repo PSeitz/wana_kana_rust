@@ -6,18 +6,29 @@ use options::Options;
 
 
 ///Convert input to [Katakana](https://en.wikipedia.org/wiki/Katakana)
+///
 ///@param  {String} [input=''] text
+///
 ///@param  {DefaultOptions} [options=default_options]
-///@return {String} converted text
-///@example
+///
+/// # Examples
+///
 ///to_katakana('toukyou, おおさか')
+///
 /// => 'トウキョウ、　オオサカ'
+///
 ///to_katakana('only かな', { pass_romaji: true })
+///
 /// => 'only カナ'
+///
 ///to_katakana('wi')
+///
 /// => 'ウィ'
+///
 ///to_katakana('wi', { use_obsolete_kana: true })
+///
 /// => 'ヰ'
+///
 
 pub fn to_katakana(input: &str) -> String {
     to_katakana_with_opt(input, Options::default())

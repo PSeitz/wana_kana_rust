@@ -5,15 +5,25 @@ use utils::is_char_hiragana::*;
 use std;
 
 ///Convert [Hiragana](https://en.wikipedia.org/wiki/Hiragana) to [Katakana](https://en.wikipedia.org/wiki/Katakana)
+///
 ///Passes through any non-hiragana chars
+///
 ///@param  {String} [input=''] text input
-///@return {String} converted text
-///@example
+///
+/// # Examples
+///
+///
+///
 ///hiragana_to_katakana('ひらがな')
+///
 /// => "ヒラガナ"
+///
 ///hiragana_to_katakana('ひらがな is a type of kana')
+///
 /// => "ヒラガナ is a type of kana"
+///
 ///@ignore
+///
 
 pub fn hiragana_to_katakana(input: &str) -> String {
     let mut kata = vec![];

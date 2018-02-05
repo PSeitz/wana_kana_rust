@@ -16,19 +16,31 @@ fn get_type(input: char) -> &'static str {
 
 
 ///Splits input into array of [Kanji](https://en.wikipedia.org/wiki/Kanji), [Hiragana](https://en.wikipedia.org/wiki/Hiragana),
+///
 ///[Katakana](https://en.wikipedia.org/wiki/Katakana), and [Romaji](https://en.wikipedia.org/wiki/Romaji) tokens.
+///
 ///Does not split into parts of speech!
+///
 ///@param  {String} input text
-///@return {Array} text split into tokens
-///@example
+///
+/// # Examples
+///
 ///tokenize('ふふフフ')
+///
 /// => ['ふふ', 'フフ']
+///
 ///tokenize('感じ')
+///
 /// => ['感', 'じ']
+///
 ///tokenize('私は悲しい')
+///
 /// => ['私', 'は', '悲', 'しい']
+///
 ///tokenize('what the...私は「悲しい」。')
+///
 /// => ['what the...', '私', 'は', '「', '悲', 'しい', '」。']
+///
 
 pub fn tokenize(input: &str) -> Vec<String> {
     let mut result = vec![];
