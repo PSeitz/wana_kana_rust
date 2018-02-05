@@ -658,12 +658,10 @@ mod tests {
         }
     }
 
-    /**
-     * Simulate real typing by calling the function on every character in sequence
-     * @param  {String} input
-     * @param  {Object} options
-     * @return {String} converted romaji as kana
-     */
+    ///Simulate real typing by calling the function on every character in sequence
+    ///@param  {String} input
+    ///@param  {Object} options
+    ///@return {String} converted romaji as kana
     fn test_typing(input: &str, options: Options) -> String {
         let mut pos = 1;
         let mut text = input.to_string();

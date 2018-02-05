@@ -33,8 +33,10 @@ pub mod utils;
 pub mod options;
 mod constants;
 
+
 #[cfg(test)]
 mod tests;
+
 
 #[bench]
 fn bench_kana_1(b: &mut test::Bencher) {

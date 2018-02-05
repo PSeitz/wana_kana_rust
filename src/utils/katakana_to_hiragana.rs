@@ -3,18 +3,18 @@ use utils::is_char_long_dash::*;
 use utils::is_char_slash_dot::*;
 use utils::is_char_katakana::*;
 use std;
-/**
- * Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
- * Passes through any non-katakana chars
- * @param  {String} [input=''] text input
- * @return {String} converted text
- * @example
- * katakana_to_hiragana('カタカナ')
- * // => "かたかな"
- * katakana_to_hiragana('カタカナ is a type of kana')
- * // => "かたかな is a type of kana"
- * @ignore
- */
+
+///Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
+///Passes through any non-katakana chars
+///@param  {String} [input=''] text input
+///@return {String} converted text
+///@example
+///katakana_to_hiragana('カタカナ')
+/// => "かたかな"
+///katakana_to_hiragana('カタカナ is a type of kana')
+/// => "かたかな is a type of kana"
+///@ignore
+
 pub fn katakana_to_hiragana(input: &str) -> String {
     let mut hira = vec![];
     let mut previous_kana: Option<char> = None;

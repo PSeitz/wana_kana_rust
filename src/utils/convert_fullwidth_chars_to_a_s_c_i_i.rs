@@ -3,11 +3,11 @@ use constants::{LOWERCASE_START, UPPERCASE_START, LOWERCASE_FULLWIDTH_START, LOW
 
 use utils::is_char_in_range::*;
 
-/**
- * Converts all fullwidth roman letters in string to proper ASCII
- * @param  {String} text Full Width roman letters
- * @return {String} ASCII
- */
+
+///Converts all fullwidth roman letters in string to proper ASCII
+///@param  {String} text Full Width roman letters
+///@return {String} ASCII
+
 fn convert_fullwidth_charstoascii(text = '') {
   let ascii_chars = [...text].map((char, index) => {
     let code = char as u32;

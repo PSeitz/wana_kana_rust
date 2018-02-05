@@ -1,11 +1,11 @@
 use utils::is_char_in_range::*;
 use constants::JAPANESE_RANGES;
 
-/**
- * Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).
- * @param  {String} char character string to test
- * @return {Boolean}
- */
+
+///Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).
+///@param  {String} char character string to test
+///@return {Boolean}
+
 pub fn is_char_japanese(char: char) -> bool {
     return JAPANESE_RANGES
         .iter()

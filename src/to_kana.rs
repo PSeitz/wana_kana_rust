@@ -11,25 +11,25 @@ use options::Options;
 use std;
 use std::borrow::Cow;
 
-/**
- * Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
- * @param  {String} [input=''] text
- * @param  {DefaultOptions} [options=default_options]
- * @return {String} converted text
- * @example
- * to_kana('onaji BUTTSUUJI')
- * // => 'おなじ ブッツウジ'
- * to_kana('ONAJI buttsuuji')
- * // => 'オナジ ぶっつうじ'
- * to_kana('座禅‘zazen’スタイル')
- * // => '座禅「ざぜん」スタイル'
- * to_kana('batsuge-mu')
- * // => 'ばつげーむ'
- * to_kana('!?.:/,~-‘’“”[](){}') // Punctuation conversion
- * // => '！？。：・、〜ー「」『』［］（）｛｝'
- * to_kana('we', { use_obsolete_kana: true })
- * // => 'ゑ'
- */
+
+///Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
+///@param  {String} [input=''] text
+///@param  {DefaultOptions} [options=default_options]
+///@return {String} converted text
+///@example
+///to_kana('onaji BUTTSUUJI')
+/// => 'おなじ ブッツウジ'
+///to_kana('ONAJI buttsuuji')
+/// => 'オナジ ぶっつうじ'
+///to_kana('座禅‘zazen’スタイル')
+/// => '座禅「ざぜん」スタイル'
+///to_kana('batsuge-mu')
+/// => 'ばつげーむ'
+///to_kana('!?.:/,~-‘’“”[](){}') // Punctuation conversion
+/// => '！？。：・、〜ー「」『』［］（）｛｝'
+///to_kana('we', { use_obsolete_kana: true })
+/// => 'ゑ'
+
 pub fn to_kana(input: &str) -> String {
     to_kana_with_opt(input, Options::default())
 }

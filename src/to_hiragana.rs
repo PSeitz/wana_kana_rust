@@ -3,21 +3,21 @@ use utils::romaji_to_hiragana::romaji_to_hiragana;
 use is_romaji::*;
 use is_mixed::*;
 use options::Options;
-/**
- * Convert input to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
- * @param  {String} [input=''] text
- * @param  {DefaultOptions} [options=default_options]
- * @return {String} converted text
- * @example
- * to_hiragana('toukyou, オオサカ')
- * // => 'とうきょう、　おおさか'
- * to_hiragana('only カナ', { pass_romaji: true })
- * // => 'only かな'
- * to_hiragana('wi')
- * // => 'うぃ'
- * to_hiragana('wi', { use_obsolete_kana: true })
- * // => 'ゐ'
-*/
+
+///Convert input to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
+///@param  {String} [input=''] text
+///@param  {DefaultOptions} [options=default_options]
+///@return {String} converted text
+///@example
+///to_hiragana('toukyou, オオサカ')
+/// => 'とうきょう、　おおさか'
+///to_hiragana('only カナ', { pass_romaji: true })
+/// => 'only かな'
+///to_hiragana('wi')
+/// => 'うぃ'
+///to_hiragana('wi', { use_obsolete_kana: true })
+/// => 'ゐ'
+
 pub fn to_hiragana(input: &str) -> String {
     to_hiragana_with_opt(input, Options::default())
 }

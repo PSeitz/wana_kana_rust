@@ -6,17 +6,17 @@ use is_katakana::*;
 use options::Options;
 use std;
 use std::borrow::Cow;
-/**
- * Convert kana to romaji
- * @param  {String} kana text input
- * @param  {DefaultOptions} [options=default_options]
- * @return {String} converted text
- * @example
- * to_romaji('ひらがな　カタカナ')
- * // => 'hiragana katakana'
- * to_romaji('ひらがな　カタカナ', { upcase_katakana: true })
- * // => 'hiragana KATAKANA'
- */
+
+///Convert kana to romaji
+///@param  {String} kana text input
+///@param  {DefaultOptions} [options=default_options]
+///@return {String} converted text
+///@example
+///to_romaji('ひらがな　カタカナ')
+/// => 'hiragana katakana'
+///to_romaji('ひらがな　カタカナ', { upcase_katakana: true })
+/// => 'hiragana KATAKANA'
+
 pub fn to_romaji(kana: &str) -> String {
     to_romaji_with_opt(kana, Options::default())
 }

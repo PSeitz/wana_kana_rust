@@ -1,21 +1,21 @@
 use utils::is_char_kana::*;
 
-/**
- * Test if `input` is [Kana](https://en.wikipedia.org/wiki/Kana) ([Katakana](https://en.wikipedia.org/wiki/Katakana) and/or [Hiragana](https://en.wikipedia.org/wiki/Hiragana))
- * @param  {String} [input=''] text
- * @return {Boolean} true if all [Kana](https://en.wikipedia.org/wiki/Kana)
- * @example
- * is_kana('あ')
- * // => true
- * is_kana('ア')
- * // => true
- * is_kana('あーア')
- * // => true
- * is_kana('A')
- * // => false
- * is_kana('あAア')
- * // => false
- */
+
+///Test if `input` is [Kana](https://en.wikipedia.org/wiki/Kana) ([Katakana](https://en.wikipedia.org/wiki/Katakana) and/or [Hiragana](https://en.wikipedia.org/wiki/Hiragana))
+///@param  {String} [input=''] text
+///@return {Boolean} true if all [Kana](https://en.wikipedia.org/wiki/Kana)
+///@example
+///is_kana('あ')
+/// => true
+///is_kana('ア')
+/// => true
+///is_kana('あーア')
+/// => true
+///is_kana('A')
+/// => false
+///is_kana('あAア')
+/// => false
+
 pub fn is_kana(input: &str) -> bool {
     if input.is_empty() {
         return false;

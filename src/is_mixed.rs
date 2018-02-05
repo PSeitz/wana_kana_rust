@@ -3,23 +3,23 @@ use is_hiragana::is_hiragana;
 use is_katakana::is_katakana;
 use is_romaji::is_romaji;
 
-/**
- * Test if `input` contains a mix of [Romaji](https://en.wikipedia.org/wiki/Romaji) *and* [Kana](https://en.wikipedia.org/wiki/Kana), defaults to pass through [Kanji](https://en.wikipedia.org/wiki/Kanji)
- * @param  {String} input text
- * @param  {Object} [options={ pass_kanji: true }] optional config to pass through kanji
- * @return {Boolean} true if mixed
- * @example
- * is_mixed('Abあア'))
- * // => true
- * is_mixed('お腹A'))
- * // => true
- * is_mixed('お腹A', { pass_kanji: false }))
- * // => false
- * is_mixed('ab'))
- * // => false
- * is_mixed('あア'))
- * // => false
- */
+
+///Test if `input` contains a mix of [Romaji](https://en.wikipedia.org/wiki/Romaji) *and* [Kana](https://en.wikipedia.org/wiki/Kana), defaults to pass through [Kanji](https://en.wikipedia.org/wiki/Kanji)
+///@param  {String} input text
+///@param  {Object} [options={ pass_kanji: true }] optional config to pass through kanji
+///@return {Boolean} true if mixed
+///@example
+///is_mixed('Abあア'))
+/// => true
+///is_mixed('お腹A'))
+/// => true
+///is_mixed('お腹A', { pass_kanji: false }))
+/// => false
+///is_mixed('ab'))
+/// => false
+///is_mixed('あア'))
+/// => false
+
 pub fn is_mixed(input: &str) -> bool {
     is_mixed_pass_kanji(input, true)
 }
