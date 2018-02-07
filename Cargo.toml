@@ -2,6 +2,9 @@
 name = "wana_kana"
 version = "0.9.0"
 authors = ["Pascal Seitz <pascal.seitz@gmail.com>"]
+repository = "https://github.com/PSeitz/wana_kana_rust"
+homepage = "https://github.com/PSeitz/wana_kana_rust"
+categories = ["text-processing"]
 license = "MIT"
 keywords = ["japanese", "katakana", "hiragana", "kana", "romaji"]
 description = """
