@@ -16,4 +16,4 @@ lazy_static = "1.0"
 itertools = "0.7.6"
 
 [dev-dependencies]
-stainless = "*"
+stainless = "0.1.12"
