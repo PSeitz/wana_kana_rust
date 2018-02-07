@@ -3,7 +3,7 @@ name = "wana_kana"
 version = "0.9.0"
 authors = ["Pascal Seitz <pascal.seitz@gmail.com>"]
 license = "MIT"
-keywords = ["japanese", "convert", "utf8", "katakana", "hiragana", "kana", "romaji", "to_kana", "to_romaji"]
+keywords = ["japanese", "katakana", "hiragana", "kana", "romaji"]
 description = """
 Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji
 """

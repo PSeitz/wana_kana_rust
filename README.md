@@ -15,6 +15,6 @@
 
 ### CLI
 #### Convert to kana and back for fun and profit
-`cargo install wana_kana` will install 2 CLI tools: `to_kana` and `ro_romaji`.
+`cargo install wana_kana` will install 2 CLI tools: `to_kana` and `to_romaji`.
 
-Both support piping `ls | to_kana` and parameters `to_romaji へろ　をるど`
+Both commands support piping `ls | to_kana` and parameters `to_romaji へろ　をるど`.
