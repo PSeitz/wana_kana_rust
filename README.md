@@ -2,13 +2,13 @@
  [![Docs](https://docs.rs/wana_kana/badge.svg)](https://docs.rs/crate/wana_kana/)
   
  # WanaKana Rust
-
+ ### ワナカナ <--> WanaKana <--> わなかな
 ```toml,ignore
 [dependencies]
 wana_kana = "0.9"
 ```
 
- ### ワナカナ <--> WanaKana <--> わなかな
+
  Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana)
  # Examples
  ```
