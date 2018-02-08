@@ -6,8 +6,10 @@
 //! assert_eq!(is_kanji("刀"), true);
 //! assert_eq!(is_kanji("切腹"), true);
 //! assert_eq!(is_kanji("勢い"), false);
+//! assert_eq!(contains_kanji("勢い"), true);
 //! assert_eq!(is_kanji("あAア"), false);
 //! assert_eq!(is_kanji("🐸"), false);
+//! assert_eq!(contains_kanji("🐸"), false);
 //! ```
 
 
@@ -18,4 +20,11 @@ pub fn is_kanji(input: &str) -> bool {
         return false;
     }
     return input.chars().all(is_char_kanji);
+}
+
+pub fn contains_kanji(input: &str) -> bool {
+    if input.is_empty() {
+        return false;
+    }
+    return input.chars().any(is_char_kanji);
 }
