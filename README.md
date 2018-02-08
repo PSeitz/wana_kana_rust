@@ -1,4 +1,11 @@
+ [![](http://meritbadge.herokuapp.com/wana_kana)](https://crates.io/crates/wana_kana)
+  
  # WanaKana Rust
+
+```toml,ignore
+[dependencies]
+wana_kana = "0.9"
+```
 
  ### ワナカナ <--> WanaKana <--> わなかな
  Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana)
