@@ -1,4 +1,5 @@
  [![](http://meritbadge.herokuapp.com/wana_kana)](https://crates.io/crates/wana_kana)
+ [![Docs](https://docs.rs/wana_kana/badge.svg)](https://docs.rs/crate/wana_kana/)
   
  # WanaKana Rust
 
