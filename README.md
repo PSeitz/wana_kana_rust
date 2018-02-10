@@ -9,7 +9,7 @@ wana_kana = "0.9"
 ```
 
 
- Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana)
+ Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana V2.3.4)
  # Examples
  ```
  use wana_kana::to_romaji::*;
