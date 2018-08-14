@@ -1,6 +1,8 @@
  [![](http://meritbadge.herokuapp.com/wana_kana)](https://crates.io/crates/wana_kana)
  [![Docs](https://docs.rs/wana_kana/badge.svg)](https://docs.rs/crate/wana_kana/)
-  
+
+[![Build Status](https://travis-ci.org/PSeitz/wana_kana_rust.svg?branch=master)](https://travis-ci.org/PSeitz/wana_kana_rust) [![Coverage Status](https://coveralls.io/repos/github/PSeitz/wana_kana_rust/badge.svg?branch=master)](https://coveralls.io/github/PSeitz/wana_kana_rust?branch=master)
+
  # WanaKana Rust
  ### ワナカナ <--> WanaKana <--> わなかな
 ```toml,ignore
