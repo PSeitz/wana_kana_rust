@@ -1,4 +1,3 @@
-
 //! Strips trailing [Okurigana](https://en.wikipedia.org/wiki/Okurigana) if `input` is a mix of [Kanji](https://en.wikipedia.org/wiki/Kanji) and [Kana](https://en.wikipedia.org/wiki/Kana)
 //!
 //! # Examples
@@ -12,11 +11,11 @@
 //! assert_eq!(strip_okurigana_all("お祝い", true), "祝");
 //! ```
 
-use utils::is_char_kana::*;
-use utils::is_char_punctuation::*;
 use is_japanese::*;
 use is_kana::*;
 use is_kanji::*;
+use utils::is_char_kana::*;
+use utils::is_char_punctuation::*;
 
 pub fn strip_okurigana(input: &str) -> String {
     strip_okurigana_all(input, false)
@@ -27,11 +26,7 @@ pub fn strip_okurigana_all(input: &str, all: bool) -> String {
     }
 
     if all {
-        return input
-            .chars()
-            .filter(|char| !is_char_kana(*char))
-            .into_iter()
-            .collect();
+        return input.chars().filter(|char| !is_char_kana(*char)).into_iter().collect();
     }
 
     // strip trailing only

@@ -1,4 +1,3 @@
-
 //! Test if `input` only includes [Kanji](https://en.wikipedia.org/wiki/Kanji), [Kana](https://en.wikipedia.org/wiki/Kana), zenkaku punctuation, japanese symbols and numbers.
 //!
 //! # Examples
@@ -21,4 +20,3 @@ pub fn is_japanese(input: &str) -> bool {
     }
     return input.chars().all(is_char_japanese);
 }
-

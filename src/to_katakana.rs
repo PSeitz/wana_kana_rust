@@ -23,11 +23,11 @@
 //! assert_eq!(to_katakana_with_opt("wi", Options {use_obsolete_kana: true, ..Default::default() }),"ヰ");
 //! ```
 
-use is_romaji::*;
 use is_mixed::*;
+use is_romaji::*;
+use options::Options;
 use utils::hiragana_to_katakana::*;
 use utils::romaji_to_hiragana::*;
-use options::Options;
 
 pub fn to_katakana(input: &str) -> String {
     to_katakana_with_opt(input, Options::default())

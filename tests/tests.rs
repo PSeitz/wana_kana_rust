@@ -7,23 +7,22 @@
 extern crate test;
 extern crate wana_kana;
 
-use wana_kana::is_kanji::*;
-use wana_kana::is_kana::*;
-use wana_kana::is_katakana::*;
-use wana_kana::is_romaji::*;
-use wana_kana::is_japanese::*;
 use wana_kana::is_hiragana::*;
+use wana_kana::is_japanese::*;
+use wana_kana::is_kana::*;
+use wana_kana::is_kanji::*;
+use wana_kana::is_katakana::*;
 use wana_kana::is_mixed::*;
+use wana_kana::is_romaji::*;
+use wana_kana::strip_okurigana::*;
+use wana_kana::to_hiragana::*;
+use wana_kana::to_kana;
 use wana_kana::to_kana::*;
 use wana_kana::to_katakana::*;
-use wana_kana::to_hiragana::*;
-use wana_kana::to_romaji::*;
 use wana_kana::to_romaji;
-use wana_kana::to_kana;
-use wana_kana::strip_okurigana::*;
+use wana_kana::to_romaji::*;
 use wana_kana::tokenize::*;
 use wana_kana::Options;
-
 
 describe! methods_should_return_valid_defaults_when_given_no_input {
     it "is_kana() with no input" {
@@ -798,8 +797,6 @@ describe! optionso {
     }
 }
 
-
-
 #[bench]
 fn bench_kana_1(b: &mut test::Bencher) {
     b.iter(|| to_kana::to_kana("aiueosashisusesonaninunenokakikukeko"))
@@ -817,4 +814,3 @@ fn bench_romaji_1(b: &mut test::Bencher) {
 fn bench_romaji_2(b: &mut test::Bencher) {
     b.iter(|| to_romaji::to_romaji("アイウエオサシスセソナニヌネノカキクケコ"))
 }
-

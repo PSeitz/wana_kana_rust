@@ -1,4 +1,3 @@
-
 //! Test if all chars of `input` are [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
 //!
 //! # Examples

@@ -1,4 +1,3 @@
-
 //! Test if all chars of `input` are [Kana](https://en.wikipedia.org/wiki/Kana) ([Katakana](https://en.wikipedia.org/wiki/Katakana) and/or [Hiragana](https://en.wikipedia.org/wiki/Hiragana))
 //!
 //! # Examples
@@ -19,4 +18,3 @@ pub fn is_kana(input: &str) -> bool {
     }
     return input.chars().all(is_char_kana);
 }
-

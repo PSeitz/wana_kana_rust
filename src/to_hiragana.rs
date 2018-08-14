@@ -9,12 +9,11 @@
 //! assert_eq!(to_hiragana("wi"), "うぃ"); assert_eq!(to_hiragana_with_opt("wi", Options {use_obsolete_kana: true, ..Default::default() } ), "ゐ");
 //! ```
 
+use is_mixed::*;
+use is_romaji::*;
+use options::Options;
 use utils::katakana_to_hiragana::*;
 use utils::romaji_to_hiragana::romaji_to_hiragana;
-use is_romaji::*;
-use is_mixed::*;
-use options::Options;
-
 
 pub fn to_hiragana(input: &str) -> String {
     to_hiragana_with_opt(input, Options::default())
@@ -33,4 +32,3 @@ pub fn to_hiragana_with_opt(input: &str, options: Options) -> String {
     }
     return katakana_to_hiragana(input);
 }
-

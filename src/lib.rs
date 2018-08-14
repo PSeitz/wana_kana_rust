@@ -19,25 +19,24 @@ extern crate lazy_static;
 extern crate fnv;
 extern crate regex;
 
-pub mod is_kanji;
-pub mod is_kana;
-pub mod is_katakana;
-pub mod is_romaji;
-pub mod is_japanese;
 pub mod is_hiragana;
+pub mod is_japanese;
+pub mod is_kana;
+pub mod is_kanji;
+pub mod is_katakana;
 pub mod is_mixed;
+pub mod is_romaji;
 
+pub mod to_hiragana;
 pub mod to_kana;
 pub mod to_katakana;
-pub mod to_hiragana;
 pub mod to_romaji;
 
 pub mod strip_okurigana;
 pub mod tokenize;
 
-mod utils;
-mod options;
 mod constants;
+mod options;
+mod utils;
 
 pub use options::Options;
-

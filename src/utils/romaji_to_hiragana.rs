@@ -1,5 +1,5 @@
-use to_kana::*;
 use options::Options;
+use to_kana::*;
 
 /// Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
 ///

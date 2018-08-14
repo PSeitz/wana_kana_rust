@@ -17,18 +17,16 @@
 
 use constants::{FOUR_CHAR_EDGECASES, FROM_ROMAJI, UPPERCASE_END, UPPERCASE_START};
 
-use utils::is_char_in_range::*;
-use utils::is_char_upper_case::*;
-use utils::get_chunk::get_chunk;
-use utils::is_char_consonant::*;
-use utils::is_char_vowel::*;
-use utils::hiragana_to_katakana::*;
 use is_kana::*;
 use options::Options;
 use std;
 use std::borrow::Cow;
-
-
+use utils::get_chunk::get_chunk;
+use utils::hiragana_to_katakana::*;
+use utils::is_char_consonant::*;
+use utils::is_char_in_range::*;
+use utils::is_char_upper_case::*;
+use utils::is_char_vowel::*;
 
 pub fn to_kana(input: &str) -> String {
     to_kana_with_opt(input, Options::default())
@@ -84,11 +82,8 @@ pub fn to_kana_with_opt(input: &str, options: Options) -> String {
                         }
                     }
                     // Handle edge case of n followed by n and vowel
-                    if chunk_lc
-                        .chars()
-                        .nth(1)
-                        .map(|c| is_char_consonant(c, false))
-                        .unwrap_or(false) && chunk_lc.chars().nth(2).map(is_char_vowel).unwrap_or(false)
+                    if chunk_lc.chars().nth(1).map(|c| is_char_consonant(c, false)).unwrap_or(false)
+                        && chunk_lc.chars().nth(2).map(is_char_vowel).unwrap_or(false)
                     {
                         chunk_size = 1;
                         chunk = Cow::from(get_chunk(input, cursor, cursor + chunk_size));
@@ -146,16 +141,9 @@ pub fn to_kana_with_opt(input: &str, options: Options) -> String {
                 .nth(cursor + 1)
                 .map(|c| c.to_string().to_lowercase() == "y")
                 .unwrap_or(false)
-                && input
-                    .chars()
-                    .nth(cursor + 2)
-                    .map(|c| !is_char_vowel(c))
-                    .unwrap_or(true) || cursor == len - 1
-                || input
-                    .chars()
-                    .nth(cursor + 1)
-                    .map(|c| is_kana(&c.to_string()))
-                    .unwrap_or(false)
+                && input.chars().nth(cursor + 2).map(|c| !is_char_vowel(c)).unwrap_or(true)
+                || cursor == len - 1
+                || input.chars().nth(cursor + 1).map(|c| is_kana(&c.to_string())).unwrap_or(false)
             {
                 // Don't transliterate this yet.
                 kana_char = Cow::from(chunk.chars().nth(0).unwrap().to_string());
@@ -163,12 +151,7 @@ pub fn to_kana_with_opt(input: &str, options: Options) -> String {
         }
 
         // Use katakana if first letter in chunk is uppercase
-        if chunk
-            .chars()
-            .nth(0)
-            .map(|c| is_char_upper_case(c))
-            .unwrap_or(false)
-        {
+        if chunk.chars().nth(0).map(|c| is_char_upper_case(c)).unwrap_or(false) {
             kana_char = Cow::from(hiragana_to_katakana(&kana_char));
         }
 
@@ -178,4 +161,3 @@ pub fn to_kana_with_opt(input: &str, options: Options) -> String {
     }
     return kana;
 }
-

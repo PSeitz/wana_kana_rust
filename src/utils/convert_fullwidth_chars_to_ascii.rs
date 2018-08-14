@@ -4,10 +4,9 @@
 ///
 /// `text` Full Width roman letters
 ///
-
-use constants::{UPPERCASE_START};
-use utils::is_char_in_range::*;
+use constants::UPPERCASE_START;
 use std;
+use utils::is_char_in_range::*;
 
 pub const LOWERCASE_START: u32 = 0x61;
 //pub const LOWERCASE_END: u32 = 0x7A;
@@ -23,14 +22,18 @@ pub const UPPERCASE_FULLWIDTH_END: u32 = 0xFF3A;
 
 #[allow(dead_code)]
 pub fn convert_fullwidth_chars_to_ascii(text: &str) -> String {
-    let ascii_chars = text.chars().map(|char|{
+    let ascii_chars = text.chars().map(|char| {
         let code = char as u32;
         let lower = is_char_in_range(char, LOWERCASE_FULLWIDTH_START, LOWERCASE_FULLWIDTH_END);
         let upper = is_char_in_range(char, UPPERCASE_FULLWIDTH_START, UPPERCASE_FULLWIDTH_END);
         if lower {
-            std::char::from_u32((code - LOWERCASE_FULLWIDTH_START) + LOWERCASE_START).unwrap().to_string();
+            std::char::from_u32((code - LOWERCASE_FULLWIDTH_START) + LOWERCASE_START)
+                .unwrap()
+                .to_string();
         } else if upper {
-            std::char::from_u32((code - UPPERCASE_FULLWIDTH_START) + UPPERCASE_START).unwrap().to_string();
+            std::char::from_u32((code - UPPERCASE_FULLWIDTH_START) + UPPERCASE_START)
+                .unwrap()
+                .to_string();
         }
         return char;
     });

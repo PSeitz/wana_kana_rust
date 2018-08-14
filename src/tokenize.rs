@@ -15,12 +15,11 @@
 //! assert_eq!(tokenize("what the...私は「悲しい」。"), vec!["what the...", "私", "は", "「", "悲", "しい", "」。", ] );
 //! ```
 
-
+use itertools::Itertools;
+use utils::is_char_hiragana::*;
 use utils::is_char_japanese_punctuation::*;
 use utils::is_char_kanji::*;
-use utils::is_char_hiragana::*;
 use utils::is_char_katakana::*;
-use itertools::Itertools;
 
 fn get_type(input: char) -> &'static str {
     match input {
@@ -32,7 +31,6 @@ fn get_type(input: char) -> &'static str {
     }
 }
 
-
 pub fn tokenize(input: &str) -> Vec<String> {
     let mut result = vec![];
     for (_, group) in &input.chars().group_by(|elt| get_type(*elt)) {
@@ -40,4 +38,3 @@ pub fn tokenize(input: &str) -> Vec<String> {
     }
     result
 }
-

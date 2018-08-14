@@ -681,4 +681,3 @@ lazy_static! {
 }
 
 pub const FOUR_CHAR_EDGECASES: &'static [&'static str] = &["lts", "chy", "shy"];
-
