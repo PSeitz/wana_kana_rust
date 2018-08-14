@@ -18,7 +18,6 @@
 #![feature(slice_patterns)]
 #![feature(test)]
 #![feature(non_ascii_idents)]
-#![feature(plugin)]
 #![cfg_attr(test, plugin(stainless))]
 
 extern crate itertools;
