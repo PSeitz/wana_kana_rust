@@ -14,7 +14,6 @@
 //! ```
 
 #![feature(plugin)]
-#![plugin(phf_macros)]
 #![feature(slice_patterns)]
 #![feature(test)]
 #![feature(non_ascii_idents)]
@@ -23,8 +22,10 @@
 extern crate itertools;
 #[macro_use]
 extern crate lazy_static;
-extern crate phf;
+extern crate fnv;
 extern crate regex;
+
+#[cfg(test)]
 extern crate test;
 
 pub mod is_kanji;
