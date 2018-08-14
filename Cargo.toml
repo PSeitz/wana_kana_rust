@@ -18,5 +18,5 @@ phf_macros = "0.7.21"
 lazy_static = "1.0"
 itertools = "0.7.6"
 
-[dev-dependencies]
-stainless = "0.1.12"
+[dev-dependencies.stainless]
+git = "https://github.com/PSeitz/stainless"
