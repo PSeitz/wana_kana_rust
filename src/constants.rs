@@ -7,17 +7,24 @@ pub const CJK_SYMBOLS_PUNCTUATION: [u32; 2] = [0x3000, 0x303F];
 pub const KATAKANA_PUNCTUATION: [u32; 2] = [0x30FB, 0x30FC];
 pub const HIRAGANA_CHARS: [u32; 2] = [0x3040, 0x309F];
 pub const KATAKANA_CHARS: [u32; 2] = [0x30A0, 0x30FF];
+
+pub const LOWERCASE_ZENKAKU_START: u32 = 0xff41;
+pub const LOWERCASE_ZENKAKU_END: u32 = 0xff5a;
+pub const UPPERCASE_ZENKAKU_START: u32 = 0xff21;
+pub const UPPERCASE_ZENKAKU_END: u32 = 0xff3a;
 pub const ZENKAKU_NUMBERS: [u32; 2] = [0xFF10, 0xFF19];
 pub const ZENKAKU_PUNCTUATION_1: [u32; 2] = [0xFF01, 0xFF0F];
 pub const ZENKAKU_PUNCTUATION_2: [u32; 2] = [0xFF1A, 0xFF1F];
 pub const ZENKAKU_PUNCTUATION_3: [u32; 2] = [0xFF3B, 0xFF3F];
 pub const ZENKAKU_PUNCTUATION_4: [u32; 2] = [0xFF5B, 0xFF60];
+pub const ZENKAKU_UPPERCASE: [u32; 2] = [UPPERCASE_ZENKAKU_START, UPPERCASE_ZENKAKU_END];
+pub const ZENKAKU_LOWERCASE: [u32; 2] = [LOWERCASE_ZENKAKU_START, LOWERCASE_ZENKAKU_END];
 pub const ZENKAKU_SYMBOLS_CURRENCY: [u32; 2] = [0xFFE0, 0xFFEE];
 pub const KANA_PUNCTUATION: [u32; 2] = [0xFF61, 0xFF65];
 pub const HANKAKU_KATAKANA: [u32; 2] = [0xFF66, 0xFF9F];
 pub const COMMON_CJK: [u32; 2] = [0x4E00, 0x9FFF];
 pub const RARE_CJK: [u32; 2] = [0x3400, 0x4DBF];
-pub const LATIN_NUMBERS: [u32; 2] = [0x0030, 0x0039];
+// pub const LATIN_NUMBERS: [u32; 2] = [0x0030, 0x0039];
 pub const MODERN_ENGLISH: [u32; 2] = [0x0000, 0x007f];
 pub const HEPBURN_MACRON_RANGES: [[u32; 2]; 5] = [
     [0x0100, 0x0101], // Ā ā
@@ -60,9 +67,8 @@ pub const KANA_RANGES: [[u32; 2]; 4] = [
 lazy_static! {
     /// All Japanese unicode start and end ranges
     /// Includes full-width punctuation and number ranges.
-    /// Incudes latin numbers since they are used in Japanese text as well.
     pub static ref JAPANESE_RANGES: Vec<[u32; 2]> = {
-        let mut m = vec![LATIN_NUMBERS, ZENKAKU_NUMBERS, COMMON_CJK, RARE_CJK,];
+        let mut m = vec![ZENKAKU_UPPERCASE, ZENKAKU_LOWERCASE, ZENKAKU_NUMBERS, COMMON_CJK, RARE_CJK,];
         m.extend(&KANA_RANGES);
         m.extend(&JA_PUNCTUATION_RANGES);
         m
@@ -70,11 +76,9 @@ lazy_static! {
 
     /// Basic Latin unicode regex, for determining Romaji + Hepburn romanisation
     /// Includes upper/lowercase long vowels like "ā, ī, ū, ē, ō"
-    /// Includes smart quotes ‘’ “”
     pub static ref ROMAJI_RANGES: Vec<[u32; 2]> = {
         let mut m = vec![MODERN_ENGLISH,];
         m.extend(&HEPBURN_MACRON_RANGES);
-        m.extend(&SMART_QUOTE_RANGES);
         m
     };
     pub static ref EN_PUNCTUATION_RANGES: Vec<[u32; 2]> = {

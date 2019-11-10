@@ -3,20 +3,35 @@
 //! # Examples
 //! ```
 //! use wana_kana::is_japanese::*;
+//! use regex::Regex;
 //! assert_eq!(is_japanese("泣き虫"), true);
 //! assert_eq!(is_japanese("あア"), true);
-//! assert_eq!(is_japanese("２月1日"), /* Full and half-width numbers allowed */ true );
-//! assert_eq!(is_japanese("泣き虫。！〜＄"), true);
-//! assert_eq!(is_japanese("泣き虫.!~$"), /* Half-width / Latin punctuation fails*/ false );
-//! assert_eq!(is_japanese("A泣き虫"), false);
+//! assert_eq!(is_japanese("２月"), true); // Zenkaku numbers allowed
+//! assert_eq!(is_japanese("泣き虫。！〜＄"), true); // Zenkaku/JA punctuation
+//! assert_eq!(is_japanese("泣き虫.!~$"), false); // Latin punctuation fails
 //! assert_eq!(is_japanese("A"), false);
+//! assert_eq!(is_japanese_with_whitelist("≪偽括弧≫", Some(&Regex::new(r"[≪≫]").unwrap())), true);
 //! ```
 
+use regex::Regex;
 use crate::utils::is_char_japanese::*;
 
 pub fn is_japanese(input: &str) -> bool {
+    is_japanese_with_whitelist(input, None)
+}
+
+pub fn is_japanese_with_whitelist(input: &str, allowed: Option<&Regex>) -> bool {
     if input.is_empty() {
         return false;
     }
-    return input.chars().all(is_char_japanese);
+    input.chars().all(|char| {
+        let is_jap = is_char_japanese(char);
+        if !is_jap{
+        if let Some(allowed) = allowed {
+                return allowed.is_match(input);
+            }
+        }
+        is_jap
+    })
+
 }

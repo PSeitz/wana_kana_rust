@@ -37,7 +37,7 @@ pub mod tokenize;
 
 pub mod utils;
 
-mod constants;
+pub mod constants;
 mod options;
 
 pub use crate::options::Options;
