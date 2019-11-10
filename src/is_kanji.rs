@@ -12,7 +12,7 @@
 //! assert_eq!(contains_kanji("🐸"), false);
 //! ```
 
-use utils::is_char_kanji::*;
+use crate::utils::is_char_kanji::*;
 
 pub fn is_kanji(input: &str) -> bool {
     if input.is_empty() {

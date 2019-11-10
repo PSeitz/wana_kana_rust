@@ -12,7 +12,7 @@
 //! assert_eq!(is_japanese("A"), false);
 //! ```
 
-use utils::is_char_japanese::*;
+use crate::utils::is_char_japanese::*;
 
 pub fn is_japanese(input: &str) -> bool {
     if input.is_empty() {

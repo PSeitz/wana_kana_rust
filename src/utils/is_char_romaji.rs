@@ -1,5 +1,5 @@
 use constants::ROMAJI_RANGES;
-use utils::is_char_in_range::*;
+use crate::utils::is_char_in_range::*;
 
 /// Tests a character. Returns true if the character is [Romaji](https://en.wikipedia.org/wiki/Romaji) (allowing [Hepburn romanisation](https://en.wikipedia.org/wiki/Hepburn_romanization))
 ///

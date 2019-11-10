@@ -26,8 +26,8 @@
 use is_mixed::*;
 use is_romaji::*;
 use options::Options;
-use utils::hiragana_to_katakana::*;
-use utils::romaji_to_hiragana::*;
+use crate::utils::hiragana_to_katakana::*;
+use crate::utils::romaji_to_hiragana::*;
 
 pub fn to_katakana(input: &str) -> String {
     to_katakana_with_opt(input, Options::default())

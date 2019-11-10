@@ -1,8 +1,8 @@
 use constants::{HIRAGANA_START, KATAKANA_START};
 use std;
-use utils::is_char_hiragana::*;
-use utils::is_char_long_dash::*;
-use utils::is_char_slash_dot::*;
+use crate::utils::is_char_hiragana::*;
+use crate::utils::is_char_long_dash::*;
+use crate::utils::is_char_slash_dot::*;
 
 /// Convert [Hiragana](https://en.wikipedia.org/wiki/Hiragana) to [Katakana](https://en.wikipedia.org/wiki/Katakana)
 ///

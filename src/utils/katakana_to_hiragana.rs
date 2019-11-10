@@ -1,8 +1,8 @@
 use constants::{HIRAGANA_START, KATAKANA_START, LONG_VOWELS, TO_ROMAJI};
 use std;
-use utils::is_char_katakana::*;
-use utils::is_char_long_dash::*;
-use utils::is_char_slash_dot::*;
+use crate::utils::is_char_katakana::*;
+use crate::utils::is_char_long_dash::*;
+use crate::utils::is_char_slash_dot::*;
 
 /// Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
 ///

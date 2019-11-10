@@ -14,8 +14,8 @@ use is_katakana::*;
 use options::Options;
 use std;
 use std::borrow::Cow;
-use utils::get_chunk::*;
-use utils::katakana_to_hiragana::*;
+use crate::utils::get_chunk::*;
+use crate::utils::katakana_to_hiragana::*;
 
 pub fn to_romaji(kana: &str) -> String {
     to_romaji_with_opt(kana, Options::default())

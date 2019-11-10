@@ -10,7 +10,7 @@
 //! assert_eq!(is_kana("あAア"), false);
 //! ```
 
-use utils::is_char_kana::*;
+use crate::utils::is_char_kana::*;
 
 pub fn is_kana(input: &str) -> bool {
     if input.is_empty() {

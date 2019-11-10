@@ -6,7 +6,7 @@
 ///
 use constants::UPPERCASE_START;
 use std;
-use utils::is_char_in_range::*;
+use crate::utils::is_char_in_range::*;
 
 pub const LOWERCASE_START: u32 = 0x61;
 //pub const LOWERCASE_END: u32 = 0x7A;

@@ -1,4 +1,4 @@
-use utils::is_char_in_range::*;
+use crate::utils::is_char_in_range::*;
 
 use constants::{UPPERCASE_END, UPPERCASE_START};
 

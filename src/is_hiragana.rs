@@ -8,7 +8,7 @@
 //! assert_eq!(is_hiragana("あア"), false);
 //! ```
 
-use utils::is_char_hiragana::*;
+use crate::utils::is_char_hiragana::*;
 
 pub fn is_hiragana(input: &str) -> bool {
     if input.is_empty() {

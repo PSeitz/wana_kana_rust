@@ -9,7 +9,7 @@
 //! assert_eq!(is_katakana("あア"), false);
 //! ```
 
-use utils::is_char_katakana::*;
+use crate::utils::is_char_katakana::*;
 
 pub fn is_katakana(input: &str) -> bool {
     if input.is_empty() {

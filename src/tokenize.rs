@@ -16,10 +16,10 @@
 //! ```
 
 use itertools::Itertools;
-use utils::is_char_hiragana::*;
-use utils::is_char_japanese_punctuation::*;
-use utils::is_char_kanji::*;
-use utils::is_char_katakana::*;
+use crate::utils::is_char_hiragana::*;
+use crate::utils::is_char_japanese_punctuation::*;
+use crate::utils::is_char_kanji::*;
+use crate::utils::is_char_katakana::*;
 
 fn get_type(input: char) -> &'static str {
     match input {

@@ -1,4 +1,4 @@
-use utils::is_char_in_range::*;
+use crate::utils::is_char_in_range::*;
 
 static KANJI_START: u32 = 0x4E00;
 static KANJI_END: u32 = 0x9FAF;

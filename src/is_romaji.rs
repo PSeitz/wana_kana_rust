@@ -11,7 +11,7 @@
 //! assert_eq!(is_romaji("a！b&cーd"), false);
 //! ```
 
-use utils::is_char_romaji::*;
+use crate::utils::is_char_romaji::*;
 
 pub fn is_romaji(input: &str) -> bool {
     if input.is_empty() {

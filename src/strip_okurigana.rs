@@ -14,8 +14,8 @@
 use is_japanese::*;
 use is_kana::*;
 use is_kanji::*;
-use utils::is_char_kana::*;
-use utils::is_char_punctuation::*;
+use crate::utils::is_char_kana::*;
+use crate::utils::is_char_punctuation::*;
 
 pub fn strip_okurigana(input: &str) -> String {
     strip_okurigana_all(input, false)

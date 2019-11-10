@@ -1,6 +1,6 @@
 use constants::{KATAKANA_END, KATAKANA_START};
 
-use utils::is_char_in_range::*;
+use crate::utils::is_char_in_range::*;
 
 /// Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).
 ///

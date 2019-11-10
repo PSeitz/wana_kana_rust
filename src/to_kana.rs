@@ -21,12 +21,12 @@ use is_kana::*;
 use options::Options;
 use std;
 use std::borrow::Cow;
-use utils::get_chunk::get_chunk;
-use utils::hiragana_to_katakana::*;
-use utils::is_char_consonant::*;
-use utils::is_char_in_range::*;
-use utils::is_char_upper_case::*;
-use utils::is_char_vowel::*;
+use crate::utils::get_chunk::get_chunk;
+use crate::utils::hiragana_to_katakana::*;
+use crate::utils::is_char_consonant::*;
+use crate::utils::is_char_in_range::*;
+use crate::utils::is_char_upper_case::*;
+use crate::utils::is_char_vowel::*;
 
 pub fn to_kana(input: &str) -> String {
     to_kana_with_opt(input, Options::default())
