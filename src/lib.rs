@@ -35,8 +35,9 @@ pub mod to_romaji;
 pub mod strip_okurigana;
 pub mod tokenize;
 
+pub mod utils;
+
 mod constants;
 mod options;
-mod utils;
 
 pub use crate::options::Options;
