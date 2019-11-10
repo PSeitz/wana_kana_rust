@@ -9,9 +9,9 @@
 //! assert_eq!(to_hiragana("wi"), "うぃ"); assert_eq!(to_hiragana_with_opt("wi", Options {use_obsolete_kana: true, ..Default::default() } ), "ゐ");
 //! ```
 
-use is_mixed::*;
-use is_romaji::*;
-use options::Options;
+use crate::is_mixed::*;
+use crate::is_romaji::*;
+use crate::options::Options;
 use crate::utils::katakana_to_hiragana::*;
 use crate::utils::romaji_to_hiragana::romaji_to_hiragana;
 

@@ -39,4 +39,4 @@ mod constants;
 mod options;
 mod utils;
 
-pub use options::Options;
+pub use crate::options::Options;

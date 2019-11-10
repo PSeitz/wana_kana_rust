@@ -8,10 +8,10 @@
 //! assert_eq!(to_romaji_with_opt("ひらがな　カタカナ", Options {upcase_katakana: true, ..Default::default() } ), "hiragana KATAKANA");
 //! ```
 
-use constants::TO_ROMAJI;
+use crate::constants::TO_ROMAJI;
 
-use is_katakana::*;
-use options::Options;
+use crate::is_katakana::*;
+use crate::options::Options;
 use std;
 use std::borrow::Cow;
 use crate::utils::get_chunk::*;

@@ -4,7 +4,7 @@
 ///
 /// `text` Full Width roman letters
 ///
-use constants::UPPERCASE_START;
+use crate::constants::UPPERCASE_START;
 use std;
 use crate::utils::is_char_in_range::*;
 

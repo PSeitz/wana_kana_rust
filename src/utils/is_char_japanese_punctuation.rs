@@ -1,4 +1,4 @@
-use constants::JA_PUNCTUATION_RANGES;
+use crate::constants::JA_PUNCTUATION_RANGES;
 use crate::utils::is_char_in_range::*;
 
 /// Tests a character. Returns true if the character is considered English punctuation.

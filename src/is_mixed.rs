@@ -11,10 +11,10 @@
 //! assert_eq!(is_mixed_pass_kanji("あア", true), false);
 //! ```
 
-use is_hiragana::is_hiragana;
-use is_kanji::*;
-use is_katakana::is_katakana;
-use is_romaji::is_romaji;
+use crate::is_hiragana::is_hiragana;
+use crate::is_kanji::*;
+use crate::is_katakana::is_katakana;
+use crate::is_romaji::is_romaji;
 
 pub fn is_mixed(input: &str) -> bool {
     is_mixed_pass_kanji(input, true)

@@ -1,6 +1,6 @@
 use crate::utils::is_char_in_range::*;
 
-use constants::{UPPERCASE_END, UPPERCASE_START};
+use crate::constants::{UPPERCASE_END, UPPERCASE_START};
 
 /// Tests if char is in English unicode uppercase range
 ///

@@ -1,4 +1,4 @@
-use constants::{KATAKANA_END, KATAKANA_START};
+use crate::constants::{KATAKANA_END, KATAKANA_START};
 
 use crate::utils::is_char_in_range::*;
 

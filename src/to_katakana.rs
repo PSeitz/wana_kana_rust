@@ -23,9 +23,9 @@
 //! assert_eq!(to_katakana_with_opt("wi", Options {use_obsolete_kana: true, ..Default::default() }),"ヰ");
 //! ```
 
-use is_mixed::*;
-use is_romaji::*;
-use options::Options;
+use crate::is_mixed::*;
+use crate::is_romaji::*;
+use crate::options::Options;
 use crate::utils::hiragana_to_katakana::*;
 use crate::utils::romaji_to_hiragana::*;
 

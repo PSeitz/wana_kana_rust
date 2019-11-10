@@ -15,10 +15,10 @@
 //! assert_eq!(to_kana_with_opt("we", Options {use_obsolete_kana: true, ..Default::default() } ), "ゑ");
 //! ```
 
-use constants::{FOUR_CHAR_EDGECASES, FROM_ROMAJI, UPPERCASE_END, UPPERCASE_START};
+use crate::constants::{FOUR_CHAR_EDGECASES, FROM_ROMAJI, UPPERCASE_END, UPPERCASE_START};
 
-use is_kana::*;
-use options::Options;
+use crate::is_kana::*;
+use crate::options::Options;
 use std;
 use std::borrow::Cow;
 use crate::utils::get_chunk::get_chunk;

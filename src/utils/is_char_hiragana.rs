@@ -1,4 +1,4 @@
-use constants::{HIRAGANA_END, HIRAGANA_START};
+use crate::constants::{HIRAGANA_END, HIRAGANA_START};
 use crate::utils::is_char_in_range::*;
 use crate::utils::is_char_long_dash::is_char_long_dash;
 

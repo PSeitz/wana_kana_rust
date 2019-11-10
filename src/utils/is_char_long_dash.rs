@@ -1,4 +1,4 @@
-use constants::PROLONGED_SOUND_MARK;
+use crate::constants::PROLONGED_SOUND_MARK;
 
 /// Returns true if char is 'ー'
 ///

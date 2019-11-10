@@ -1,4 +1,4 @@
-use constants::{HIRAGANA_START, KATAKANA_START, LONG_VOWELS, TO_ROMAJI};
+use crate::constants::{HIRAGANA_START, KATAKANA_START, LONG_VOWELS, TO_ROMAJI};
 use std;
 use crate::utils::is_char_katakana::*;
 use crate::utils::is_char_long_dash::*;

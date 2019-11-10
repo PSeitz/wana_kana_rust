@@ -1,4 +1,4 @@
-use constants::KANA_SLASH_DOT;
+use crate::constants::KANA_SLASH_DOT;
 
 /// Tests if char is '・'
 ///

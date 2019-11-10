@@ -11,9 +11,9 @@
 //! assert_eq!(strip_okurigana_all("お祝い", true), "祝");
 //! ```
 
-use is_japanese::*;
-use is_kana::*;
-use is_kanji::*;
+use crate::is_japanese::*;
+use crate::is_kana::*;
+use crate::is_kanji::*;
 use crate::utils::is_char_kana::*;
 use crate::utils::is_char_punctuation::*;
 
