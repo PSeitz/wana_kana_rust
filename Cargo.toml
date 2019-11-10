@@ -5,6 +5,7 @@ description = "Utility library for checking and converting between Japanese char
 homepage = "https://github.com/PSeitz/wana_kana_rust"
 keywords = ["japanese", "katakana", "hiragana", "kana", "romaji"]
 license = "MIT"
+edition = "2018"
 name = "wana_kana"
 repository = "https://github.com/PSeitz/wana_kana_rust"
 version = "0.9.3"
