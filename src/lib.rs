@@ -32,7 +32,7 @@ pub mod to_kana;
 pub mod to_katakana;
 pub mod to_romaji;
 
-pub mod strip_okurigana;
+pub mod trim_okurigana;
 pub mod tokenize;
 
 pub mod utils;

@@ -13,7 +13,6 @@
 //! assert_eq!(tokenize("ふふフフ"), vec!["ふふ", "フフ"]);
 //! assert_eq!(tokenize("感じ"), vec!["感", "じ"]);
 //! assert_eq!(tokenize("私は悲しい"), vec!["私", "は", "悲", "しい"] );
-//! assert_eq!(tokenize("what the...私は「悲しい」。"), vec!["what the...", "私", "は", "「", "悲", "しい", "」。", ] );
 //! ```
 
 use crate::utils::is_char_japanese::is_char_japanese;

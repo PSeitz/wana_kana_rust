@@ -11,14 +11,12 @@ extern crate speculate;
 #[cfg(test)]
 use speculate::speculate;
 
-use wana_kana::strip_okurigana::*;
 use wana_kana::to_hiragana::*;
 use wana_kana::to_kana;
 use wana_kana::to_kana::*;
 use wana_kana::to_katakana::*;
 use wana_kana::to_romaji;
 use wana_kana::to_romaji::*;
-use wana_kana::tokenize::*;
 use wana_kana::Options;
 
 speculate!{
@@ -35,13 +33,7 @@ describe "methods_should_return_valid_defaults_when_given_no_input" {
     it "to_romaji() with no input" {
         assert_eq!(to_romaji(""), "");
     }
-    it "strip_okurigana() with no input" {
-        assert_eq!(strip_okurigana_all("", false), "");
-    }
-    it "tokenize() with no input" {
-        let empty: Vec<String> = vec![];
-        assert_eq!(tokenize(""), empty);
-    }
+
 }
 
 describe "character_conversion" {
@@ -399,45 +391,6 @@ describe "kana_to_romaji" {
         it "んよ んあ んゆ" {
             assert_eq!(to_romaji("んよ んあ んゆ"),"n'yo n'a n'yu");
         }
-    }
-}
-
-describe "strip_okurigana" {
-    it "passes default parameter tests" {
-        assert_eq!(strip_okurigana("ふふフフ"),"ふふフフ");
-        assert_eq!(strip_okurigana("ふaふbフcフ"),"ふaふbフcフ");
-        assert_eq!(strip_okurigana("お腹"),"お腹");
-        assert_eq!(strip_okurigana("踏み込む"),"踏み込");
-        assert_eq!(strip_okurigana("お祝い"),"お祝");
-        assert_eq!(strip_okurigana("粘り"),"粘");
-        assert_eq!(strip_okurigana("〜い海軍い、。"),"〜い海軍、。");
-    }
-    it "strips all kana when passed optional config" {
-        assert_eq!(strip_okurigana_all("お腹", true ),"腹");
-        assert_eq!(strip_okurigana_all("踏み込む", true ),"踏込");
-        assert_eq!(strip_okurigana_all("お祝い", true ),"祝");
-        assert_eq!(strip_okurigana_all("お踏み込む", true ),"踏込");
-        assert_eq!(strip_okurigana_all("〜い海軍い、。", true ),"〜海軍、。");
-    }
-}
-
-describe "tokenize" {
-    it "passes default parameter tests" {
-        assert_eq!(tokenize("ふふ"), vec!["ふふ"]);
-        assert_eq!(tokenize("フフ"), vec!["フフ"]);
-        assert_eq!(tokenize("ふふフフ"), vec!["ふふ", "フフ"]);
-        assert_eq!(tokenize("阮咸"), vec!["阮咸"]);
-        assert_eq!(tokenize("感じ"), vec!["感", "じ"]);
-        assert_eq!(tokenize("私は悲しい"), vec!["私", "は", "悲", "しい"]);
-        assert_eq!(tokenize("what the...私は「悲しい」。"), vec![
-          "what the...",
-          "私",
-          "は",
-          "「",
-          "悲",
-          "しい",
-          "」。",
-        ]);
     }
 }
 
