@@ -15,11 +15,12 @@ use crate::is_japanese::*;
 use crate::is_kana::*;
 use crate::is_kanji::*;
 use crate::utils::is_char_kana::*;
+use crate::utils::is_char_kanji::*;
 use crate::utils::is_char_punctuation::*;
 
-pub fn strip_okurigana(input: &str) -> String {
-    strip_okurigana_all(input, false)
-}
+// pub fn strip_okurigana(input: &str) -> String {
+//     strip_okurigana_all(input, false)
+// }
 pub fn strip_okurigana_all(input: &str, all: bool) -> String {
     if input.is_empty() || !is_japanese(input) || is_kana(input) {
         return input.to_string();
@@ -49,3 +50,36 @@ pub fn strip_okurigana_all(input: &str, all: bool) -> String {
 
     return reverse_chars.into_iter().rev().collect();
 }
+
+pub fn strip_okurigana(input: &str) -> String {
+    strip_okurigana_with_opt(input, false, None)
+}
+
+pub fn is_leading_without_initial_kana(input: &str, leading: bool) -> bool {
+    leading && !is_char_kana(input.chars().next().unwrap())
+}
+pub fn is_trailing_without_final_kana(input: &str, leading: bool) -> bool {
+    !leading && !is_char_kana(input.chars().last().unwrap())
+}
+
+pub fn is_invalid_matcher(input: &str, match_kanji: Option<&str>) -> bool {
+    if let Some(match_kanji) = match_kanji {
+       match_kanji.chars().all(is_char_kanji)
+    }else{
+        is_kana(input)
+    }
+    // (matchKanji && ![...matchKanji].some(isKanji)) || (!matchKanji && isKana(input));
+}
+
+
+pub fn strip_okurigana_with_opt(input: &str, leading: bool, match_kanji: Option<&str>) -> String {
+    if !is_japanese(input)
+    || is_leading_without_initial_kana(input, leading)
+    || is_trailing_without_final_kana(input, leading) 
+    || is_invalid_matcher(input, match_kanji) {
+        return input.to_string();
+    }
+
+    return "".to_string()
+}
+

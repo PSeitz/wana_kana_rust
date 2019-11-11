@@ -24,7 +24,7 @@ pub const KANA_PUNCTUATION: [u32; 2] = [0xFF61, 0xFF65];
 pub const HANKAKU_KATAKANA: [u32; 2] = [0xFF66, 0xFF9F];
 pub const COMMON_CJK: [u32; 2] = [0x4E00, 0x9FFF];
 pub const RARE_CJK: [u32; 2] = [0x3400, 0x4DBF];
-// pub const LATIN_NUMBERS: [u32; 2] = [0x0030, 0x0039];
+pub const LATIN_NUMBERS: [u32; 2] = [0x0030, 0x0039];
 pub const MODERN_ENGLISH: [u32; 2] = [0x0000, 0x007f];
 pub const HEPBURN_MACRON_RANGES: [[u32; 2]; 5] = [
     [0x0100, 0x0101], // Ā ā

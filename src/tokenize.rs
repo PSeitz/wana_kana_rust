@@ -1,8 +1,9 @@
-//! Splits input into array of [Kanji](https://en.wikipedia.org/wiki/Kanji), [Hiragana](https://en.wikipedia.org/wiki/Hiragana), [Katakana](https://en.wikipedia.org/wiki/Katakana), and [Romaji](https://en.wikipedia.org/wiki/Romaji) tokens.
+//! Splits input into array of strings separated by opinionated token types
 //!
-//! [Katakana](https://en.wikipedia.org/wiki/Katakana), and [Romaji](https://en.wikipedia.org/wiki/Romaji) tokens.
+//! `'en', 'ja', 'englishNumeral', 'japaneseNumeral','englishPunctuation', 'japanesePunctuation','kanji', 'hiragana', 'katakana', 'space', 'other'`.
 //!
-//! Does not split into parts of speech!
+//! If `{ compact: true }` then many same-language tokens are combined (spaces + text, kanji + kana, numeral + punctuation).
+//! `tokenize_detailed` returns an array containing `{ type, value }` instead of `'value'`
 //! # Example
 //! ```
 //! use wana_kana::tokenize::*;
@@ -15,26 +16,84 @@
 //! assert_eq!(tokenize("what the...私は「悲しい」。"), vec!["what the...", "私", "は", "「", "悲", "しい", "」。", ] );
 //! ```
 
+use crate::utils::is_char_japanese::is_char_japanese;
+use crate::utils::is_char_romaji::is_char_romaji;
 use itertools::Itertools;
 use crate::utils::is_char_hiragana::*;
+use crate::utils::is_char_latin_number::*;
+use crate::utils::is_char_japanese_number::*;
+use crate::utils::is_char_english_punctuation::*;
 use crate::utils::is_char_japanese_punctuation::*;
 use crate::utils::is_char_kanji::*;
 use crate::utils::is_char_katakana::*;
 
-fn get_type(input: char) -> &'static str {
-    match input {
-        input if is_char_japanese_punctuation(input) => "japanese_punctuation",
-        input if is_char_kanji(input) => "kanji",
-        input if is_char_hiragana(input) => "hiragana",
-        input if is_char_katakana(input) => "katakana",
-        _ => "romaji",
-    }
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TokenType {
+    En,
+    Ja,
+    EnNum,
+    JaNum,
+    EnPunc,
+    JaPunc,
+    Kanji,
+    Hiragana,
+    Katakana,
+    Space,
+    Other,
 }
 
+fn get_type(input: char, compact: bool) -> TokenType {
+    if compact {
+
+        match input {
+            input if is_char_japanese_number(input) => TokenType::Other,
+            input if is_char_latin_number(input) => TokenType::Other,
+            ' ' => TokenType::En, //En Space
+            input if is_char_english_punctuation(input) => TokenType::Other,
+            '　' => TokenType::Ja, //Ja Space
+            input if is_char_japanese_punctuation(input) => TokenType::Other,
+            input if is_char_japanese(input) => TokenType::Ja,
+            input if is_char_romaji(input) => TokenType::En,
+            _ => TokenType::Other,
+        }
+
+    } else {
+        match input {
+            ' ' => TokenType::Space, //En Space
+            '　' => TokenType::Space, //Ja Space
+            input if is_char_japanese_number(input) => TokenType::JaNum,
+            input if is_char_latin_number(input) => TokenType::EnNum,
+            input if is_char_english_punctuation(input) => TokenType::EnPunc,
+            input if is_char_japanese_punctuation(input) => TokenType::JaPunc,
+            input if is_char_kanji(input) => TokenType::Kanji,
+            input if is_char_hiragana(input) => TokenType::Hiragana,
+            input if is_char_katakana(input) => TokenType::Katakana,
+            input if is_char_japanese(input) => TokenType::Ja,
+            input if is_char_romaji(input) => TokenType::En,
+            _ => TokenType::Other,
+        }
+    }
+
+}
+
+
 pub fn tokenize(input: &str) -> Vec<String> {
+    tokenize_with_opt(input, false)
+}
+
+
+pub fn tokenize_with_opt(input: &str, compact: bool) -> Vec<String> {
     let mut result = vec![];
-    for (_, group) in &input.chars().group_by(|elt| get_type(*elt)) {
+    for (_, group) in &input.chars().group_by(|elt| get_type(*elt, compact)) {
         result.push(group.collect());
+    }
+    result
+}
+
+pub fn tokenize_detailed(input: &str, compact: bool) -> Vec<(TokenType, String)> {
+    let mut result = vec![];
+    for (token_type, group) in &input.chars().group_by(|elt| get_type(*elt, compact)) {
+        result.push((token_type, group.collect()));
     }
     result
 }

@@ -4,6 +4,11 @@
 //! ```
 //! use wana_kana::is_mixed::*;
 //! use wana_kana::Options;
+//! assert_eq!(is_mixed("Aア"), true);
+//! assert_eq!(is_mixed("Aあ"), true);
+//! assert_eq!(is_mixed("Aあア"), true);
+//! assert_eq!(is_mixed("２あア"), false);
+//! assert_eq!(is_mixed("お腹A"), true);
 //! assert_eq!(is_mixed_pass_kanji("Abあア", true), true);
 //! assert_eq!(is_mixed_pass_kanji("お腹A", true), true);
 //! assert_eq!(is_mixed_pass_kanji("お腹A", false), false);
