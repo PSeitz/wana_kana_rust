@@ -8,7 +8,7 @@
 //! assert_eq!(to_romaji_with_opt("ひらがな　カタカナ", Options {upcase_katakana: true, ..Default::default() } ), "hiragana KATAKANA");
 //! ```
 
-use crate::constants::TO_ROMAJI;
+use crate::utils::kana_to_romaji_map::TO_ROMAJI;
 
 use crate::is_katakana::*;
 use crate::options::Options;
@@ -17,11 +17,13 @@ use std::borrow::Cow;
 use crate::utils::get_chunk::*;
 use crate::utils::katakana_to_hiragana::*;
 
-pub fn to_romaji(kana: &str) -> String {
-    to_romaji_with_opt(kana, Options::default())
+pub fn to_romaji(input: &str) -> String {
+    to_romaji_with_opt(input, Options::default())
 }
-pub fn to_romaji_with_opt(kana: &str, options: Options) -> String {
+pub fn to_romaji_with_opt(input: &str, options: Options) -> String {
+    println!("{:?}", input);
     let config = options;
+    let kana = katakana_to_hiragana(input);
     let len = kana.chars().count();
     // Final output array
     let mut roma = String::with_capacity(kana.len());
@@ -37,27 +39,26 @@ pub fn to_romaji_with_opt(kana: &str, options: Options) -> String {
         let mut chunk_size = std::cmp::min(max_chunk, len - cursor);
         let mut convert_this_chunk_to_uppercase = false;
         while chunk_size > 0 {
-            chunk = Cow::from(get_chunk(kana, cursor, cursor + chunk_size));
-            if is_katakana(&chunk) {
+            chunk = Cow::from(get_chunk(&kana, cursor, cursor + chunk_size));
+            if is_katakana(&get_chunk(&input, cursor, cursor + chunk_size)) {
                 convert_this_chunk_to_uppercase = config.upcase_katakana;
-                chunk = Cow::from(katakana_to_hiragana(&chunk));
+                // chunk = Cow::from(katakana_to_hiragana(&chunk));
             }
             // special case for small tsus
-            if chunk.chars().nth(0).map(|c| c == 'っ').unwrap_or(false) && chunk_size == 1 && cursor < (len - 1) {
-                next_char_is_double_consonant = true;
-                roma_char = Some(Cow::from(""));
-                break;
-            }
+            // if chunk.chars().nth(0).map(|c| c == 'っ').unwrap_or(false) && chunk_size == 1 && cursor < (len - 1) {
+            //     next_char_is_double_consonant = true;
+            //     roma_char = Some(Cow::from(""));
+            //     break;
+            // }
 
             roma_char = TO_ROMAJI.get(&chunk as &str).map(|el| Cow::from(*el));
-
-            if let &mut Some(ref mut roma_charo) = &mut roma_char {
-                if next_char_is_double_consonant {
-                    *roma_charo = Cow::from(roma_charo.chars().nth(0).unwrap().to_string() + &roma_charo);
-                    next_char_is_double_consonant = false;
-                }
-                break;
-            }
+            // if let &mut Some(ref mut roma_charo) = &mut roma_char {
+            //     if next_char_is_double_consonant {
+            //         *roma_charo = Cow::from(roma_charo.chars().nth(0).unwrap().to_string() + &roma_charo);
+            //         next_char_is_double_consonant = false;
+            //     }
+            //     break;
+            // }
 
             chunk_size -= 1;
         }

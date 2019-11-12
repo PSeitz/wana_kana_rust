@@ -1,3 +1,7 @@
+
+#[macro_use]
+pub mod hashmap_macro;
+pub mod kana_to_romaji_map;
 pub mod convert_fullwidth_chars_to_ascii;
 pub mod get_chunk;
 pub mod hiragana_to_katakana;
@@ -22,6 +26,8 @@ pub mod katakana_to_hiragana;
 pub mod romaji_to_hiragana;
 
 
+pub use hashmap_macro::*;
+pub use kana_to_romaji_map::*;
 pub use convert_fullwidth_chars_to_ascii::*;
 pub use get_chunk::*;
 pub use hiragana_to_katakana::*;

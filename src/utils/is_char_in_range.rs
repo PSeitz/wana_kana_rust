@@ -1,13 +1,24 @@
+
 /// Takes a character and a unicode range. Returns true if the char is in the range.
 ///
-/// @param  {String}  char  unicode character
+/// * `char` -  unicode character
 ///
-/// @param  {Number}  start unicode start range
+/// * `start` - unicode start range
 ///
-/// @param  {Number}  end   unicode end range
+/// * `end` -   unicode end range
 ///
 
 #[inline]
 pub fn is_char_in_range(char: char, start: u32, end: u32) -> bool {
     return start <= char as u32 && char as u32 <= end;
+}
+
+
+#[test]
+fn is_char_in_range_test() {
+    use crate::constants::HIRAGANA_START;
+    use crate::constants::HIRAGANA_END;
+    assert_eq!(is_char_in_range('は', HIRAGANA_START, HIRAGANA_END), true);
+    assert_eq!(is_char_in_range('d', HIRAGANA_START, HIRAGANA_END), false);
+
 }

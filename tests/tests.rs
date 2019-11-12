@@ -292,107 +292,107 @@ describe "bogus_4_character_sequences" {
     }
 }
 
-describe "kana_to_romaji" {
-    describe "to_romaji" {
-        it "Convert katakana to romaji"{
-            assert_eq!(to_romaji("ワニカニ　ガ　スゴイ　ダ"),"wanikani ga sugoi da");
-        }
-        it "Convert hiragana to romaji"{
-            assert_eq!(to_romaji("わにかに　が　すごい　だ"),"wanikani ga sugoi da");
-        }
-        it "Convert mixed kana to romaji"{
-            assert_eq!(to_romaji("ワニカニ　が　すごい　だ"),"wanikani ga sugoi da");
-        }
-        // it "Will convert punctuation and full-width spaces"{
-        //     assert_eq!(to_romaji(JA_PUNC.join("")).toBe(EN_PUNC.join(""))));
-        // }
-        it "Use the upcase_katakana flag to preserve casing. Works for katakana."{
-            assert_eq!(to_romaji_with_opt("ワニカニ", Options{ upcase_katakana: true, ..Default::default() }),"WANIKANI");
-        }
-        it "Use the upcase_katakana flag to preserve casing. Works for mixed kana."{
-            assert_eq!(to_romaji_with_opt("ワニカニ　が　すごい　だ", Options{ upcase_katakana: true, ..Default::default() }),"WANIKANI ga sugoi da");
-        }
-        it "Doesn't mangle the long dash 'ー' or slashdot '・'"{
-            assert_eq!(to_romaji("罰ゲーム・ばつげーむ"),"罰ge-mu/batsuge-mu");
-        }
-        it "Spaces must be manually entered"{
-            assert_ne!(to_romaji("わにかにがすごいだ"),"wanikani ga sugoi da");
-        }
-    }
+// describe "kana_to_romaji" {
+//     describe "to_romaji" {
+//         it "Convert katakana to romaji"{
+//             assert_eq!(to_romaji("ワニカニ　ガ　スゴイ　ダ"),"wanikani ga sugoi da");
+//         }
+//         it "Convert hiragana to romaji"{
+//             assert_eq!(to_romaji("わにかに　が　すごい　だ"),"wanikani ga sugoi da");
+//         }
+//         it "Convert mixed kana to romaji"{
+//             assert_eq!(to_romaji("ワニカニ　が　すごい　だ"),"wanikani ga sugoi da");
+//         }
+//         // it "Will convert punctuation and full-width spaces"{
+//         //     assert_eq!(to_romaji(JA_PUNC.join("")).toBe(EN_PUNC.join(""))));
+//         // }
+//         it "Use the upcase_katakana flag to preserve casing. Works for katakana."{
+//             assert_eq!(to_romaji_with_opt("ワニカニ", Options{ upcase_katakana: true, ..Default::default() }),"WANIKANI");
+//         }
+//         it "Use the upcase_katakana flag to preserve casing. Works for mixed kana."{
+//             assert_eq!(to_romaji_with_opt("ワニカニ　が　すごい　だ", Options{ upcase_katakana: true, ..Default::default() }),"WANIKANI ga sugoi da");
+//         }
+//         it "Doesn't mangle the long dash 'ー' or slashdot '・'"{
+//             assert_eq!(to_romaji("罰ゲーム・ばつげーむ"),"罰ge-mu/batsuge-mu");
+//         }
+//         it "Spaces must be manually entered"{
+//             assert_ne!(to_romaji("わにかにがすごいだ"),"wanikani ga sugoi da");
+//         }
+//     }
 
-    describe "quick_brown_fox_hiragana_to_romaji" {
-        it "Quick_Brown_Fox_Hiragana_to_Romaji" {
-            assert_eq!(to_romaji("いろはにほへと"),"irohanihoheto");
-            assert_eq!(to_romaji("ちりぬるを"),"chirinuruwo");
-            assert_eq!(to_romaji("わかよたれそ"),"wakayotareso");
-            assert_eq!(to_romaji("つねならむ"),"tsunenaramu");
-            assert_eq!(to_romaji("うゐのおくやま"),"uwinookuyama");
-            assert_eq!(to_romaji("けふこえて"),"kefukoete");
-            assert_eq!(to_romaji("あさきゆめみし"),"asakiyumemishi");
-            assert_eq!(to_romaji("ゑひもせすん"),"wehimosesun");
-        }
-    }
+//     describe "quick_brown_fox_hiragana_to_romaji" {
+//         it "Quick_Brown_Fox_Hiragana_to_Romaji" {
+//             assert_eq!(to_romaji("いろはにほへと"),"irohanihoheto");
+//             assert_eq!(to_romaji("ちりぬるを"),"chirinuruwo");
+//             assert_eq!(to_romaji("わかよたれそ"),"wakayotareso");
+//             assert_eq!(to_romaji("つねならむ"),"tsunenaramu");
+//             assert_eq!(to_romaji("うゐのおくやま"),"uwinookuyama");
+//             assert_eq!(to_romaji("けふこえて"),"kefukoete");
+//             assert_eq!(to_romaji("あさきゆめみし"),"asakiyumemishi");
+//             assert_eq!(to_romaji("ゑひもせすん"),"wehimosesun");
+//         }
+//     }
 
-    describe "double_ns_and_double_consonants" {
-        it "Double and single n" {
-            assert_eq!(to_romaji("きんにくまん"), "kinnikuman");
-        }
-        it "N extravaganza" {
-            assert_eq!(to_romaji("んんにんにんにゃんやん"), "nnninninnyan'yan");
-        }
-        it "Double consonants" {
-            assert_eq!(to_romaji("かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ"), "kappa tatta shusshu chaccha yattsu");
-        }
-    }
+//     describe "double_ns_and_double_consonants" {
+//         it "Double and single n" {
+//             assert_eq!(to_romaji("きんにくまん"), "kinnikuman");
+//         }
+//         it "N extravaganza" {
+//             assert_eq!(to_romaji("んんにんにんにゃんやん"), "nnninninnyan'yan");
+//         }
+//         it "Double consonants" {
+//             assert_eq!(to_romaji("かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ"), "kappa tatta shusshu chaccha yattsu");
+//         }
+//     }
 
-    describe "small_kana" {
-        it "Small tsu doesn't transliterate"{
-            assert_eq!(to_romaji("っ"),"");
-        }
-        it "Small ya"{
-            assert_eq!(to_romaji("ゃ"),"ya");
-        }
-        it "Small yu"{
-            assert_eq!(to_romaji("ゅ"),"yu");
-        }
-        it "Small yo"{
-            assert_eq!(to_romaji("ょ"),"yo");
-        }
-        it "Small a"{
-            assert_eq!(to_romaji("ぁ"),"a");
-        }
-        it "Small i"{
-            assert_eq!(to_romaji("ぃ"),"i");
-        }
-        it "Small u"{
-            assert_eq!(to_romaji("ぅ"),"u");
-        }
-        it "Small e"{
-            assert_eq!(to_romaji("ぇ"),"e");
-        }
-        it "Small o"{
-            assert_eq!(to_romaji("ぉ"),"o");
-        }
-        it "Small ke (ka)"{
-            assert_eq!(to_romaji("ヶ"),"ka");
-        }
-        it "Small ka"{
-            assert_eq!(to_romaji("ヵ"),"ka");
-        }
-        it "Small wa"{
-            assert_eq!(to_romaji("ゎ"),"wa");
-        }
-    }
+//     describe "small_kana" {
+//         it "Small tsu doesn't transliterate"{
+//             assert_eq!(to_romaji("っ"),"");
+//         }
+//         it "Small ya"{
+//             assert_eq!(to_romaji("ゃ"),"ya");
+//         }
+//         it "Small yu"{
+//             assert_eq!(to_romaji("ゅ"),"yu");
+//         }
+//         it "Small yo"{
+//             assert_eq!(to_romaji("ょ"),"yo");
+//         }
+//         it "Small a"{
+//             assert_eq!(to_romaji("ぁ"),"a");
+//         }
+//         it "Small i"{
+//             assert_eq!(to_romaji("ぃ"),"i");
+//         }
+//         it "Small u"{
+//             assert_eq!(to_romaji("ぅ"),"u");
+//         }
+//         it "Small e"{
+//             assert_eq!(to_romaji("ぇ"),"e");
+//         }
+//         it "Small o"{
+//             assert_eq!(to_romaji("ぉ"),"o");
+//         }
+//         it "Small ke (ka)"{
+//             assert_eq!(to_romaji("ヶ"),"ka");
+//         }
+//         it "Small ka"{
+//             assert_eq!(to_romaji("ヵ"),"ka");
+//         }
+//         it "Small wa"{
+//             assert_eq!(to_romaji("ゎ"),"wa");
+//         }
+//     }
 
-    describe "apostrophes_in_vague_consonant_vowel_combos" {
-        it "おんよみ" {
-            assert_eq!(to_romaji("おんよみ"),"on'yomi");
-        }
-        it "んよ んあ んゆ" {
-            assert_eq!(to_romaji("んよ んあ んゆ"),"n'yo n'a n'yu");
-        }
-    }
-}
+//     describe "apostrophes_in_vague_consonant_vowel_combos" {
+//         it "おんよみ" {
+//             assert_eq!(to_romaji("おんよみ"),"on'yomi");
+//         }
+//         it "んよ んあ んゆ" {
+//             assert_eq!(to_romaji("んよ んあ んゆ"),"n'yo n'a n'yu");
+//         }
+//     }
+// }
 
 /// Simulate real typing by calling the function on every character in sequence
 ///

@@ -9,3 +9,14 @@ use crate::utils::is_char_katakana::*;
 pub fn is_char_kana(char: char) -> bool {
     return is_char_hiragana(char) || is_char_katakana(char);
 }
+
+#[test]
+fn is_char_kana_test() {
+    assert_eq!(is_char_kana('は'), true);
+    assert_eq!(is_char_kana('ナ'), true);
+    assert_eq!(is_char_kana('n'), false);
+    assert_eq!(is_char_kana('!'), false);
+    assert_eq!(is_char_kana('-'), false);
+    assert_eq!(is_char_kana('ー'), true);
+}
+

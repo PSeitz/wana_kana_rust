@@ -82,7 +82,7 @@ lazy_static! {
         m
     };
     pub static ref EN_PUNCTUATION_RANGES: Vec<[u32; 2]> = {
-        let mut m = vec![[0x21, 0x2F], [0x3A, 0x3F], [0x5B, 0x60], [0x7B, 0x7E],];
+        let mut m = vec![[0x20, 0x2F], [0x3A, 0x3F], [0x5B, 0x60], [0x7B, 0x7E],];
         m.extend(&SMART_QUOTE_RANGES);
         m
     };
@@ -116,13 +116,6 @@ macro_rules! hashmap {
 }
 
 lazy_static! {
-    pub static ref LONG_VOWELS: FnvHashMap<char, char> = hashmap! {
-        'a' => 'あ',
-        'i' => 'い',
-        'u' => 'う',
-        'e' => 'え',
-        'o' => 'う',
-    };
     pub static ref FROM_ROMAJI: FnvHashMap<&'static str, &'static str> = hashmap! {
         "." => "。",
         "," => "、",
