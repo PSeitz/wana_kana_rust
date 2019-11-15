@@ -15,29 +15,16 @@
 //! assert_eq!(to_kana_with_opt("we", Options {use_obsolete_kana: true, ..Default::default() } ), "ゑ");
 //! ```
 
-use crate::constants::{FOUR_CHAR_EDGECASES, FROM_ROMAJI, UPPERCASE_END, UPPERCASE_START};
 
-use crate::is_kana::*;
 use crate::options::Options;
 use std;
-use std::borrow::Cow;
+
 use crate::utils::get_chunk::get_chunk;
 use crate::utils::hiragana_to_katakana::*;
-use crate::utils::is_char_consonant::*;
-use crate::utils::is_char_in_range::*;
-use crate::utils::is_char_upper_case::*;
-use crate::utils::is_char_vowel::*;
+
 
 pub fn to_kana(input: &str) -> String {
     to_kana_with_opt(input, Options::default())
-}
-
-fn lower_cow<'a>(text: &Cow<'a, str>) -> Cow<'a, str> {
-    if text.chars().all(char::is_lowercase) {
-        text.clone()
-    } else {
-        Cow::from(text.to_lowercase())
-    }
 }
 
 pub fn to_kana_with_opt(orig: &str, options: Options) -> String {
@@ -48,16 +35,14 @@ pub fn to_kana_with_opt(orig: &str, options: Options) -> String {
     let mut ouput = String::with_capacity(input.len());
     // Position in the string that is being evaluated
     let mut cursor = 0;
-    let max_chunk = 3;
+    let max_chunk = 4;
 
     while cursor < len {
-        let mut mapping;
-        let mut last_chunk = None;
         let mut chunk_size = std::cmp::min(max_chunk, len - cursor);
-        let chunk_is_uppercase = loop {
+        loop {
             let chunk = get_chunk(&input, cursor, cursor + chunk_size);
 
-            mapping = if options.use_obsolete_kana {
+            let mapping = if options.use_obsolete_kana {
                 TO_KANA_OBSOLETE.get(&chunk as &str)
             }else if options.imemode{
                 TO_KANA_IMEMODE.get(&chunk as &str)
@@ -65,28 +50,21 @@ pub fn to_kana_with_opt(orig: &str, options: Options) -> String {
                 TO_KANA.get(&chunk as &str)
             };
 
-            if mapping.is_some() {
-                break get_chunk(&orig, cursor, cursor + chunk_size).chars().all(char::is_uppercase);
+            if let Some(mapping) = mapping {
+                if get_chunk(&orig, cursor, cursor + chunk_size).chars().all(char::is_uppercase){
+                  ouput.push_str(&hiragana_to_katakana(mapping));
+                }else{
+                  ouput.push_str(&mapping);
+                }
+                break;
             }
+
             chunk_size -= 1;
-            last_chunk = Some(chunk);
             if chunk_size == 0 {
-                break false;
+                ouput.push_str(&chunk);
+                break;
             }
         };
-
-        if let Some(mapping) = mapping {
-
-            if chunk_is_uppercase{
-              ouput.push_str(&hiragana_to_katakana(mapping));
-            }else{
-              ouput.push_str(&mapping);
-            }
-            
-        }
-        else{
-            ouput.push_str(&last_chunk.unwrap());
-        }
 
         cursor += std::cmp::max(chunk_size, 1);
     }
