@@ -19,7 +19,7 @@ fn with_obsolete_kana() -> Options {
 }
 
 fn with_ime_mode() -> Options {
-    Options{ use_obsolete_kana: true, .. Default::default() }
+    Options{ imemode: true, .. Default::default() }
 }
 
 
@@ -80,6 +80,7 @@ speculate!{
       it "WE = ヱ (when useObsoleteKana is true)" { assert_eq!(to_kana_with_opt("WE", with_obsolete_kana()), "ヱ"); }
     }
 
+
 }
 
 
@@ -91,52 +92,3 @@ speculate!{
 
 
 
-
-// describe "optionso" {
-//     describe "use_obsolete_kana" {
-//         // describe "to_kana" {
-//         //     it "use_obsolete_kana is false by default" {
-//         //         assert_eq!(to_kana("wi"), "うぃ");
-//         //     }
-//         //     it "wi = ゐ (when use_obsolete_kana is true)" {
-//         //         assert_eq!(to_kana_with_opt("wi", Options{ use_obsolete_kana: true, .. Default::default() }), "ゐ");
-//         //     }
-//         //     it "we = ゑ (when use_obsolete_kana is true)" {
-//         //         assert_eq!(to_kana_with_opt("we", Options{ use_obsolete_kana: true, .. Default::default() }), "ゑ");
-//         //     }
-//         //     it "WI = ヰ (when use_obsolete_kana is true)" {
-//         //         assert_eq!(to_kana_with_opt("WI", Options{ use_obsolete_kana: true, .. Default::default() }), "ヰ");
-//         //     }
-//         //     it "WE = ヱ (when use_obsolete_kana is true)" {
-//         //         assert_eq!(to_kana_with_opt("WE", Options{ use_obsolete_kana: true, .. Default::default() }), "ヱ");
-//         //     }
-//         // }
-
-//         describe "to_hiragana" {
-//             it "use_obsolete_kana is false by default" {
-//                 assert_eq!(to_hiragana("wi"), "うぃ");
-//             }
-//             it "wi = ゐ (when use_obsolete_kana is true)" {
-//                 assert_eq!(to_hiragana_with_opt("wi", Options{ use_obsolete_kana: true, .. Default::default() }), "ゐ");
-//             }
-//             it "we = ゑ (when use_obsolete_kana is true)" {
-//                 assert_eq!(to_hiragana_with_opt("we", Options{ use_obsolete_kana: true, .. Default::default() }), "ゑ");
-//             }
-//             it "wi = うぃ when use_obsolete_kana is false" {
-//                 assert_eq!(to_hiragana_with_opt("wi", Options{ use_obsolete_kana: false, .. Default::default() }), "うぃ");
-//             }
-//         }
-
-//         describe "to_kata_kana" {
-//             it "wi = ウィ when use_obsolete_kana is false" {
-//                 assert_eq!(to_katakana_with_opt("WI", Options{ use_obsolete_kana: false, .. Default::default() }), "ウィ");
-//             }
-//             it "WI = ヰ (when use_obsolete_kana is true)" {
-//                 assert_eq!(to_katakana_with_opt("wi", Options{ use_obsolete_kana: true, .. Default::default() }), "ヰ");
-//             }
-//             it "WE = ヱ (when use_obsolete_kana is true)" {
-//                 assert_eq!(to_katakana_with_opt("we", Options{ use_obsolete_kana: true, .. Default::default() }), "ヱ");
-//             }
-//         }
-//     }
-// }
