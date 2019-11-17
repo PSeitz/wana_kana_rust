@@ -49,7 +49,7 @@ pub fn katakana_to_hiragana(input: &str) -> String {
 }
 
 pub fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: bool) -> String {
-    let mut hira = vec![];
+    let mut hira = Vec::with_capacity(input.chars().count());
     let mut previous_kana: Option<char> = None;
     for (index, char) in input.chars().enumerate() {
         // Short circuit to avoid incorrect codeshift for 'ー' and '・'
