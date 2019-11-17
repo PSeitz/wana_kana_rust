@@ -31,7 +31,7 @@ pub fn is_romaji_with_whitelist(input: &str, allowed: Option<&Regex>) -> bool {
     input.chars().all(|char| {
         let is_jap = is_char_romaji(char);
         if !is_jap{
-        if let Some(allowed) = allowed {
+            if let Some(allowed) = allowed {
                 return allowed.is_match(input);
             }
         }
