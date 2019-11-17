@@ -9,6 +9,7 @@
 //! assert_eq!(to_hiragana("wi"), "うぃ"); assert_eq!(to_hiragana_with_opt("wi", Options {use_obsolete_kana: true, ..Default::default() } ), "ゐ");
 //! ```
 
+use crate::utils::is_char_english_punctuation::is_char_english_punctuation;
 use crate::is_mixed::*;
 use crate::is_romaji::*;
 use crate::options::Options;
@@ -21,14 +22,16 @@ pub fn to_hiragana(input: &str) -> String {
 pub fn to_hiragana_with_opt(input: &str, options: Options) -> String {
     let config = options;
     if config.pass_romaji {
-        return katakana_to_hiragana(input);
+        katakana_to_hiragana(input)
     }
-    if is_romaji(input) {
-        return romaji_to_hiragana(input, config);
-    }
-    if is_mixed(input) {
+    else if is_mixed(input) {
         let romaji = katakana_to_hiragana(input);
-        return romaji_to_hiragana(&romaji, config);
+        romaji_to_hiragana(&romaji, config)
     }
-    return katakana_to_hiragana(input);
+    else if is_romaji(input) || input.chars().next().map(|c|is_char_english_punctuation(c)).unwrap_or(false) { // TODO: is it correct to check only the first char (see src\utils\isCharEnglishPunctuation.js)
+        romaji_to_hiragana(input, config)
+    }else{
+        katakana_to_hiragana(input)
+    }
+    
 }

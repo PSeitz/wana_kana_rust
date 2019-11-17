@@ -35,11 +35,12 @@ pub fn to_katakana(input: &str) -> String {
 pub fn to_katakana_with_opt(input: &str, options: Options) -> String {
     let config = options;
     if config.pass_romaji {
-        return hiragana_to_katakana(input);
-    }
-    if is_romaji(input) || is_mixed(input) {
+        hiragana_to_katakana(input)
+    }else if is_romaji(input) || is_mixed(input) {
         let romaji = romaji_to_hiragana(input, config);
-        return hiragana_to_katakana(&romaji);
+        hiragana_to_katakana(&romaji)
+    }else{
+        hiragana_to_katakana(input)
     }
-    return hiragana_to_katakana(input);
+    
 }

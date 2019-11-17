@@ -1,4 +1,4 @@
-use crate::to_romaji::TO_ROMAJI;
+use crate::to_romaji::TO_ROMAJI_NODE_TREE;
 use fnv::FnvHashMap;
 use crate::constants::{HIRAGANA_START, KATAKANA_START};
 use std;
@@ -58,7 +58,7 @@ pub fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: bool) -
         // Transform long vowels: 'オー' to 'おう'
         } else if let (Some(previous_kana), true) = (previous_kana, is_char_inner_long_dash(char, index)) {
             // Transform previous_kana back to romaji, and slice off the vowel
-            let romaji = TO_ROMAJI[&previous_kana.to_string() as &str];
+            let romaji = TO_ROMAJI_NODE_TREE.find_transition_node(previous_kana).unwrap().output;
 
             let romaji = romaji.chars().last().unwrap_or_else(|| panic!("could not find kana {:?} in TO_ROMAJI map", previous_kana));
             // However, ensure 'オー' => 'おお' => 'oo' if this is a transform on the way to romaji

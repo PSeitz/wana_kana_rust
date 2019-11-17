@@ -9,95 +9,15 @@
 //! ```
 
 use crate::utils::is_char_katakana::is_char_katakana;
-use crate::is_katakana::*;
 use crate::options::Options;
-use std;
-
-use crate::utils::get_chunk::*;
 use crate::utils::katakana_to_hiragana::*;
 
 pub fn to_romaji(input: &str) -> String {
     to_romaji_with_opt(input, Options::default())
 }
 
-
-
-// pub fn to_romaji_with_opt(input: &str, options: Options) -> String {
-//     let config = options;
-//     let kana = katakana_to_hiragana_with_opt(input, true);
-//     let len = kana.chars().count();
-//     // Final output array
-//     let mut roma = String::with_capacity(kana.len());
-//     // Position in the string that is being evaluated
-//     let mut cursor = 0;
-//     let max_chunk = 3;
-
-//     // let mut next_char_is_double_consonant = false;
-
-//     while cursor < len {
-//         let mut roma_char = None;
-//         let mut last_chunk = None;
-//         let mut chunk_size = std::cmp::min(max_chunk, len - cursor);
-//         let mut convert_romaji_to_uppercase = false;
-//         while chunk_size > 0 {
-//             let chunk = get_chunk(&kana, cursor, cursor + chunk_size);
-//             if is_katakana(&get_chunk(&input, cursor, cursor + chunk_size)) {
-//                 convert_romaji_to_uppercase = config.upcase_katakana;
-//             }else{
-//                 convert_romaji_to_uppercase = false;
-//             }
-//             // special case for small tsus
-//             // if chunk.chars().nth(0).map(|c| c == 'っ').unwrap_or(false) && chunk_size == 1 && cursor < (len - 1) {
-//             //     next_char_is_double_consonant = true;
-//             //     roma_char = Some(Cow::from(""));
-//             //     break;
-//             // }
-
-//             roma_char = TO_ROMAJI.get(&chunk as &str);
-//             if roma_char.is_some() {
-//                 break;
-//             }
-//             // if let &mut Some(ref mut _roma_charo) = &mut roma_char {
-//                 // if next_char_is_double_consonant {
-//                 //     *roma_charo = Cow::from(roma_charo.chars().nth(0).unwrap().to_string() + &roma_charo);
-//                 //     next_char_is_double_consonant = false;
-//                 // }
-//             //     break;
-//             // }
-
-//             chunk_size -= 1;
-//             last_chunk = Some(chunk);
-//         }
-
-//         if let Some(roma_char) = roma_char {
-//             if convert_romaji_to_uppercase {
-//                 roma.push_str(&roma_char.to_uppercase());
-//             }
-//             else{
-//                 roma.push_str(&roma_char);
-//             }
-//         }
-//         else{
-//             roma.push_str(&last_chunk.unwrap());
-//         }
-
-//         // let roma_charo = roma_char.unwrap_or(&last_chunk.unwrap()); // Passthrough undefined values
-//         // if convert_romaji_to_uppercase {
-//         //     // roma_charo = Cow::from(roma_charo.to_uppercase());
-//         //     roma.push_str(&roma_charo.to_uppercase());
-//         // }else{
-//         //     roma.push_str(&roma_charo);
-//         // }
-
-//         cursor += std::cmp::max(chunk_size, 1);
-//     }
-//     roma
-// }
-
-
 pub fn to_romaji_with_opt(orig: &str, options: Options) -> String {
     
-    // Final output array
     let kana = katakana_to_hiragana_with_opt(orig, true);
     let orig_chars = orig.chars().collect::<Vec<_>>();
     let chars = kana.chars().collect::<Vec<_>>();
@@ -148,41 +68,44 @@ pub struct Node {
 }
 
 impl Node {
-    fn get<'a>(&self, chars: &'a [char]) -> (&'static str, usize) {
+    pub fn get<'a>(&self, chars: &'a [char]) -> (&'static str, usize) {
         let mut i = 0;
         let mut curr_node = self;
         for char in chars.iter() {
             if let Some(trans_node) = curr_node.find_transition_node(*char) {
                 curr_node = trans_node;
-                // dbg!(char);
-                // dbg!(curr_node.output);
             }else{
                 break;
-                // return (curr_node.output, &chars[i..])
             }
             i+=1;
         }
-
-        // if curr_node.output != "" {
-        //     (Some(curr_node.output), i)
-        // }else{
-        //     (None, 0)
-        // }
 
         (curr_node.output, i)
 
     }
 
-    fn find_transition_node<'a>(&self, char: char) -> Option<&Node> {
+    pub fn find_transition_node<'a>(&self, char: char) -> Option<&Node> {
         // println!("{:?}", char);
         // println!("{:?}", self.transitions.iter().map(|t|&t.0).collect::<Vec<_>>());
         if let Some(t) = &self.transitions {
-          t.iter().find(|&t| t.0 == char).map(|t|&t.1)
+          // t.iter().find(|&t| t.0 == char).map(|t|&t.1)
+
+          t.binary_search_by_key(&char, |t| t.0).ok().map(|index|&t[index].1)
         }else{
           None
         }
         // self.transitions.iter().find(|&t| t.0 == char).map(|t|&t.1)
     }
+
+    fn sort(&mut self) {
+        if let Some(transitions) = &mut self.transitions {
+            transitions.sort_by_key(|el|el.0);
+            for el in transitions {
+                el.1.sort();
+            }
+        }
+    }
+
 
 
 }
@@ -2876,8 +2799,10 @@ lazy_static! {
     ],
 );
 
-
-    Node{transitions, output: ""}
+    
+    let mut node = Node{transitions, output: ""};
+    node.sort();
+    node
 };
 
 pub static ref TO_ROMAJI: FnvHashMap<&'static str, &'static str> = hashmap! {
