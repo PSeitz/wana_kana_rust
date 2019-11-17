@@ -805,20 +805,43 @@ describe "optionso" {
 
 }
 
+
 #[bench]
 fn bench_kana_1(b: &mut test::Bencher) {
     b.iter(|| to_kana::to_kana("aiueosashisusesonaninunenokakikukeko"))
 }
+
 #[bench]
 fn bench_kana_2(b: &mut test::Bencher) {
     b.iter(|| to_kana::to_kana("AIUEOSASHISUSESONANINUNENOKAKIKUKEKO"))
 }
 
 #[bench]
-fn bench_romaji_1(b: &mut test::Bencher) {
+fn bench_romaji_to_hiragana(b: &mut test::Bencher) {
+    b.iter(|| to_hiragana("aiueosashisusesonaninunenokakikukeko"))
+}
+
+#[bench]
+fn bench_katakana_to_hiragana(b: &mut test::Bencher) {
+    b.iter(|| to_hiragana("アイウエオサシスセソナニヌネノカキクケコ"))
+}
+
+#[bench]
+fn bench_romaji_to_katakana(b: &mut test::Bencher) {
+    b.iter(|| to_katakana("aiueosashisusesonaninunenokakikukeko"))
+}
+
+#[bench]
+fn bench_katakana_to_katakana(b: &mut test::Bencher) {
+    b.iter(|| to_katakana("あいうえおさしすせそなにぬねのかきくけこ"))
+}
+
+#[bench]
+fn bench_hiragana_to_romaji(b: &mut test::Bencher) {
     b.iter(|| to_romaji::to_romaji("あいうえおさしすせそなにぬねのかきくけこ"))
 }
+
 #[bench]
-fn bench_romaji_2(b: &mut test::Bencher) {
+fn bench_katakana_to_romaji(b: &mut test::Bencher) {
     b.iter(|| to_romaji::to_romaji("アイウエオサシスセソナニヌネノカキクケコ"))
 }
