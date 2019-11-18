@@ -5,7 +5,6 @@
 /// * `start` - unicode start range
 ///
 /// * `end` -   unicode end range
-///
 
 #[inline]
 pub fn is_char_in_range(char: char, start: u32, end: u32) -> bool {

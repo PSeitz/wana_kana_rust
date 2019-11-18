@@ -25,14 +25,14 @@ wana_kana = "2.0"
 
 Version 2 Performane Improvements (Migrating from WanaKana 2.0.3 to 4.0.2)
 ```
- bench_hiragana_to_romaji    3,163            950                -2,213  -69.97%   x 3.33
- bench_kana_1                2,961            543                -2,418  -81.66%   x 5.45
- bench_kana_2                7,402            1,760              -5,642  -76.22%   x 4.21
- bench_katakana_to_hiragana  2,118            2,091                 -27   -1.27%   x 1.01
- bench_katakana_to_katakana  1,356            1,411                  55    4.06%   x 0.96
- bench_katakana_to_romaji    6,688            1,129              -5,559  -83.12%   x 5.92
- bench_romaji_to_hiragana    3,617            3,486                -131   -3.62%   x 1.04
- bench_romaji_to_katakana    4,167            1,882              -2,285  -54.84%   x 2.21
+ bench_hiragana_to_romaji    3,519            1,070              -2,449  -69.59%   x 3.29
+ bench_kana_1                3,066            567                -2,499  -81.51%   x 5.41
+ bench_kana_2                8,006            1,831              -6,175  -77.13%   x 4.37
+ bench_katakana_to_hiragana  2,512            622                -1,890  -75.24%   x 4.04
+ bench_katakana_to_katakana  1,664            629                -1,035  -62.20%   x 2.65
+ bench_katakana_to_romaji    6,922            1,067              -5,855  -84.59%   x 6.49
+ bench_romaji_to_hiragana    3,802            1,300              -2,502  -65.81%   x 2.92
+ bench_romaji_to_katakana    4,361            1,929              -2,432  -55.77%   x 2.26
 ```
 
 ### CLI

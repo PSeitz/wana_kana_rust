@@ -1,3 +1,18 @@
+//! Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
+//!
+//! Passes through any non-katakana chars
+//!
+//! # Examples
+//!
+//! katakana_to_hiragana('カタカナ')
+//!
+//! // => "かたかな"
+//!
+//! katakana_to_hiragana('カタカナ is a type of kana')
+//!
+//! // => "かたかな is a type of kana"
+//!
+
 use crate::constants::{HIRAGANA_START, KATAKANA_START};
 use crate::to_romaji::TO_ROMAJI_NODE_TREE;
 use crate::utils::is_char_katakana::*;
@@ -5,23 +20,6 @@ use crate::utils::is_char_long_dash::*;
 use crate::utils::is_char_slash_dot::*;
 use fnv::FnvHashMap;
 use std;
-
-/// Convert [Katakana](https://en.wikipedia.org/wiki/Katakana) to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
-///
-/// Passes through any non-katakana chars
-///
-/// @param  {String} [input=''] text input
-///
-/// # Examples
-///
-/// katakana_to_hiragana('カタカナ')
-///
-/// // => "かたかな"
-///
-/// katakana_to_hiragana('カタカナ is a type of kana')
-///
-/// // => "かたかな is a type of kana"
-///
 
 pub fn is_char_initial_long_dash(char: char, index: usize) -> bool {
     is_char_long_dash(char) && index == 0
@@ -47,7 +45,7 @@ pub fn katakana_to_hiragana(input: &str) -> String {
     katakana_to_hiragana_with_opt(input, false)
 }
 
-pub fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: bool) -> String {
+pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: bool) -> String {
     let mut hira = Vec::with_capacity(input.chars().count());
     let mut previous_kana: Option<char> = None;
     for (index, char) in input.chars().enumerate() {

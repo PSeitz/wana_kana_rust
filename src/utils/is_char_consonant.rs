@@ -1,8 +1,6 @@
 /// Tests a character and an english consonant. Returns true if the char is a consonant.
 ///
-/// @param  {String} char
-///
-/// @param  {Boolean} [include_Y=true] Optional parameter to include y as a consonant in test
+/// * `include_Y` include y as a consonant in test
 ///
 
 pub fn is_char_consonant(char: char, include_y: bool) -> bool {

@@ -4,14 +4,14 @@
 //! ```
 //! use wana_kana::to_kana::*;
 //! use wana_kana::Options;
-//! assert_eq!(to_kana_with_opt("o", Options::default()), "お");
-//! assert_eq!(to_kana_with_opt("ona", Options::default()), "おな");
-//! //assert_eq!(to_kana_with_opt("onaji", Options::default()), "おなじ");
-//! //assert_eq!(to_kana_with_opt("onaji BUTTSUUJI", Options::default()), "おなじ ブッツウジ");
-//! //assert_eq!(to_kana_with_opt("ONAJI buttsuuji", Options::default()), "オナジ ぶっつうじ");
-//! assert_eq!(to_kana_with_opt("座禅‘zazen’スタイル", Options::default()), "座禅「ざぜん」スタイル");
+//! assert_eq!(to_kana("o"), "お");
+//! assert_eq!(to_kana("ona"), "おな");
+//! assert_eq!(to_kana("onaji"), "おなじ");
+//! assert_eq!(to_kana("onaji BUTTSUUJI"), "おなじ ブッツウジ");
+//! assert_eq!(to_kana("ONAJI buttsuuji"), "オナジ ぶっつうじ");
+//! assert_eq!(to_kana("座禅‘zazen’スタイル"), "座禅「ざぜん」スタイル");
 //! assert_eq!(to_kana_with_opt("batsuge-mu", Options {use_obsolete_kana: true, ..Default::default() } ), "ばつげーむ");
-//! assert_eq!(to_kana_with_opt("!?./,~-‘’“”[](){}", Options::default()), "！？。・、〜ー「」『』［］（）｛｝");
+//! assert_eq!(to_kana("!?./,~-‘’“”[](){}"), "！？。・、〜ー「」『』［］（）｛｝");
 //! assert_eq!(to_kana_with_opt("we", Options {use_obsolete_kana: true, ..Default::default() } ), "ゑ");
 //! ```
 
@@ -22,10 +22,10 @@ pub fn to_kana(input: &str) -> String {
     to_kana_with_opt(input, Options::default())
 }
 
-pub fn to_kana_with_opt(orig: &str, options: Options) -> String {
-    let chars = orig.chars().collect::<Vec<_>>();
+pub fn to_kana_with_opt(input: &str, options: Options) -> String {
+    let chars = input.chars().collect::<Vec<_>>();
     // Final output array
-    let mut ouput = String::with_capacity(orig.len());
+    let mut ouput = String::with_capacity(input.len());
     let len = chars.len();
     // Position in the string that is being evaluated
     let mut curr_pos = 0;
