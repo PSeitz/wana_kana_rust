@@ -12,13 +12,16 @@ extern crate speculate;
 use speculate::speculate;
 
 use wana_kana::is_japanese::*;
-
+use regex::Regex;
 speculate! {
     it "sane defaults" {
         assert_eq!(is_japanese(""), false);
     }
     it "泣き虫 is japanese" {
         assert_eq!(is_japanese("泣き虫"), true);
+    }
+    it "is japanese with whitelist" {
+        assert_eq!(is_japanese_with_whitelist("≪偽括弧≫", Some(&Regex::new(r"[≪≫]").unwrap())), true);
     }
     it "あア is japanese" {
         assert_eq!(is_japanese("あア"), true);

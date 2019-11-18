@@ -17,6 +17,7 @@ use wana_kana::is_romaji::*;
 speculate! {
     it "sane defaults" {
         assert_eq!(is_romaji(""), false);
+        assert_eq!(is_romaji_with_whitelist("", None), false);
     }
     it "A is romaji" { assert_eq!(is_romaji("A"), true); }
     it "xYz is romaji" { assert_eq!(is_romaji("xYz"), true); }

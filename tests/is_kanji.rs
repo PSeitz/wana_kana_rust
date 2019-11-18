@@ -16,7 +16,11 @@ use wana_kana::is_kanji::*;
 speculate! {
     it "sane defaults" {
         assert_eq!(is_kanji(""), false);
+        assert_eq!(contains_kanji(""), false);
     }
+
+    it "勢い contains kanji" { assert_eq!(contains_kanji("勢い"), true); }
+    it "hello contains not kanji" { assert_eq!(contains_kanji("hello"), false); }
     it "切腹 is kanji" { assert_eq!(is_kanji("切腹"), true); }
     it "刀 is kanji" { assert_eq!(is_kanji("刀"), true); }
     it "emoji are not kanji" { assert_eq!(is_kanji("🐸"), false); }
