@@ -11,12 +11,15 @@ extern crate speculate;
 #[cfg(test)]
 use speculate::speculate;
 
+#[cfg(feature = "enable_regex")]
 use regex::Regex;
 use wana_kana::is_romaji::*;
 
 speculate! {
     it "sane defaults" {
         assert_eq!(is_romaji(""), false);
+
+        #[cfg(feature = "enable_regex")]
         assert_eq!(is_romaji_with_whitelist("", None), false);
     }
     it "A is romaji" { assert_eq!(is_romaji("A"), true); }
@@ -29,5 +32,7 @@ speculate! {
     it "passes latin numbers" { assert_eq!(is_romaji("0123456789"), true); }
     it "fails zenkaku punctuation" { assert_eq!(is_romaji("a！b&cーd"), false); }
     it "fails zenkaku latin" { assert_eq!(is_romaji("ｈｅｌｌｏ"), false); }
+
+    #[cfg(feature = "enable_regex")]
     it "accepts optional allowed chars" { assert_eq!(is_romaji_with_whitelist("a！b&cーd", Some(&Regex::new(r"[！ー]").unwrap())), true); }
 }

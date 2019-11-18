@@ -16,6 +16,8 @@ extern crate itertools;
 #[macro_use]
 extern crate lazy_static;
 extern crate fnv;
+
+#[cfg(feature = "enable_regex")]
 extern crate regex;
 
 #[macro_use]

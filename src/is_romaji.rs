@@ -3,7 +3,6 @@
 //! # Examples
 //! ```
 //! use wana_kana::is_romaji::*;
-//! use regex::Regex;
 //! assert_eq!(is_romaji("A"), true);
 //! assert_eq!(is_romaji("xYz"), true);
 //! assert_eq!(is_romaji("Tōkyō and Ōsaka"), true);
@@ -14,10 +13,10 @@
 //! assert_eq!(is_romaji("0123456789"), true);
 //! assert_eq!(is_romaji("a！b&cーd"), false);
 //! assert_eq!(is_romaji("ｈｅｌｌｏ"), false);
-//! assert_eq!(is_romaji_with_whitelist("a！b&cーd", Some(&Regex::new(r"[！ー]").unwrap())), true);
 //! ```
 
 use crate::utils::is_char_romaji::*;
+#[cfg(feature = "enable_regex")]
 use regex::Regex;
 
 pub fn is_romaji(input: &str) -> bool {
@@ -27,6 +26,7 @@ pub fn is_romaji(input: &str) -> bool {
     input.chars().all(|char| is_char_romaji(char))
 }
 
+#[cfg(feature = "enable_regex")]
 pub fn is_romaji_with_whitelist(input: &str, allowed: Option<&Regex>) -> bool {
     if input.is_empty() {
         return false;
