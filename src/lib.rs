@@ -12,12 +12,14 @@
 //! assert_eq!(to_hiragana("WanaKana"), "わなかな");
 //! assert_eq!(to_kana("WANAKANA"), "ワナカナ");
 //! ```
-
 extern crate itertools;
 #[macro_use]
 extern crate lazy_static;
 extern crate fnv;
 extern crate regex;
+
+#[macro_use]
+pub mod utils;
 
 pub mod is_hiragana;
 pub mod is_japanese;
@@ -32,12 +34,10 @@ pub mod to_kana;
 pub mod to_katakana;
 pub mod to_romaji;
 
-pub mod strip_okurigana;
 pub mod tokenize;
+pub mod trim_okurigana;
 
-pub mod utils;
-
-mod constants;
+pub mod constants;
 mod options;
 
 pub use crate::options::Options;

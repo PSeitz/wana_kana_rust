@@ -1,17 +1,14 @@
 use crate::constants::{HIRAGANA_START, KATAKANA_START};
-use std;
 use crate::utils::is_char_hiragana::*;
 use crate::utils::is_char_long_dash::*;
 use crate::utils::is_char_slash_dot::*;
+use std;
 
 /// Convert [Hiragana](https://en.wikipedia.org/wiki/Hiragana) to [Katakana](https://en.wikipedia.org/wiki/Katakana)
 ///
 /// Passes through any non-hiragana chars
 ///
-/// @param  {String} [input=''] text input
-///
 /// # Examples
-///
 ///
 ///
 /// hiragana_to_katakana('ひらがな')
@@ -21,8 +18,6 @@ use crate::utils::is_char_slash_dot::*;
 /// hiragana_to_katakana('ひらがな is a type of kana')
 ///
 /// // => "ヒラガナ is a type of kana"
-///
-
 ///
 
 pub fn hiragana_to_katakana(input: &str) -> String {

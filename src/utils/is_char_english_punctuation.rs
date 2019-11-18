@@ -1,10 +1,9 @@
-use crate::constants::EN_PUNCTUATION_RANGES;
-use crate::utils::is_char_in_range::*;
-
 /// Tests a character. Returns true if the character is considered English punctuation.
 ///
-/// @param  {String} char character string to test
+/// * `char` - character to test
 ///
+use crate::constants::EN_PUNCTUATION_RANGES;
+use crate::utils::is_char_in_range::*;
 
 pub fn is_char_english_punctuation(char: char) -> bool {
     return EN_PUNCTUATION_RANGES

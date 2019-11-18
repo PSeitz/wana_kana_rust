@@ -1,5 +1,4 @@
 #![feature(test)]
-#![feature(plugin)]
 #![feature(non_ascii_idents)]
 
 #[cfg(test)]
@@ -12,371 +11,59 @@ extern crate speculate;
 #[cfg(test)]
 use speculate::speculate;
 
-use wana_kana::is_hiragana::*;
-use wana_kana::is_japanese::*;
-use wana_kana::is_kana::*;
-use wana_kana::is_kanji::*;
-use wana_kana::is_katakana::*;
-use wana_kana::is_mixed::*;
-use wana_kana::is_romaji::*;
-use wana_kana::strip_okurigana::*;
 use wana_kana::to_hiragana::*;
 use wana_kana::to_kana;
 use wana_kana::to_kana::*;
 use wana_kana::to_katakana::*;
+
 use wana_kana::to_romaji;
 use wana_kana::to_romaji::*;
-use wana_kana::tokenize::*;
 use wana_kana::Options;
 
-speculate!{
-describe "methods_should_return_valid_defaults_when_given_no_input" {
-    it "is_kana() with no input" {
-        assert_eq!(is_kana(""), false);
-    }
-    it "is_kanji() with no input" {
-        assert_eq!(is_kanji(""), false);
-    }
-    it "is_japanese() with no input" {
-        assert_eq!(is_japanese(""), false);
-    }
-    it "is_katakana() with no input" {
-        assert_eq!(is_katakana(""), false);
-    }
-    it "is_hiragana() with no input" {
-        assert_eq!(is_hiragana(""), false);
-    }
-    it "is_romaji() with no input" {
-        assert_eq!(is_romaji(""), false);
-    }
-    it "is_mixed() with no input" {
-        assert_eq!(is_mixed(""), false);
-    }
-    it "to_kana() with no input" {
-        assert_eq!(to_kana(""), "");
-    }
-    it "to_katakana() with no input" {
-        assert_eq!(to_katakana(""), "");
-    }
-    it "to_hiragana() with no input" {
-        assert_eq!(to_hiragana(""), "");
-    }
-    it "to_romaji() with no input" {
-        assert_eq!(to_romaji(""), "");
-    }
-    it "strip_okurigana() with no input" {
-        assert_eq!(strip_okurigana_all("", false), "");
-    }
-    it "tokenize() with no input" {
-        let empty: Vec<String> = vec![];
-        assert_eq!(tokenize(""), empty);
-    }
-}
+mod conversion_tables;
+use conversion_tables::*;
 
-describe "character_type_detection" {
-    describe "is_hiragana" {
-        it "あ is hiragana" {
-            assert_eq!(is_hiragana("あ"), true);
-        }
-        it "ああ is hiragana" {
-            assert_eq!(is_hiragana("ああ"), true);
-        }
-        it "ア is not hiragana" {
-            assert_eq!(is_hiragana("ア"), false);
-        }
-        it "A is not hiragana" {
-            assert_eq!(is_hiragana("A"), false);
-        }
-        it "あア is not hiragana" {
-            assert_eq!(is_hiragana("あア"), false);
-        }
-        it "ignores long dash in hiragana" {
-            assert_eq!(is_hiragana("げーむ"), true);
-        }
-    }
-
-    describe "is_katakana" {
-        it "アア is katakana" {
-            assert_eq!(is_katakana("アア"), true);
-        }
-        it "ア is katakana" {
-            assert_eq!(is_katakana("ア"), true);
-        }
-        it "あ is not katakana" {
-            assert_eq!(is_katakana("あ"), false);
-        }
-        it "A is not katakana" {
-            assert_eq!(is_katakana("A"), false);
-        }
-        it "あア is not katakana" {
-            assert_eq!(is_katakana("あア"), false);
-        }
-        it "ignores long dash in katakana" {
-            assert_eq!(is_katakana("ゲーム"), true);
-        }
-    }
-
-    describe "is_kana" {
-        it "あ is kana" {
-            assert_eq!(is_kana("あ"), true);
-        }
-        it "ア is kana" {
-            assert_eq!(is_kana("ア"), true);
-        }
-        it "あア is kana" {
-            assert_eq!(is_kana("あア"), true);
-        }
-        it "A is not kana" {
-            assert_eq!(is_kana("A"), false);
-        }
-        it "あAア is not kana" {
-            assert_eq!(is_kana("あAア"), false);
-        }
-        it "ignores long dash in mixed kana" {
-            assert_eq!(is_kana("アーあ"), true);
-        }
-    }
-
-    describe "is_kanji" {
-        it "切腹 is kanji" {
-            assert_eq!(is_kanji("切腹"), true);
-        }
-        it "刀 is kanji" {
-            assert_eq!(is_kanji("刀"), true);
-        }
-        it "🐸 is not kanji" {
-            assert_eq!(is_kanji("🐸"), false);
-        }
-        it "あ is not kanji" {
-            assert_eq!(is_kanji("あ"), false);
-        }
-        it "ア is not kanji" {
-            assert_eq!(is_kanji("ア"), false);
-        }
-        it "あア is not kanji" {
-            assert_eq!(is_kanji("あア"), false);
-        }
-        it "A is not kanji" {
-            assert_eq!(is_kanji("A"), false);
-        }
-        it "あAア is not kanji" {
-            assert_eq!(is_kanji("あAア"), false);
-        }
-        it "１２隻 is not kanji" {
-            assert_eq!(is_kanji("１２隻"), false);
-        }
-        it "12隻 is not kanji" {
-            assert_eq!(is_kanji("12隻"), false);
-        }
-        it "隻。 is not kanji" {
-            assert_eq!(is_kanji("隻。"), false);
-        }
-    }
-
-    describe "is_japanese" {
-        it "泣き虫 is japanese" {
-            assert_eq!(is_japanese("泣き虫"), true);
-        }
-        it "あア is japanese" {
-            assert_eq!(is_japanese("あア"), true);
-        }
-        it "A泣き虫 is not japanese" {
-            assert_eq!(is_japanese("A泣き虫"), false);
-        }
-        it "A is not japanese" {
-            assert_eq!(is_japanese("A"), false);
-        }
-        it "泣き虫。！〜 (w. zenkaku punctuation) is japanese" {
-            assert_eq!(is_japanese("泣き虫。！〜"), true);
-        }
-        it "泣き虫.!~ (w. romaji punctuation) is not japanese" {
-            assert_eq!(is_japanese("泣き虫.!~"), false);
-        }
-        it "zenkaku numbers are considered neutral" {
-            assert_eq!(is_japanese("０１２３４５６７８９"), true);
-        }
-        it "latin numbers are considered neutral" {
-            assert_eq!(is_japanese("0123456789"), true);
-        }
-        it "mixed with numbers is japanese" {
-            assert_eq!(is_japanese("２０１１年"), true);
-        }
-        it "hankaku katakana is allowed" {
-            assert_eq!(is_japanese("ﾊﾝｶｸｶﾀｶﾅ"), true);
-        }
-    }
-
-    describe "is_romaji" {
-        it "A is romaji" {
-            assert_eq!(is_romaji("A"), true);
-        }
-        it "xYz is romaji" {
-            assert_eq!(is_romaji("xYz"), true);
-        }
-        it "Tōkyō and Ōsaka is romaji" {
-            assert_eq!(is_romaji("Tōkyō and Ōsaka"), true);
-        }
-        it "あアA is not romaji" {
-            assert_eq!(is_romaji("あアA"), false);
-        }
-        it "お願い is not romaji" {
-            assert_eq!(is_romaji("お願い"), false);
-        }
-        it "熟成 is not romaji" {
-            assert_eq!(is_romaji("熟成"), false);
-        }
-        it "passes latin punctuation" {
-            assert_eq!(is_romaji("a*b&c-d"), true);
-        }
-        it "passes latin numbers" {
-            assert_eq!(is_romaji("0123456789"), true);
-        }
-        it "fails zenkaku punctuation" {
-            assert_eq!(is_romaji("a！b&cーd"), false);
-        }
-        it "fails zenkaku latin" {
-            assert_eq!(is_romaji("ｈｅｌｌｏ"), false);
-        }
-    }
-
-    describe "is_mixed" {
-        it "Aア is mixed" {
-            assert_eq!(is_mixed("Aア"), true);
-        }
-        it "Aあ is mixed" {
-            assert_eq!(is_mixed("Aあ"), true);
-        }
-        it "Aあア is mixed" {
-            assert_eq!(is_mixed("Aあア"), true);
-        }
-        it "２あア is not mixed" {
-            assert_eq!(is_mixed("２あア"), false);
-        }
-        it "お腹A is mixed" {
-            assert_eq!(is_mixed("お腹A"), true);
-        }
-        it "お腹A is not mixed when { passKanji: false }" {
-            assert_eq!(is_mixed_pass_kanji("お腹A", false), false);
-        }
-        it "お腹 is not mixed" {
-            assert_eq!(is_mixed("お腹"), false);
-        }
-        it "腹 is not mixed" {
-            assert_eq!(is_mixed("腹"), false);
-        }
-        it "A is not mixed" {
-            assert_eq!(is_mixed("A"), false);
-        }
-        it "あ is not mixed" {
-            assert_eq!(is_mixed("あ"), false);
-        }
-        it "ア is not mixed" {
-            assert_eq!(is_mixed("ア"), false);
-        }
-    }
-}
+speculate! {
 
 describe "character_conversion" {
-    describe "double_consonants_transliterate_to_glottal_stops_small_tsu" {
-        it "double B" {
-            assert_eq!(to_kana("babba"), "ばっば");
-        }
-        it "double C" {
-            assert_eq!(to_kana("cacca"), "かっか");
-        }
-        it "double Ch" {
-            assert_eq!(to_kana("chaccha"), "ちゃっちゃ");
-        }
-        it "double D" {
-            assert_eq!(to_kana("dadda"), "だっだ");
-        }
-        it "double F" {
-            assert_eq!(to_kana("fuffu"), "ふっふ");
-        }
-        it "double G" {
-            assert_eq!(to_kana("gagga"), "がっが");
-        }
-        it "double H" {
-            assert_eq!(to_kana("hahha"), "はっは");
-        }
-        it "double J" {
-            assert_eq!(to_kana("jajja"), "じゃっじゃ");
-        }
-        it "double K" {
-            assert_eq!(to_kana("kakka"), "かっか");
-        }
-        it "double L" {
-            assert_eq!(to_kana("lalla"), "らっら");
-        }
-        it "double M" {
-            assert_eq!(to_kana("mamma"), "まっま");
-        }
-        it "double N" {
-            assert_eq!(to_kana("nanna"), "なんな");
-        }
-        it "double P" {
-            assert_eq!(to_kana("pappa"), "ぱっぱ");
-        }
-        it "double Q" {
-            assert_eq!(to_kana("qaqqa"), "くぁっくぁ");
-        }
-        it "double R" {
-            assert_eq!(to_kana("rarra"), "らっら");
-        }
-        it "double S" {
-            assert_eq!(to_kana("sassa"), "さっさ");
-        }
-        it "double Sh" {
-            assert_eq!(to_kana("shassha"), "しゃっしゃ");
-        }
-        it "double T" {
-            assert_eq!(to_kana("tatta"), "たった");
-        }
-        it "double Ts" {
-            assert_eq!(to_kana("tsuttsu"), "つっつ");
-        }
-        it "double V" {
-            assert_eq!(to_kana("vavva"), "ゔぁっゔぁ");
-        }
-        it "double W" {
-            assert_eq!(to_kana("wawwa"), "わっわ");
-        }
-        it "double X" {
-            assert_eq!(to_kana("yayya"), "やっや");
-        }
-        it "double Z" {
-            assert_eq!(to_kana("zazza"), "ざっざ");
-        }
-    }
 
-    describe "to_kana" {
-        it "Lowercase characters are transliterated to hiragana." {
-            assert_eq!(to_kana("onaji"), "おなじ");
+    describe "test every conversion table char" {
+        it "to_kana()" {
+            for &[romaji, hiragana, katakana] in ROMA_TO_HIRA_KATA.iter() {
+                let lower = to_kana(romaji);
+                let upper = to_kana(&romaji.to_uppercase());
+                assert_eq!(lower, hiragana);
+                assert_eq!(upper, katakana);
+            }
         }
-        it "Lowercase with double consonants and double vowels are transliterated to hiragana." {
-            assert_eq!(to_kana("buttsuuji"), "ぶっつうじ");
+
+        it "to_hiragana()" {
+            for &[romaji, hiragana, _katakana] in ROMA_TO_HIRA_KATA.iter() {
+                let lower = to_hiragana(romaji);
+                let upper = to_hiragana(&romaji.to_uppercase());
+                assert_eq!(lower, hiragana);
+                assert_eq!(upper, hiragana);
+            }
         }
-        it "Uppercase characters are transliterated to katakana." {
-            assert_eq!(to_kana("ONAJI"), "オナジ");
+
+
+        it "Hiragana input to_romaji()" {
+            for &[hiragana, _, romaji] in HIRA_KATA_TO_ROMA.iter() {
+
+                if hiragana != ""{
+                    assert_eq!(to_romaji(hiragana), romaji);
+                }
+            }
         }
-        it "Uppercase with double consonants and double vowels are transliterated to katakana." {
-            assert_eq!(to_kana("BUTTSUUJI"), "ブッツウジ");
+
+        it "Katakana input to_romaji()" {
+            for &[_, katakana, romaji] in HIRA_KATA_TO_ROMA.iter() {
+
+                if katakana != ""{
+                    assert_eq!(to_romaji(katakana), romaji);
+                }
+            }
         }
-        it "WaniKani -> ワにカに - Mixed case uses the first character for each syllable." {
-            assert_eq!(to_kana("WaniKani"), "ワにカに");
-        }
-        it "Non-romaji will be passed through." {
-            assert_eq!(to_kana("ワニカニ AiUeO 鰐蟹 12345 @#$%"), "ワニカニ アいウえオ 鰐蟹 12345 @#$%");
-        }
-        it "It handles mixed syllabaries" {
-            assert_eq!(to_kana("座禅‘zazen’スタイル"), "座禅「ざぜん」スタイル");
-        }
-        it "Will convert short to long dashes" {
-            assert_eq!(to_kana("batsuge-mu"), "ばつげーむ");
-        }
-        // it "Will convert punctuation but pass through spaces" {
-            //     assert_eq!(to_kana(EN_PUNC.join(" ")), JA_PUNC.join(" "));
-            // }
     }
 
     describe "converting_kana_to_kana" {
@@ -466,33 +153,35 @@ describe "case_sensitivity" {
     }
 }
 
+
+
 describe "n_edge_cases" {
     it "Solo N" {
         assert_eq!(to_kana("n"), "ん");
     }
     it "double N" {
-        assert_eq!(to_kana("onn"), "おん");
+        assert_eq!(to_kana("onn"), "おんん");
     }
     it "N followed by N* syllable" {
         assert_eq!(to_kana("onna"), "おんな");
     }
     it "Triple N" {
-        assert_eq!(to_kana("nnn"), "んん");
+        assert_eq!(to_kana("nnn"), "んんん");
     }
     it "Triple N followed by N* syllable" {
-        assert_eq!(to_kana("onnna"), "おんな");
+        assert_eq!(to_kana("onnna"), "おんんな");
     }
     it "Quadruple N" {
-        assert_eq!(to_kana("nnnn"), "んん");
+        assert_eq!(to_kana("nnnn"), "んんんん");
     }
     it "nya -> にゃ" {
         assert_eq!(to_kana("nyan"), "にゃん");
     }
     it "nnya -> んにゃ" {
-        assert_eq!(to_kana("nnyann"), "んにゃん");
+        assert_eq!(to_kana("nnyann"), "んにゃんん");
     }
     it "nnnya -> んにゃ" {
-        assert_eq!(to_kana("nnnyannn"), "んにゃんん");
+        assert_eq!(to_kana("nnnyannn"), "んんにゃんんん");
     }
     it "n'ya -> んや" {
         assert_eq!(to_kana("n'ya"), "んや");
@@ -512,9 +201,9 @@ describe "n_edge_cases" {
     it "kin'yu -> きんゆ" {
         assert_eq!(to_kana("kin'yu"), "きんゆ");
     }
-    // it "Properly add space after "n[space]"" {
-        //     assert_eq!(to_kana("ichiban warui"), "いちばん わるい");
-        // }
+    it "Properly add space after n[space]" {
+        assert_eq!(to_kana("ichiban warui"), "いちばん わるい");
+    }
 }
 
 describe "bogus_4_character_sequences" {
@@ -532,279 +221,8 @@ describe "bogus_4_character_sequences" {
     }
 }
 
-describe "kana_to_romaji" {
-    describe "to_romaji" {
-        it "Convert katakana to romaji"{
-            assert_eq!(to_romaji("ワニカニ　ガ　スゴイ　ダ"),"wanikani ga sugoi da");
-        }
-        it "Convert hiragana to romaji"{
-            assert_eq!(to_romaji("わにかに　が　すごい　だ"),"wanikani ga sugoi da");
-        }
-        it "Convert mixed kana to romaji"{
-            assert_eq!(to_romaji("ワニカニ　が　すごい　だ"),"wanikani ga sugoi da");
-        }
-        // it "Will convert punctuation and full-width spaces"{
-        //     assert_eq!(to_romaji(JA_PUNC.join("")).toBe(EN_PUNC.join(""))));
-        // }
-        it "Use the upcase_katakana flag to preserve casing. Works for katakana."{
-            assert_eq!(to_romaji_with_opt("ワニカニ", Options{ upcase_katakana: true, ..Default::default() }),"WANIKANI");
-        }
-        it "Use the upcase_katakana flag to preserve casing. Works for mixed kana."{
-            assert_eq!(to_romaji_with_opt("ワニカニ　が　すごい　だ", Options{ upcase_katakana: true, ..Default::default() }),"WANIKANI ga sugoi da");
-        }
-        it "Doesn't mangle the long dash 'ー' or slashdot '・'"{
-            assert_eq!(to_romaji("罰ゲーム・ばつげーむ"),"罰ge-mu/batsuge-mu");
-        }
-        it "Spaces must be manually entered"{
-            assert_ne!(to_romaji("わにかにがすごいだ"),"wanikani ga sugoi da");
-        }
-    }
-
-    describe "quick_brown_fox_hiragana_to_romaji" {
-        it "Quick_Brown_Fox_Hiragana_to_Romaji" {
-            assert_eq!(to_romaji("いろはにほへと"),"irohanihoheto");
-            assert_eq!(to_romaji("ちりぬるを"),"chirinuruwo");
-            assert_eq!(to_romaji("わかよたれそ"),"wakayotareso");
-            assert_eq!(to_romaji("つねならむ"),"tsunenaramu");
-            assert_eq!(to_romaji("うゐのおくやま"),"uwinookuyama");
-            assert_eq!(to_romaji("けふこえて"),"kefukoete");
-            assert_eq!(to_romaji("あさきゆめみし"),"asakiyumemishi");
-            assert_eq!(to_romaji("ゑひもせすん"),"wehimosesun");
-        }
-    }
-
-    describe "double_ns_and_double_consonants" {
-        it "Double and single n" {
-            assert_eq!(to_romaji("きんにくまん"), "kinnikuman");
-        }
-        it "N extravaganza" {
-            assert_eq!(to_romaji("んんにんにんにゃんやん"), "nnninninnyan'yan");
-        }
-        it "Double consonants" {
-            assert_eq!(to_romaji("かっぱ　たった　しゅっしゅ ちゃっちゃ　やっつ"), "kappa tatta shusshu chaccha yattsu");
-        }
-    }
-
-    describe "small_kana" {
-        it "Small tsu doesn't transliterate"{
-            assert_eq!(to_romaji("っ"),"");
-        }
-        it "Small ya"{
-            assert_eq!(to_romaji("ゃ"),"ya");
-        }
-        it "Small yu"{
-            assert_eq!(to_romaji("ゅ"),"yu");
-        }
-        it "Small yo"{
-            assert_eq!(to_romaji("ょ"),"yo");
-        }
-        it "Small a"{
-            assert_eq!(to_romaji("ぁ"),"a");
-        }
-        it "Small i"{
-            assert_eq!(to_romaji("ぃ"),"i");
-        }
-        it "Small u"{
-            assert_eq!(to_romaji("ぅ"),"u");
-        }
-        it "Small e"{
-            assert_eq!(to_romaji("ぇ"),"e");
-        }
-        it "Small o"{
-            assert_eq!(to_romaji("ぉ"),"o");
-        }
-        it "Small ke (ka)"{
-            assert_eq!(to_romaji("ヶ"),"ka");
-        }
-        it "Small ka"{
-            assert_eq!(to_romaji("ヵ"),"ka");
-        }
-        it "Small wa"{
-            assert_eq!(to_romaji("ゎ"),"wa");
-        }
-    }
-
-    describe "apostrophes_in_vague_consonant_vowel_combos" {
-        it "おんよみ" {
-            assert_eq!(to_romaji("おんよみ"),"on'yomi");
-        }
-        it "んよ んあ んゆ" {
-            assert_eq!(to_romaji("んよ んあ んゆ"),"n'yo n'a n'yu");
-        }
-    }
-}
-
-describe "strip_okurigana" {
-    it "passes default parameter tests" {
-        assert_eq!(strip_okurigana("ふふフフ"),"ふふフフ");
-        assert_eq!(strip_okurigana("ふaふbフcフ"),"ふaふbフcフ");
-        assert_eq!(strip_okurigana("お腹"),"お腹");
-        assert_eq!(strip_okurigana("踏み込む"),"踏み込");
-        assert_eq!(strip_okurigana("お祝い"),"お祝");
-        assert_eq!(strip_okurigana("粘り"),"粘");
-        assert_eq!(strip_okurigana("〜い海軍い、。"),"〜い海軍、。");
-    }
-    it "strips all kana when passed optional config" {
-        assert_eq!(strip_okurigana_all("お腹", true ),"腹");
-        assert_eq!(strip_okurigana_all("踏み込む", true ),"踏込");
-        assert_eq!(strip_okurigana_all("お祝い", true ),"祝");
-        assert_eq!(strip_okurigana_all("お踏み込む", true ),"踏込");
-        assert_eq!(strip_okurigana_all("〜い海軍い、。", true ),"〜海軍、。");
-    }
-}
-
-describe "tokenize" {
-    it "passes default parameter tests" {
-        assert_eq!(tokenize("ふふ"), vec!["ふふ"]);
-        assert_eq!(tokenize("フフ"), vec!["フフ"]);
-        assert_eq!(tokenize("ふふフフ"), vec!["ふふ", "フフ"]);
-        assert_eq!(tokenize("阮咸"), vec!["阮咸"]);
-        assert_eq!(tokenize("感じ"), vec!["感", "じ"]);
-        assert_eq!(tokenize("私は悲しい"), vec!["私", "は", "悲", "しい"]);
-        assert_eq!(tokenize("what the...私は「悲しい」。"), vec![
-          "what the...",
-          "私",
-          "は",
-          "「",
-          "悲",
-          "しい",
-          "」。",
-        ]);
-    }
-}
-
-/// Simulate real typing by calling the function on every character in sequence
-///
-/// @param  {String} input
-///
-/// @param  {Object} options
-///
-
-///
-fn test_typing(input: &str, options: Options) -> String {
-    let mut pos = 1;
-    let mut text = input.to_string();
-    let len = text.chars().count();
-    while pos <= len {
-        let mut buffer: String = text.chars().take(pos).collect();
-        let rest: String = text.chars().skip(pos).collect();
-        buffer = to_kana_with_opt(&buffer, options.clone());
-        text = buffer + &rest;
-        pos += 1;
-    }
-    return text;
-}
-
-describe "imemode" {
-
-
-    it "Without IME mode, solo n's are transliterated."{
-        assert_eq!(to_kana("n"),"ん");
-    }
-    it "Without IME mode, double n's are transliterated."{
-        assert_eq!(to_kana("nn"),"ん");
-    }
-    it "With IME mode, solo n's are not transliterated."{
-        assert_eq!(test_typing("n", Options{ imemode: true, ..Default::default() }), "n");
-    }
-    it "With IME mode, double n's are transliterated."{
-        assert_eq!(test_typing("nn", Options{ imemode: true, ..Default::default() }), "ん");
-    }
-    it "With IME mode, n + space are transliterated."{
-        assert_eq!(test_typing("n ", Options{ imemode: true, ..Default::default() }), "ん");
-    }
-    it "With IME mode, n + ' are transliterated."{
-        assert_eq!(test_typing("n'", Options{ imemode: true, ..Default::default() }), "ん");
-    }
-    it "With IME mode, ni."{
-        assert_eq!(test_typing("ni", Options{ imemode: true, ..Default::default() }), "に");
-    }
-    it "kan"{
-        assert_eq!(test_typing("kan", Options{ imemode: true, ..Default::default() }), "かn");
-    }
-    it "kanp"{
-        assert_eq!(test_typing("kanp", Options{ imemode: true, ..Default::default() }), "かんp");
-    }
-    it "kanpai!"{
-        assert_eq!(test_typing("kanpai", Options{ imemode: true, ..Default::default() }), "かんぱい");
-    }
-    it "nihongo"{
-        assert_eq!(test_typing("nihongo", Options{ imemode: true, ..Default::default() }), "にほんご");
-    }
-    it "y doesn't count as a consonant for IME"{
-        assert_eq!(test_typing("ny", Options{ imemode: true, ..Default::default() }), "ny");
-    }
-    it "nya works as expected"{
-        assert_eq!(test_typing("nya", Options{ imemode: true, ..Default::default() }), "にゃ");
-    }
-    it "With IME mode, solo N's are not transliterated - katakana."{
-        assert_eq!(test_typing("N", Options{ imemode: true, ..Default::default() }), "N");
-    }
-    it "With IME mode, double N's are transliterated - katakana."{
-        assert_eq!(test_typing("NN", Options{ imemode: true, ..Default::default() }), "ン");
-    }
-    it "With IME mode, NI - katakana."{
-        assert_eq!(test_typing("NI", Options{ imemode: true, ..Default::default() }), "ニ");
-    }
-    it "With IME mode - KAN - katakana"{
-        assert_eq!(test_typing("KAN", Options{ imemode: true, ..Default::default() }), "カN");
-    }
-    it "With IME mode - NIHONGO - katakana"{
-        assert_eq!(test_typing("NIHONGO", Options{ imemode: true, ..Default::default() }), "ニホンゴ");
-    }
-}
-
-describe "optionso" {
-    describe "use_obsolete_kana" {
-        describe "to_kana" {
-            it "use_obsolete_kana is false by default" {
-                assert_eq!(to_kana("wi"), "うぃ");
-            }
-            it "wi = ゐ (when use_obsolete_kana is true)" {
-                assert_eq!(to_kana_with_opt("wi", Options{ use_obsolete_kana: true, .. Default::default() }), "ゐ");
-            }
-            it "we = ゑ (when use_obsolete_kana is true)" {
-                assert_eq!(to_kana_with_opt("we", Options{ use_obsolete_kana: true, .. Default::default() }), "ゑ");
-            }
-            it "WI = ヰ (when use_obsolete_kana is true)" {
-                assert_eq!(to_kana_with_opt("WI", Options{ use_obsolete_kana: true, .. Default::default() }), "ヰ");
-            }
-            it "WE = ヱ (when use_obsolete_kana is true)" {
-                assert_eq!(to_kana_with_opt("WE", Options{ use_obsolete_kana: true, .. Default::default() }), "ヱ");
-            }
-        }
-
-        describe "to_hiragana" {
-            it "use_obsolete_kana is false by default" {
-                assert_eq!(to_hiragana("wi"), "うぃ");
-            }
-            it "wi = ゐ (when use_obsolete_kana is true)" {
-                assert_eq!(to_hiragana_with_opt("wi", Options{ use_obsolete_kana: true, .. Default::default() }), "ゐ");
-            }
-            it "we = ゑ (when use_obsolete_kana is true)" {
-                assert_eq!(to_hiragana_with_opt("we", Options{ use_obsolete_kana: true, .. Default::default() }), "ゑ");
-            }
-            it "wi = うぃ when use_obsolete_kana is false" {
-                assert_eq!(to_hiragana_with_opt("wi", Options{ use_obsolete_kana: false, .. Default::default() }), "うぃ");
-            }
-        }
-
-        describe "to_kata_kana" {
-            it "wi = ウィ when use_obsolete_kana is false" {
-                assert_eq!(to_katakana_with_opt("WI", Options{ use_obsolete_kana: false, .. Default::default() }), "ウィ");
-            }
-            it "WI = ヰ (when use_obsolete_kana is true)" {
-                assert_eq!(to_katakana_with_opt("wi", Options{ use_obsolete_kana: true, .. Default::default() }), "ヰ");
-            }
-            it "WE = ヱ (when use_obsolete_kana is true)" {
-                assert_eq!(to_katakana_with_opt("we", Options{ use_obsolete_kana: true, .. Default::default() }), "ヱ");
-            }
-        }
-    }
-}
 
 }
-
 
 #[bench]
 fn bench_kana_1(b: &mut test::Bencher) {
