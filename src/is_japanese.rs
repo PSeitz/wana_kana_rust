@@ -13,8 +13,8 @@
 //! assert_eq!(is_japanese_with_whitelist("≪偽括弧≫", Some(&Regex::new(r"[≪≫]").unwrap())), true);
 //! ```
 
-use regex::Regex;
 use crate::utils::is_char_japanese::*;
+use regex::Regex;
 
 pub fn is_japanese(input: &str) -> bool {
     is_japanese_with_whitelist(input, None)
@@ -26,12 +26,11 @@ pub fn is_japanese_with_whitelist(input: &str, allowed: Option<&Regex>) -> bool 
     }
     input.chars().all(|char| {
         let is_jap = is_char_japanese(char);
-        if !is_jap{
-        if let Some(allowed) = allowed {
+        if !is_jap {
+            if let Some(allowed) = allowed {
                 return allowed.is_match(input);
             }
         }
         is_jap
     })
-
 }

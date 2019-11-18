@@ -13,8 +13,7 @@ use speculate::speculate;
 
 use wana_kana::is_japanese::*;
 
-
-speculate!{
+speculate! {
     it "sane defaults" {
         assert_eq!(is_japanese(""), false);
     }

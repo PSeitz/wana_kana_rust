@@ -13,8 +13,7 @@ use speculate::speculate;
 
 use wana_kana::tokenize::*;
 
-
-speculate!{
+speculate! {
 
     it "tokenize() with no input" {
         let empty: Vec<String> = vec![];
@@ -116,5 +115,3 @@ speculate!{
 
 
 }
-
-

@@ -13,8 +13,7 @@ use speculate::speculate;
 
 use wana_kana::trim_okurigana::*;
 
-
-speculate!{
+speculate! {
     it "trim_okurigana() with no input" {
         assert_eq!(trim_okurigana(""), "");
     }

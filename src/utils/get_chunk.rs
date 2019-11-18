@@ -5,7 +5,6 @@ pub fn get_chunk(text: &str, start: usize, end: usize) -> &str {
     &text[start..end]
 }
 
-
 #[test]
 fn get_chunk_test() {
     assert_eq!(get_chunk("derpalerp", 3, 6), "pal");

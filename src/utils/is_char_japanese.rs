@@ -10,7 +10,6 @@ pub fn is_char_japanese(char: char) -> bool {
     return JAPANESE_RANGES.iter().any(|el: &[u32; 2]| is_char_in_range(char, el[0], el[1]));
 }
 
-
 #[test]
 fn is_char_japanese_test() {
     assert_eq!(is_char_japanese('１'), true);

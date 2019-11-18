@@ -13,8 +13,7 @@ use speculate::speculate;
 
 use wana_kana::is_hiragana::*;
 
-
-speculate!{
+speculate! {
     it "sane defaults" {
         assert_eq!(is_hiragana(""), false);
     }

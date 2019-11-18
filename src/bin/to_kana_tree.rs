@@ -1,5 +1,4 @@
-#![recursion_limit="256"]
-
+#![recursion_limit = "256"]
 #![feature(slice_concat_ext)]
 extern crate wana_kana;
 
@@ -11,11 +10,10 @@ use serde_json::value::Value;
 struct Node {
     pub transitions: Vec<(char, Node)>,
     // pub output: &'static str
-    pub output: Option<String>
+    pub output: Option<String>,
 }
 
 fn main() {
-
     let val = json!({
       "a": {
         "": "あ"
@@ -1905,32 +1903,27 @@ fn main() {
 
     println!("{:#?}", get_transitions(&val));
     // println!("{:?}", serde_json::to_string_pretty(&get_transitions(&val)));
-
 }
 
 fn get_transitions(val: &Value) -> Vec<(char, Node)> {
     let mut transitions = vec![];
 
     if let Some(obj) = val.as_object() {
-
-        for(k, v) in obj.iter(){
+        for (k, v) in obj.iter() {
             if k == "" {
                 continue;
             }
 
-            let node = Node{transitions: get_transitions(&v), output: v.as_object().unwrap().get("").map(|out|out.as_str().unwrap().to_string())};
+            let node = Node {
+                transitions: get_transitions(&v),
+                output: v.as_object().unwrap().get("").map(|out| out.as_str().unwrap().to_string()),
+            };
             let char = k.chars().next().unwrap();
-            transitions.push(
-                (char, node)
-            );
-
+            transitions.push((char, node));
         }
-
-
-    }else{
+    } else {
         panic!("waaaa");
     }
-
 
     transitions
 }

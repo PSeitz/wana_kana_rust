@@ -11,22 +11,27 @@ extern crate speculate;
 #[cfg(test)]
 use speculate::speculate;
 
-use wana_kana::Options;
 use wana_kana::to_kana::*;
+use wana_kana::Options;
 
 mod conversion_tables;
 use conversion_tables::*;
 
 fn with_obsolete_kana() -> Options {
-    Options{ use_obsolete_kana: true, .. Default::default() }
+    Options {
+        use_obsolete_kana: true,
+        ..Default::default()
+    }
 }
 
 fn with_ime_mode() -> Options {
-    Options{ imemode: true, .. Default::default() }
+    Options {
+        imemode: true,
+        ..Default::default()
+    }
 }
 
-
-speculate!{
+speculate! {
 
     it "sane defaults" {
         assert_eq!(to_kana(""), "");
@@ -89,4 +94,3 @@ speculate!{
 
 
 }
-

@@ -13,7 +13,6 @@ pub fn is_char_consonant(char: char, include_y: bool) -> bool {
     }
 }
 
-
 #[test]
 fn is_char_consonant_test() {
     assert_eq!(is_char_consonant('y', false), false);

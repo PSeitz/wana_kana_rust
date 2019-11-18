@@ -28,7 +28,6 @@ pub fn is_char_vowel_opt(char: char, include_y: bool) -> bool {
     }
 }
 
-
 #[test]
 fn is_char_vowel_test() {
     assert_eq!(is_char_vowel_opt('y', false), false);

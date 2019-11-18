@@ -17,8 +17,8 @@
 //! assert_eq!(is_romaji_with_whitelist("a！b&cーd", Some(&Regex::new(r"[！ー]").unwrap())), true);
 //! ```
 
-use regex::Regex;
 use crate::utils::is_char_romaji::*;
+use regex::Regex;
 
 pub fn is_romaji(input: &str) -> bool {
     is_romaji_with_whitelist(input, None)
@@ -30,14 +30,13 @@ pub fn is_romaji_with_whitelist(input: &str, allowed: Option<&Regex>) -> bool {
     }
     input.chars().all(|char| {
         let is_jap = is_char_romaji(char);
-        if !is_jap{
+        if !is_jap {
             if let Some(allowed) = allowed {
                 return allowed.is_match(input);
             }
         }
         is_jap
     })
-
 }
 
 #[test]

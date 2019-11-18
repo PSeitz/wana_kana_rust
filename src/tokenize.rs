@@ -15,16 +15,16 @@
 //! assert_eq!(tokenize("私は悲しい"), vec!["私", "は", "悲", "しい"] );
 //! ```
 
-use crate::utils::is_char_japanese::is_char_japanese;
-use crate::utils::is_char_romaji::is_char_romaji;
-use itertools::Itertools;
-use crate::utils::is_char_hiragana::*;
-use crate::utils::is_char_latin_number::*;
-use crate::utils::is_char_japanese_number::*;
 use crate::utils::is_char_english_punctuation::*;
+use crate::utils::is_char_hiragana::*;
+use crate::utils::is_char_japanese::is_char_japanese;
+use crate::utils::is_char_japanese_number::*;
 use crate::utils::is_char_japanese_punctuation::*;
 use crate::utils::is_char_kanji::*;
 use crate::utils::is_char_katakana::*;
+use crate::utils::is_char_latin_number::*;
+use crate::utils::is_char_romaji::is_char_romaji;
+use itertools::Itertools;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum TokenType {
@@ -43,7 +43,6 @@ pub enum TokenType {
 
 fn get_type(input: char, compact: bool) -> TokenType {
     if compact {
-
         match input {
             input if is_char_japanese_number(input) => TokenType::Other,
             input if is_char_latin_number(input) => TokenType::Other,
@@ -55,10 +54,9 @@ fn get_type(input: char, compact: bool) -> TokenType {
             input if is_char_romaji(input) => TokenType::En,
             _ => TokenType::Other,
         }
-
     } else {
         match input {
-            ' ' => TokenType::Space, //En Space
+            ' ' => TokenType::Space,   //En Space
             '　' => TokenType::Space, //Ja Space
             input if is_char_japanese_number(input) => TokenType::JaNum,
             input if is_char_latin_number(input) => TokenType::EnNum,
@@ -72,14 +70,11 @@ fn get_type(input: char, compact: bool) -> TokenType {
             _ => TokenType::Other,
         }
     }
-
 }
-
 
 pub fn tokenize(input: &str) -> Vec<String> {
     tokenize_with_opt(input, false)
 }
-
 
 pub fn tokenize_with_opt(input: &str, compact: bool) -> Vec<String> {
     let mut result = vec![];

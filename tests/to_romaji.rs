@@ -13,8 +13,7 @@ use speculate::speculate;
 
 use wana_kana::to_romaji::*;
 
-
-speculate!{
+speculate! {
     use wana_kana::Options;
     it "sane defaults" {
         assert_eq!(to_romaji(""), "");

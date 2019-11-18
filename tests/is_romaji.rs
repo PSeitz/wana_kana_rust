@@ -11,10 +11,10 @@ extern crate speculate;
 #[cfg(test)]
 use speculate::speculate;
 
-use wana_kana::is_romaji::*;
 use regex::Regex;
+use wana_kana::is_romaji::*;
 
-speculate!{
+speculate! {
     it "sane defaults" {
         assert_eq!(is_romaji(""), false);
     }

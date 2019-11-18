@@ -14,7 +14,6 @@ pub fn is_char_hiragana(char: char) -> bool {
     return is_char_in_range(char, HIRAGANA_START, HIRAGANA_END);
 }
 
-
 #[test]
 fn is_char_hiragana_test() {
     assert_eq!(is_char_hiragana('な'), true);

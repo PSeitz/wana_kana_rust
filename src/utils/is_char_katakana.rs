@@ -18,4 +18,3 @@ fn is_char_katakana_test() {
     assert_eq!(is_char_katakana('n'), false);
     assert_eq!(is_char_katakana('!'), false);
 }
-

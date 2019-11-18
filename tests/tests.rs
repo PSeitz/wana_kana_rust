@@ -20,11 +20,10 @@ use wana_kana::to_romaji;
 use wana_kana::to_romaji::*;
 use wana_kana::Options;
 
-
 mod conversion_tables;
 use conversion_tables::*;
 
-speculate!{
+speculate! {
 
 describe "character_conversion" {
 

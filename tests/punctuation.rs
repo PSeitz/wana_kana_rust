@@ -7,8 +7,8 @@ extern crate wana_kana;
 mod conversion_tables;
 use conversion_tables::*;
 
-use wana_kana::utils::is_char_japanese_punctuation;
 use wana_kana::utils::is_char_english_punctuation;
+use wana_kana::utils::is_char_japanese_punctuation;
 use wana_kana::utils::is_char_punctuation::is_char_punctuation;
 
 #[test]
@@ -32,7 +32,6 @@ fn is_char_punctuation_test() {
     assert_eq!(is_char_punctuation('字'), false);
 }
 
-
 #[test]
 fn is_char_japanese_punctuation_test() {
     assert_eq!(EN_PUNC.iter().cloned().all(is_char_japanese_punctuation), false);
@@ -43,4 +42,3 @@ fn is_char_japanese_punctuation_test() {
     assert_eq!(is_char_japanese_punctuation('ふ'), false);
     assert_eq!(is_char_japanese_punctuation('字'), false);
 }
-

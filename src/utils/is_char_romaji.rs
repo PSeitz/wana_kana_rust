@@ -18,4 +18,3 @@ fn is_char_romajin_test() {
     assert_eq!(is_char_romaji('は'), false);
     assert_eq!(is_char_romaji('缶'), false);
 }
-

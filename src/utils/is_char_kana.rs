@@ -19,4 +19,3 @@ fn is_char_kana_test() {
     assert_eq!(is_char_kana('-'), false);
     assert_eq!(is_char_kana('ー'), true);
 }
-

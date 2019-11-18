@@ -96,4 +96,3 @@ pub const KATAKANA_START: u32 = 0x30A1;
 pub const KATAKANA_END: u32 = 0x30FC;
 pub const PROLONGED_SOUND_MARK: u32 = 0x30FC;
 pub const KANA_SLASH_DOT: u32 = 0x30FB;
-
