@@ -1,3 +1,4 @@
+#[cfg(test)]
 pub const JA_PUNC: [char; 18] = [
   '！',
   '？',
@@ -19,6 +20,7 @@ pub const JA_PUNC: [char; 18] = [
   '｝',
 ];
 
+#[cfg(test)]
 pub const EN_PUNC: [char; 18] = [
   '!',
   '?',
@@ -41,6 +43,7 @@ pub const EN_PUNC: [char; 18] = [
 ];
 
 
+#[cfg(test)]
 pub const ROMA_TO_HIRA_KATA: [[&str; 3]; 338] = [
   /* symbols that should all be the same after conversion */
   ["ヶ", "ヶ", "ヶ"],
@@ -385,7 +388,7 @@ pub const ROMA_TO_HIRA_KATA: [[&str; 3]; 338] = [
   ["zazza", "ざっざ", "ザッザ"],
 ];
 
-
+#[cfg(test)]
 pub const HIRA_KATA_TO_ROMA: [[&str; 3]; 192] = [
   // symbols that should all be the same after conversion
   ["ヶ", "ヶ", "ヶ"],

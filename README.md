@@ -7,11 +7,11 @@
  ### ワナカナ <--> WanaKana <--> わなかな
 ```toml,ignore
 [dependencies]
-wana_kana = "0.9"
+wana_kana = "2.0"
 ```
 
 
- Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana V2.3.4)
+ Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana V4.0.2)
  # Examples
  ```
  use wana_kana::to_romaji::*;
@@ -23,7 +23,7 @@ wana_kana = "0.9"
  assert_eq!(to_kana("WANAKANA"), "ワナカナ");
  ```
 
-Version 4 Performane Improvements
+Version 2 Performane Improvements (Migrating from WanaKana 2.0.3 to 4.0.2)
 ```
  bench_hiragana_to_romaji    3,163            950                -2,213  -69.97%   x 3.33
  bench_kana_1                2,961            543                -2,418  -81.66%   x 5.45

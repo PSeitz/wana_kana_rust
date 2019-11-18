@@ -1,7 +1,6 @@
 
 #[macro_use]
 pub mod hashmap_macro;
-pub mod convert_fullwidth_chars_to_ascii;
 pub mod get_chunk;
 pub mod hiragana_to_katakana;
 pub mod is_char_consonant;
@@ -25,7 +24,6 @@ pub mod katakana_to_hiragana;
 pub mod romaji_to_hiragana;
 
 pub use hashmap_macro::*;
-pub use convert_fullwidth_chars_to_ascii::*;
 pub use get_chunk::*;
 pub use hiragana_to_katakana::*;
 pub use is_char_consonant::*;

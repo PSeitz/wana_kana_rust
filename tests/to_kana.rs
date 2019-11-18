@@ -14,6 +14,9 @@ use speculate::speculate;
 use wana_kana::Options;
 use wana_kana::to_kana::*;
 
+mod conversion_tables;
+use conversion_tables::*;
+
 fn with_obsolete_kana() -> Options {
     Options{ use_obsolete_kana: true, .. Default::default() }
 }
@@ -48,7 +51,11 @@ speculate!{
 
     it "Will convert short to long dashes" { assert_eq!(to_kana("batsuge-mu"), "ばつげーむ"); }
 
-    // it "Will convert punctuation but pass through spaces" { assert_eq!(to_kana(EN_PUNC.join(' '))).toBe(JA_PUNC.join(' ')));
+    it "Will convert punctuation but pass through spaces" {
+      let en: String = EN_PUNC.iter().map(|e|e.to_string()).collect::<Vec<_>>().join(" ");
+      let ja = JA_PUNC.iter().map(|e|e.to_string()).collect::<Vec<_>>().join(" ");
+      assert_eq!(to_kana(&en), ja)
+    }
 
     describe "without IME Mode" {
       it "solo n's are transliterated regardless of following chars" {
@@ -82,13 +89,4 @@ speculate!{
 
 
 }
-
-
-
-
-
-
-
-
-
 

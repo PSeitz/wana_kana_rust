@@ -18,7 +18,6 @@ fn with_obsolete_kana() -> Options {
     Options{ use_obsolete_kana: true, .. Default::default() }
 }
 
-
 speculate!{
 
     it "sane defaults" {

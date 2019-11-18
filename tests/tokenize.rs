@@ -23,7 +23,6 @@ speculate!{
 
     it "passes basic tests" {
 
-
         assert_eq!(tokenize("ふふ"), vec!["ふふ"]);
         assert_eq!(tokenize("フフ"), vec!["フフ"]);
         assert_eq!(tokenize("ふふフフ"), vec!["ふふ", "フフ"]);
