@@ -3,7 +3,7 @@
  [![Build Status](https://travis-ci.org/PSeitz/wana_kana_rust.svg?branch=master)](https://travis-ci.org/PSeitz/wana_kana_rust)
  [![Coverage Status](https://coveralls.io/repos/github/PSeitz/wana_kana_rust/badge.svg?branch=master)](https://coveralls.io/github/PSeitz/wana_kana_rust?branch=master)
 
- # WanaKana Rust
+ ## WanaKana Rust
  ### ワナカナ <--> WanaKana <--> わなかな
 ```toml,ignore
 [dependencies]
@@ -12,7 +12,7 @@ wana_kana = "2.0"
 
 
  Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana V4.0.2)
- # Examples
+ ## Examples
  ```
  use wana_kana::to_romaji::*;
  use wana_kana::to_kana::*;
@@ -23,7 +23,10 @@ wana_kana = "2.0"
  assert_eq!(to_kana("WANAKANA"), "ワナカナ");
  ```
 
-Version 2 Performane Improvements (Migrating from WanaKana 2.0.3 to 4.0.2)
+## Performance
+On Migrating to 2.0 some performane improvements have been implemented by using more efficient lookup structures and avoiding allocations. 
+According to these results around 1000 words can be converted per millisecond on a Core i7-6700.
+
 ```
  bench_hiragana_to_romaji    3,519            1,070              -2,449  -69.59%   x 3.29
  bench_kana_1                3,066            567                -2,499  -81.51%   x 5.41
