@@ -1,6 +1,4 @@
-
 /// Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).
-
 use crate::constants::JAPANESE_RANGES;
 use crate::utils::is_char_in_range::*;
 

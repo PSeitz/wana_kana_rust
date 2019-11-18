@@ -1,6 +1,6 @@
 #[derive(Debug, Default, Clone)]
 pub struct Options {
-	///  Set to true to use obsolete characters, such as ゐ and ゑ.
+    ///  Set to true to use obsolete characters, such as ゐ and ゑ.
     pub use_obsolete_kana: bool,
 
     ///  Set to true to pass romaji when using mixed syllabaries with to_katakana() or to_hiragana()

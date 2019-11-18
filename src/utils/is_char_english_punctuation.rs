@@ -1,9 +1,7 @@
-
 /// Tests a character. Returns true if the character is considered English punctuation.
 ///
 /// * `char` - character to test
 ///
-
 use crate::constants::EN_PUNCTUATION_RANGES;
 use crate::utils::is_char_in_range::*;
 
