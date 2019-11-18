@@ -24,7 +24,7 @@ wana_kana = "2.0"
  ```
 
 ## Performance
-On Migrating to 2.0 some performane improvements have been implemented by using more efficient lookup structures and avoiding allocations. 
+On Migrating to 2.0 some performance improvements have been implemented by using more efficient lookup structures and avoiding allocations. 
 According to these results around 1000 words can be converted per millisecond on a Core i7-6700.
 
 ```
