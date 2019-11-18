@@ -1,6 +1,5 @@
 #![recursion_limit = "1024"]
 #![feature(slice_concat_ext)]
-extern crate wana_kana;
 
 #[macro_use]
 extern crate serde_json;
@@ -1143,6 +1142,8 @@ fn get_transitions(val: &Value) -> Option<Vec<(char, Node)>> {
             //   print!("{:?}", k,);
             // }
 
+            // let node = Node{transitions: get_transitions(&v), output: v.as_object().unwrap().get("").map(|out|out.as_str().unwrap().to_string())};
+            // let node = Node{transitions: get_transitions(&v), output: v.as_object().unwrap().get("").map(|out|out.as_str().unwrap().to_string())};
             let node = Node {
                 transitions: get_transitions(&v),
                 output: v.as_object().unwrap().get("").unwrap().as_str().unwrap().to_string(),

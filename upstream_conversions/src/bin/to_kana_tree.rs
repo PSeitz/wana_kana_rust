@@ -1,6 +1,5 @@
 #![recursion_limit = "256"]
 #![feature(slice_concat_ext)]
-extern crate wana_kana;
 
 #[macro_use]
 extern crate serde_json;
