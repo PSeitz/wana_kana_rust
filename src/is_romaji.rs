@@ -21,7 +21,10 @@ use crate::utils::is_char_romaji::*;
 use regex::Regex;
 
 pub fn is_romaji(input: &str) -> bool {
-    is_romaji_with_whitelist(input, None)
+    if input.is_empty() {
+        return false;
+    }
+    input.chars().all(|char| is_char_romaji(char))
 }
 
 pub fn is_romaji_with_whitelist(input: &str, allowed: Option<&Regex>) -> bool {
