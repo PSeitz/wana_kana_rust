@@ -2,7 +2,7 @@
 //!
 //! `'en', 'ja', 'englishNumeral', 'japaneseNumeral','englishPunctuation', 'japanesePunctuation','kanji', 'hiragana', 'katakana', 'space', 'other'`.
 //!
-//! If `{ compact: true }` then many same-language tokens are combined (spaces + text, kanji + kana, numeral + punctuation).
+//! If `compact` true then many same-language tokens are combined (spaces + text, kanji + kana, numeral + punctuation).
 //! `tokenize_detailed` returns an array containing `{ type, value }` instead of `'value'`
 //! # Example
 //! ```
