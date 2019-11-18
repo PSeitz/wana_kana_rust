@@ -23,6 +23,10 @@ wana_kana = "2.0"
  assert_eq!(to_kana("WANAKANA"), "ワナカナ");
  ```
 
+## Tests
+
+![100% coverage](https://raw.githubusercontent.com/PSeitz/wana_kana_rust/master/coverage_good.png)
+
 ## Performance
 On Migrating to 2.0 some performance improvements have been implemented by using more efficient lookup structures and avoiding allocations. 
 According to these results around 1000 words can be converted per millisecond on a Core i7-6700.
@@ -37,6 +41,64 @@ According to these results around 1000 words can be converted per millisecond on
  bench_romaji_to_hiragana    3,802            1,300              -2,502  -65.81%   x 2.92
  bench_romaji_to_katakana    4,361            1,929              -2,432  -55.77%   x 2.26
 ```
+
+### Comparison To [WanaKana](https://github.com/WaniKani/WanaKana)
+
+A short comparison suggests around 25x performance
+
+```javascript
+import toKana from './src/toKana';
+import toHiragana from './src/toHiragana';
+import toKatakana from './src/toKatakana';
+import toRomaji from './src/toRomaji';
+
+
+console.time("yo")
+for (var i = 0; i < 1000; i++) {
+    toKana('aiueosashisusesonaninunenokakikukeko')
+    toKana('AIUEOSASHISUSESONANINUNENOKAKIKUKEKO')
+    toHiragana('aiueosashisusesonaninunenokakikukeko')
+    toHiragana('アイウエオサシスセソナニヌネノカキクケコ')
+    toKatakana('aiueosashisusesonaninunenokakikukeko')
+    toKatakana('あいうえおさしすせそなにぬねのかきくけこ')
+    toRomaji('あいうえおさしすせそなにぬねのかきくけこ')
+    toRomaji('アイウエオサシスセソナニヌネノカキクケコ')
+}
+
+console.timeEnd("yo")
+```
+`node -r esm run.js`
+
+```rust
+extern crate wana_kana;
+use wana_kana::to_hiragana::to_hiragana;
+use wana_kana::to_katakana::to_katakana;
+use wana_kana::to_romaji::to_romaji;
+use wana_kana::to_kana::*;
+
+
+fn main() {
+    let start = std::time::Instant::now();
+    for _ in 0..1000 {
+        to_kana("aiueosashisusesonaninunenokakikukeko");
+        to_kana("AIUEOSASHISUSESONANINUNENOKAKIKUKEKO");
+        to_hiragana("aiueosashisusesonaninunenokakikukeko");
+        to_hiragana("アイウエオサシスセソナニヌネノカキクケコ");
+        to_katakana("aiueosashisusesonaninunenokakikukeko");
+        to_katakana("あいうえおさしすせそなにぬねのかきくけこ");
+        to_romaji("あいうえおさしすせそなにぬねのかきくけこ");
+        to_romaji("アイウエオサシスセソナニヌネノカキクケコ");
+    }
+
+    println!("{:?}", start.elapsed().as_millis());
+}
+
+```
+
+`node -r esm run.js`  *253.231ms*
+
+`cargo run --release --bin bench`  *9ms*
+
 
 ### CLI
 #### Convert to kana and back for fun and profit
