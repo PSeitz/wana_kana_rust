@@ -11,7 +11,7 @@ rust:
 
 after_success: |
   # bash <(curl https://raw.githubusercontent.com/xd009642/tarpaulin/master/travis-install.sh)
-  cargo install cargo-tarpaulin
+  curl -sL https://github.com/xd009642/tarpaulin/releases/download/0.9.1/cargo-tarpaulin-0.9.1-travis.tar.gz | tar xvz -C $HOME/.cargo/bin
   # Uncomment the following line for coveralls.io
   RAYON_NUM_THREADS=1 cargo tarpaulin --all --exclude-files "src/bin/*" --ciserver travis-ci --coveralls $TRAVIS_JOB_ID
 
