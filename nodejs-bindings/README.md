@@ -1,3 +1,4 @@
-# nodejs-bindings
+# Building
 
-wana_kana
+`npm install -g neon-cli`
+`neon build --release`
