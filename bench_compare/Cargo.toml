@@ -1,0 +1,12 @@
+[package]
+name = "bench_compare"
+version = "0.1.0"
+authors = ["Pascal Seitz <pascal.seitz@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+wana_kana = { path = "../" }
+
+[[bin]]
+name = "bench"
+path = "bench.rs"

@@ -1,8 +1,8 @@
 var wana_kana_wasm = require('../native');
-export default wana_kana_wasm;
+module.exports = wana_kana_wasm;
 
 
-// console.time("yo")
+// console.time("bindings")
 // for (var i = 0; i < 1000; i++) {
 //     wana_kana_wasm.to_kana('aiueosashisusesonaninunenokakikukeko')
 //     wana_kana_wasm.to_kana('AIUEOSASHISUSESONANINUNENOKAKIKUKEKO')
@@ -14,4 +14,4 @@ export default wana_kana_wasm;
 //     wana_kana_wasm.to_romaji('アイウエオサシスセソナニヌネノカキクケコ')
 // }
 
-// console.timeEnd("yo")
+// console.timeEnd("bindings")

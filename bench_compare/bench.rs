@@ -18,5 +18,5 @@ fn main() {
         to_romaji("アイウエオサシスセソナニヌネノカキクケコ");
     }
 
-    println!("{:?}", start.elapsed().as_millis());
+    println!("{:.2}", start.elapsed().as_nanos() as f32/1_000_000_f32);
 }
