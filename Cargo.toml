@@ -22,3 +22,11 @@ speculate = "0.1.2"
 [features]
 enable_regex = ["regex"]
 default = []
+
+[[bin]]
+name = "to_kana"
+path = "src/bin/to_kana.rs"
+
+[[bin]]
+name = "to_romaji"
+path = "src/bin/to_romaji.rs"
