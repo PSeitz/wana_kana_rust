@@ -31,15 +31,19 @@ for (var i = 0; i < 1000; i++) {
 ### Results
 
 
-|               | javascript    | rust          | wasm  | node with rust bindings  |
-| ------------- | ------------- |---------------| ------| -------------------------|
-| Wall Time[ms]      | 253ms         | 9ms           | 72ms  | 18ms                     |
-| Wall Time Relative | 28x            | 1x             | 8x     | 2x                        |
-
+| Num Loops |                     | javascript    | rust          | wasm      | node with rust bindings   |
+|-------    | -------------       | ------------- |---------------| -----------------------------         |
+| 1_000     | Wall Time[ms]       | 253           | 9             | 72        | 18                        |
+|           | Wall Time Relative  | 28x           | 1x            | 8x        | 2x                        |
+| 100_000   | Wall Time[ms]       | 16149         | 1959          | 3783      | 3131                      |
+|           | Wall Time Relative  | 8,2x          | 1x            | 1,93x     | 1,59x                     |
+| 1_000_000 | Wall Time[ms]       | 181879        | 21956         | 36885     | 31294                     |
+|           | Wall Time Relative  | 8,2x          | 1x            | 1,67x     | 1,42x                     |
 
 ### Conclusion
 
-It can make sense to port performance sensitive code to wasm if total compatiblity is required (e.g. browser and node support, or no rust compiler feasible). Much more gains are possible when using native rust code, calling from nodejs has 2x overhead in this case.
+It can make sense to port performance sensitive code to wasm if total compatiblity is required (e.g. browser and node support, or no rust compiler feasible).
+More gains are possible when using native rust code or calling rust from nodejs.
 
 ### Open
 No analysis regarding memory analysis has been done yet.

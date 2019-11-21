@@ -1,16 +1,16 @@
 
-var wana_kana_wasm = require('../nodejs-bindings/lib');
+var wanakana = require('../nodejs-bindings/lib');
 
 console.time("bindings")
 for (var i = 0; i < 1000; i++) {
-    wana_kana_wasm.to_kana('aiueosashisusesonaninunenokakikukeko')
-    wana_kana_wasm.to_kana('AIUEOSASHISUSESONANINUNENOKAKIKUKEKO')
-    wana_kana_wasm.to_hiragana('aiueosashisusesonaninunenokakikukeko')
-    wana_kana_wasm.to_hiragana('アイウエオサシスセソナニヌネノカキクケコ')
-    wana_kana_wasm.to_katakana('aiueosashisusesonaninunenokakikukeko')
-    wana_kana_wasm.to_katakana('あいうえおさしすせそなにぬねのかきくけこ')
-    wana_kana_wasm.to_romaji('あいうえおさしすせそなにぬねのかきくけこ')
-    wana_kana_wasm.to_romaji('アイウエオサシスセソナニヌネノカキクケコ')
+    wanakana.to_kana('aiueosashisusesonaninunenokakikukeko')
+    wanakana.to_kana('AIUEOSASHISUSESONANINUNENOKAKIKUKEKO')
+    wanakana.to_hiragana('aiueosashisusesonaninunenokakikukeko')
+    wanakana.to_hiragana('アイウエオサシスセソナニヌネノカキクケコ')
+    wanakana.to_katakana('aiueosashisusesonaninunenokakikukeko')
+    wanakana.to_katakana('あいうえおさしすせそなにぬねのかきくけこ')
+    wanakana.to_romaji('あいうえおさしすせそなにぬねのかきくけこ')
+    wanakana.to_romaji('アイウエオサシスセソナニヌネノカキクケコ')
 }
 
 console.timeEnd("bindings")

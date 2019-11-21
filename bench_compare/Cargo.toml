@@ -10,3 +10,10 @@ wana_kana = { path = "../" }
 [[bin]]
 name = "bench"
 path = "bench.rs"
+
+[profile.release]
+codegen-units = 1
+debug = true
+lto = true
+opt-level = 3
+panic = "unwind"
