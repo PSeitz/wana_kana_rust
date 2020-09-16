@@ -4,14 +4,14 @@
 //!
 //! # Examples
 //!
-//! katakana_to_hiragana('カタカナ')
+//! ```
+//! # use wana_kana::utils::katakana_to_hiragana;
+//! katakana_to_hiragana("カタカナ");
+//! // =>  "かたかな"
 //!
-//! // => "かたかな"
-//!
-//! katakana_to_hiragana('カタカナ is a type of kana')
-//!
-//! // => "かたかな is a type of kana"
-//!
+//! katakana_to_hiragana("カタカナ is a type of kana");
+//! // =>  "かたかな is a type of kana"
+//! ```
 
 use crate::constants::{HIRAGANA_START, KATAKANA_START};
 use crate::to_romaji::TO_ROMAJI_NODE_TREE;
@@ -41,14 +41,36 @@ lazy_static! {
     };
 }
 
+/// Convert a katakana `&str` to hiragana
+///
+/// ```
+/// # use wana_kana::utils::katakana_to_hiragana;
+/// assert_eq!(katakana_to_hiragana("カタカナ"), "かたかな");
+/// ```
 pub fn katakana_to_hiragana(input: &str) -> String {
     katakana_to_hiragana_with_opt(input, false)
 }
 
+/// Convert a katakana iterator of `char` to hiragana
+///
+/// ```
+/// # use wana_kana::utils::katakana_iter_to_hiragana;
+/// let v = vec!['カ', 'タ', 'カ', 'ナ'];
+/// assert_eq!(katakana_iter_to_hiragana(v.iter().cloned()), "かたかな");
+/// ```
+pub fn katakana_iter_to_hiragana<C: Iterator<Item = char>>(input_chars: C) -> String {
+    katakana_iter_to_hiragana_with_opt(input_chars, false)
+}
+
 pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: bool) -> String {
-    let mut hira = Vec::with_capacity(input.chars().count());
+    katakana_iter_to_hiragana_with_opt(input.chars(), is_destination_romaji)
+}
+
+pub(crate) fn katakana_iter_to_hiragana_with_opt<C: Iterator<Item = char>>(input_chars: C, is_destination_romaji: bool) -> String {
+    let mut hira = Vec::with_capacity(input_chars.size_hint().0);
     let mut previous_kana: Option<char> = None;
-    for (index, char) in input.chars().enumerate() {
+    let mut previous_char: Option<char> = None;
+    for (index, char) in input_chars.enumerate() {
         // Short circuit to avoid incorrect codeshift for 'ー' and '・'
         if is_char_slash_dot(char) || is_char_initial_long_dash(char, index) || is_kana_as_symbol(char) {
             hira.push(char);
@@ -62,7 +84,7 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
                 .last()
                 .unwrap_or_else(|| panic!("could not find kana {:?} in TO_ROMAJI map", previous_kana));
             // However, ensure 'オー' => 'おお' => 'oo' if this is a transform on the way to romaji
-            if let Some(prev_char) = input.chars().nth(index - 1) {
+            if let Some(prev_char) = previous_char {
                 if is_char_katakana(prev_char) && romaji == 'o' && is_destination_romaji {
                     hira.push('お');
                     continue;
@@ -83,6 +105,7 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
             hira.push(char);
             previous_kana = None;
         }
+        previous_char = Some(char);
     }
     hira.into_iter().collect()
 }
@@ -91,4 +114,5 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
 fn test_katakana_to_hiragana() {
     assert_eq!(katakana_to_hiragana("カタカナ"), "かたかな");
     assert_eq!(katakana_to_hiragana("カタカナ is a type of kana"), "かたかな is a type of kana");
+    assert_eq!(katakana_to_hiragana("オーオー"), "おうおう");
 }
