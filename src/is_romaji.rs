@@ -23,7 +23,7 @@ pub fn is_romaji(input: &str) -> bool {
     if input.is_empty() {
         return false;
     }
-    input.chars().all(|char| is_char_romaji(char))
+    input.chars().all(is_char_romaji)
 }
 
 #[cfg(feature = "enable_regex")]

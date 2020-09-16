@@ -30,5 +30,5 @@ pub fn is_mixed_pass_kanji(input: &str, pass_kanji: bool) -> bool {
     if !pass_kanji {
         has_kanji = input.chars().any(is_char_kanji);
     }
-    return (input.chars().any(is_char_hiragana) || input.chars().any(is_char_katakana)) && input.chars().any(is_char_romaji) && !has_kanji;
+    (input.chars().any(is_char_hiragana) || input.chars().any(is_char_katakana)) && input.chars().any(is_char_romaji) && !has_kanji
 }

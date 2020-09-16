@@ -7,7 +7,7 @@ pub fn is_char_hiragana(char: char) -> bool {
     if is_char_long_dash(char) {
         return true;
     };
-    return is_char_in_range(char, HIRAGANA_START, HIRAGANA_END);
+    is_char_in_range(char, HIRAGANA_START, HIRAGANA_END)
 }
 
 #[test]

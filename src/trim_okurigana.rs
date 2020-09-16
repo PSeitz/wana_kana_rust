@@ -18,7 +18,7 @@ use crate::tokenize::*;
 use crate::utils::is_char_kana::*;
 use crate::utils::is_char_kanji::*;
 
-pub fn trim_okurigana<'a>(input: &'a str) -> &'a str {
+pub fn trim_okurigana(input: &str) -> &str {
     trim_okurigana_with_opt(input, false, None)
 }
 
@@ -53,7 +53,7 @@ pub fn trim_okurigana_with_opt<'a>(input: &'a str, from_start: bool, match_kanji
     };
 
     if from_start {
-        input.trim_start_matches(tokens.iter().next().unwrap())
+        input.trim_start_matches(tokens.get(0).unwrap())
     } else {
         input.trim_end_matches(tokens.iter().last().unwrap())
     }

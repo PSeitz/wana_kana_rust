@@ -82,12 +82,12 @@ impl Node {
         }
     }
 
-    pub fn find_transition_node<'a>(&self, char: char) -> Option<&Node> {
+    pub fn find_transition_node(&self, char: char) -> Option<&Node> {
         self.transitions.iter().find(|&t| t.0 == char).map(|t| &t.1)
         // self.transitions.binary_search_by_key(&char, |t| t.0).ok().map(|index|&self.transitions[index].1)
     }
 
-    fn find_transition_mut<'a>(&mut self, char: char) -> Option<&mut (char, Node)> {
+    fn find_transition_mut(&mut self, char: char) -> Option<&mut (char, Node)> {
         self.transitions.iter_mut().find(|t| t.0 == char)
     }
 

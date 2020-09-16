@@ -16,5 +16,5 @@ pub fn is_kana(input: &str) -> bool {
     if input.is_empty() {
         return false;
     }
-    return input.chars().all(is_char_kana);
+    input.chars().all(is_char_kana)
 }

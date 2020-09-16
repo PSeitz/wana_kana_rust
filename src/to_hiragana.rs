@@ -26,7 +26,7 @@ pub fn to_hiragana_with_opt(input: &str, options: Options) -> String {
     } else if is_mixed(input) {
         let romaji = katakana_to_hiragana(input);
         romaji_to_hiragana(&romaji, config)
-    } else if is_romaji(input) || input.chars().next().map(|c| is_char_english_punctuation(c)).unwrap_or(false) {
+    } else if is_romaji(input) || input.chars().next().map(is_char_english_punctuation).unwrap_or(false) {
         // TODO: is it correct to check only the first char (see src\utils\isCharEnglishPunctuation.js)
         romaji_to_hiragana(input, config)
     } else {

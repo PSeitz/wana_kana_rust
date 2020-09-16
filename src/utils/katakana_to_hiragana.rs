@@ -19,7 +19,6 @@ use crate::utils::is_char_katakana::*;
 use crate::utils::is_char_long_dash::*;
 use crate::utils::is_char_slash_dot::*;
 use fnv::FnvHashMap;
-use std;
 
 pub fn is_char_initial_long_dash(char: char, index: usize) -> bool {
     is_char_long_dash(char) && index == 0
