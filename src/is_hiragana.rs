@@ -14,7 +14,7 @@ pub fn is_hiragana(input: &str) -> bool {
     if input.is_empty() {
         return false;
     }
-    return input.chars().all(is_char_hiragana);
+    input.chars().all(is_char_hiragana)
 }
 
 #[test]

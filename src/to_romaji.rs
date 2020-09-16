@@ -73,7 +73,7 @@ impl Node {
         (curr_node.output, i)
     }
 
-    pub fn find_transition_node<'a>(&self, char: char) -> Option<&Node> {
+    pub fn find_transition_node(&self, char: char) -> Option<&Node> {
         if let Some(t) = &self.transitions {
             t.binary_search_by_key(&char, |t| t.0).ok().map(|index| &t[index].1)
         } else {

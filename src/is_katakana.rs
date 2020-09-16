@@ -15,5 +15,5 @@ pub fn is_katakana(input: &str) -> bool {
     if input.is_empty() {
         return false;
     }
-    return input.chars().all(is_char_katakana);
+    input.chars().all(is_char_katakana)
 }

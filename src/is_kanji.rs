@@ -18,12 +18,12 @@ pub fn is_kanji(input: &str) -> bool {
     if input.is_empty() {
         return false;
     }
-    return input.chars().all(is_char_kanji);
+    input.chars().all(is_char_kanji)
 }
 
 pub fn contains_kanji(input: &str) -> bool {
     if input.is_empty() {
         return false;
     }
-    return input.chars().any(is_char_kanji);
+    input.chars().any(is_char_kanji)
 }
