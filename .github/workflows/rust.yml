@@ -2,9 +2,9 @@ name: Rust
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - "*"
   pull_request:
-    branches: [ master ]
 
 env:
   CARGO_TERM_COLOR: always
@@ -20,3 +20,30 @@ jobs:
       run: cargo build --verbose
     - name: Run tests
       run: cargo test --verbose
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version:
+          - stable
+          - beta
+          - nightly
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.version }}
+          override: true
+      - name: clean
+        run: cargo clean
+      - name: build
+        run: cargo build --verbose --all-features
+        env:
+          RUST_BACKTRACE: 1
+        if: matrix.version == 'nightly'
+      - name: test
+        run: cargo test --all-features
+        env:
+          RUST_BACKTRACE: 1

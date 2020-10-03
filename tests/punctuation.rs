@@ -1,9 +1,3 @@
-#![feature(test)]
-
-#[cfg(test)]
-extern crate test;
-extern crate wana_kana;
-
 mod conversion_tables;
 use conversion_tables::*;
 

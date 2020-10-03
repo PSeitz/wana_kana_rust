@@ -1,9 +1,4 @@
-#![feature(test)]
 #![feature(non_ascii_idents)]
-
-#[cfg(test)]
-extern crate test;
-extern crate wana_kana;
 
 #[cfg(test)]
 extern crate speculate;
