@@ -1,5 +1,3 @@
-#![feature(slice_concat_ext)]
-extern crate wana_kana;
 use std::env;
 
 use std::io::{self, Read};
