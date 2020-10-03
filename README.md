@@ -44,6 +44,8 @@ According to these results around 1000 words can be converted per millisecond on
 
 ### Comparison To [WanaKana](https://github.com/WaniKani/WanaKana)
 
+A detailed analysis has been done in the [bench_compare](bench_compare/README.md) subfolder, the analysis below may be inaccurate.
+
 A short comparison suggests around 25x performance
 
 ```javascript
