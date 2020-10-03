@@ -31,14 +31,14 @@ for (var i = 0; i < 1000; i++) {
 ### Results
 
 
-| Num Loops |                     | javascript    | rust          | wasm      | node with rust bindings   |
-|-------    | -------------       | ------------- |---------------| ----------|-------------------        |
-| 1_000     | Wall Time[ms]       | 253           | 9             | 72        | 18                        |
-|           | Wall Time Relative  | 28x           | 1x            | 8x        | 2x                        |
-| 100_000   | Wall Time[ms]       | 16149         | 1959          | 3783      | 3131                      |
-|           | Wall Time Relative  | 8,2x          | 1x            | 1,93x     | 1,59x                     |
-| 1_000_000 | Wall Time[ms]       | 181879        | 21956         | 36885     | 31294                     |
-|           | Wall Time Relative  | 8,2x          | 1x            | 1,67x     | 1,42x                     |
+| Num Loops |                     | javascript    | rust          | wasm (rust) | node with rust bindings   |
+|-------    | -------------       | ------------- |---------------| ------------|------------------------   |
+| 1_000     | Wall Time[ms]       | 253           | 9             | 72          | 18                        |
+|           | Wall Time Relative  | 28x           | 1x            | 8x          | 2x                        |
+| 100_000   | Wall Time[ms]       | 16149         | 1959          | 3783        | 3131                      |
+|           | Wall Time Relative  | 8,2x          | 1x            | 1,93x       | 1,59x                     |
+| 1_000_000 | Wall Time[ms]       | 181879        | 21956         | 36885       | 31294                     |
+|           | Wall Time Relative  | 8,2x          | 1x            | 1,67x       | 1,42x                     |
 
 ### Conclusion
 
