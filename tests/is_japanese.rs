@@ -17,7 +17,7 @@ use wana_kana::is_japanese::*;
 use regex::Regex;
 speculate! {
     it "sane defaults" {
-        assert_eq!(is_japanese(""), false);
+        assert_eq!(is_japanese(""), true);
     }
     it "泣き虫 is japanese" {
         assert_eq!(is_japanese("泣き虫"), true);

@@ -15,7 +15,7 @@ use wana_kana::is_hiragana::*;
 
 speculate! {
     it "sane defaults" {
-        assert_eq!(is_hiragana(""), false);
+        assert_eq!(is_hiragana(""), true);
     }
     it "あ is hiragana" { assert_eq!(is_hiragana("あ"), true); }
     it "ああ is hiragana" { assert_eq!(is_hiragana("ああ"), true); }

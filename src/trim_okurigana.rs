@@ -38,7 +38,8 @@ pub fn is_invalid_matcher(input: &str, match_kanji: Option<&str>) -> bool {
 }
 
 pub fn trim_okurigana_with_opt<'a>(input: &'a str, from_start: bool, match_kanji: Option<&str>) -> &'a str {
-    if !is_japanese(input)
+    if input.is_empty()
+        || !is_japanese(input)
         || is_leading_without_initial_kana(input, from_start)
         || is_trailing_without_final_kana(input, from_start)
         || is_invalid_matcher(input, match_kanji)

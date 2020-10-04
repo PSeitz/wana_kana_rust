@@ -15,7 +15,7 @@ use wana_kana::is_kana::*;
 
 speculate! {
     it "sane defaults" {
-        assert_eq!(is_kana(""), false);
+        assert_eq!(is_kana(""), true);
     }
     it "あ is kana" { assert_eq!(is_kana("あ"), true);}
     it "ア is kana" { assert_eq!(is_kana("ア"), true);}

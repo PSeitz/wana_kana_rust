@@ -7,13 +7,11 @@
 //! assert_eq!(is_katakana("あ"), false);
 //! assert_eq!(is_katakana("A"), false);
 //! assert_eq!(is_katakana("あア"), false);
+//! assert_eq!(is_katakana(""), true);
 //! ```
 
 use crate::utils::is_char_katakana::*;
 
 pub fn is_katakana(input: &str) -> bool {
-    if input.is_empty() {
-        return false;
-    }
     input.chars().all(is_char_katakana)
 }

@@ -17,10 +17,7 @@ use wana_kana::is_romaji::*;
 
 speculate! {
     it "sane defaults" {
-        assert_eq!(is_romaji(""), false);
-
-        #[cfg(feature = "enable_regex")]
-        assert_eq!(is_romaji_with_whitelist("", None), false);
+        assert_eq!(is_romaji(""), true);
     }
     it "A is romaji" { assert_eq!(is_romaji("A"), true); }
     it "xYz is romaji" { assert_eq!(is_romaji("xYz"), true); }
@@ -34,5 +31,5 @@ speculate! {
     it "fails zenkaku latin" { assert_eq!(is_romaji("ｈｅｌｌｏ"), false); }
 
     #[cfg(feature = "enable_regex")]
-    it "accepts optional allowed chars" { assert_eq!(is_romaji_with_whitelist("a！b&cーd", Some(&Regex::new(r"[！ー]").unwrap())), true); }
+    it "accepts optional allowed chars" { assert_eq!(is_romaji_with_whitelist("a！b&cーd", &Regex::new(r"[！ー]").unwrap()), true); }
 }

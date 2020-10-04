@@ -8,13 +8,11 @@
 //! assert_eq!(is_kana("あーア"), true);
 //! assert_eq!(is_kana("A"), false);
 //! assert_eq!(is_kana("あAア"), false);
+//! assert_eq!(is_kana(""), true);
 //! ```
 
 use crate::utils::is_char_kana::*;
 
 pub fn is_kana(input: &str) -> bool {
-    if input.is_empty() {
-        return false;
-    }
     input.chars().all(is_char_kana)
 }

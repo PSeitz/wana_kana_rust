@@ -15,7 +15,7 @@ use wana_kana::is_kanji::*;
 
 speculate! {
     it "sane defaults" {
-        assert_eq!(is_kanji(""), false);
+        assert_eq!(is_kanji(""), true);
         assert_eq!(contains_kanji(""), false);
     }
 

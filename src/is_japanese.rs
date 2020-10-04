@@ -9,6 +9,7 @@
 //! assert_eq!(is_japanese("泣き虫。！〜＄"), true); // Zenkaku/JA punctuation
 //! assert_eq!(is_japanese("泣き虫.!~$"), false); // Latin punctuation fails
 //! assert_eq!(is_japanese("A"), false);
+//! assert_eq!(is_japanese(""), true);
 //! ```
 
 use crate::utils::is_char_japanese::*;
@@ -16,17 +17,11 @@ use crate::utils::is_char_japanese::*;
 use regex::Regex;
 
 pub fn is_japanese(input: &str) -> bool {
-    if input.is_empty() {
-        return false;
-    }
     input.chars().all(is_char_japanese)
 }
 
 #[cfg(feature = "enable_regex")]
 pub fn is_japanese_with_whitelist(input: &str, allowed: Option<&Regex>) -> bool {
-    if input.is_empty() {
-        return false;
-    }
     input.chars().all(|char| {
         let is_jap = is_char_japanese(char);
         if !is_jap {
