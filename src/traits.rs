@@ -1,10 +1,10 @@
-/// The `wana_kana::Convert` trait is implemented for `&str`, which allows easy
+/// The `wana_kana::ConvertJapanese` trait is implemented for `&str`, which allows easy
 /// conversion between kana and romaji with default options.
 ///
 /// # Examples
 ///
 /// ```
-/// use wana_kana::Convert;
+/// use wana_kana::ConvertJapanese;
 /// // to kana
 /// assert_eq!("o".to_kana(), "お");
 /// assert_eq!("ona".to_kana(), "おな");
@@ -19,14 +19,14 @@
 /// // to romaji
 /// assert_eq!("ひらがな　カタカナ".to_romaji(), "hiragana katakana");
 /// ```
-pub trait Convert {
+pub trait ConvertJapanese {
     fn to_hiragana(self) -> String;
     fn to_katakana(self) -> String;
     fn to_kana(self) -> String;
     fn to_romaji(self) -> String;
 }
 
-impl Convert for &str {
+impl ConvertJapanese for &str {
     fn to_kana(self) -> String {
         crate::to_kana::to_kana(self)
     }

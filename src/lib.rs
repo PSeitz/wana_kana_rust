@@ -43,4 +43,4 @@ mod options;
 pub use crate::options::Options;
 
 mod traits;
-pub use traits::{Convert, IsJapaneseChar, IsJapaneseStr};
+pub use traits::{ConvertJapanese, IsJapaneseChar, IsJapaneseStr};
