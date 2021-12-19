@@ -9,7 +9,7 @@ license = "MIT"
 name = "wana_kana"
 readme = "README.md"
 repository = "https://github.com/PSeitz/wana_kana_rust"
-version = "2.0.1"
+version = "2.1.0"
 include = ["src/**/*", "LICENSE", "README.md"]
 
 [dependencies]
