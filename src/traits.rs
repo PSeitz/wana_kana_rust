@@ -1,3 +1,5 @@
+use crate::Options;
+
 /// The `wana_kana::ConvertJapanese` trait is implemented for `&str`, which allows easy
 /// conversion between kana and romaji with default options.
 ///
@@ -20,15 +22,55 @@
 /// assert_eq!("ひらがな　カタカナ".to_romaji(), "hiragana katakana");
 /// ```
 pub trait ConvertJapanese {
-    fn to_hiragana(self) -> String;
-    fn to_katakana(self) -> String;
+    /// Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
+    /// # Examples
+    /// ```
+    /// use wana_kana::ConvertJapanese;
+    /// assert_eq!("o".to_kana(), "お");
+    /// assert_eq!("ona".to_kana(), "おな");
+    /// assert_eq!("onaji".to_kana(), "おなじ");
+    /// assert_eq!("onaji BUTTSUUJI".to_kana(), "おなじ ブッツウジ");
+    /// assert_eq!("ONAJI buttsuuji".to_kana(), "オナジ ぶっつうじ");
+    /// assert_eq!("座禅‘zazen’スタイル".to_kana(), "座禅「ざぜん」スタイル");
+    /// assert_eq!("!?./,~-‘’“”[](){}".to_kana(), "！？。・、〜ー「」『』［］（）｛｝");
+    /// ```
     fn to_kana(self) -> String;
+    /// Convert [Romaji](https://en.wikipedia.org/wiki/Romaji) to [Kana](https://en.wikipedia.org/wiki/Kana), lowercase text will result in [Hiragana](https://en.wikipedia.org/wiki/Hiragana) and uppercase text will result in [Katakana](https://en.wikipedia.org/wiki/Katakana).
+    /// # Examples
+    /// ```
+    /// use wana_kana::ConvertJapanese;
+    /// use wana_kana::Options;
+    /// assert_eq!("batsuge-mu".to_kana_with_opt(Options {use_obsolete_kana: true, ..Default::default() } ), "ばつげーむ");
+    /// assert_eq!("we".to_kana_with_opt(Options {use_obsolete_kana: true, ..Default::default() } ), "ゑ");
+    /// ```
+    fn to_kana_with_opt(self, options: Options) -> String;
+    /// Convert input to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
+    fn to_hiragana(self) -> String;
+    /// Convert input to [Katakana](https://en.wikipedia.org/wiki/Katakana)
+    fn to_katakana(self) -> String;
+    /// Convert kana to romaji
+    /// # Examples
+    /// ```
+    /// use wana_kana::ConvertJapanese;
+    /// assert_eq!("ひらがな　カタカナ".to_romaji(), "hiragana katakana");
+    /// ```
     fn to_romaji(self) -> String;
+    /// Convert kana to romaji with Options.
+    /// # Examples
+    /// ```
+    /// use wana_kana::ConvertJapanese;
+    /// use wana_kana::Options;
+    /// assert_eq!("ひらがな　カタカナ".to_romaji_with_opt(Options {upcase_katakana: true, ..Default::default() } ), "hiragana KATAKANA");
+    /// ```
+    fn to_romaji_with_opt(self, options: Options) -> String;
 }
 
 impl ConvertJapanese for &str {
     fn to_kana(self) -> String {
         crate::to_kana::to_kana(self)
+    }
+    fn to_kana_with_opt(self, options: Options) -> String {
+        crate::to_kana::to_kana_with_opt(self, options)
     }
     fn to_hiragana(self) -> String {
         crate::to_hiragana::to_hiragana(self)
@@ -38,6 +80,9 @@ impl ConvertJapanese for &str {
     }
     fn to_romaji(self) -> String {
         crate::to_romaji::to_romaji(self)
+    }
+    fn to_romaji_with_opt(self, options: Options) -> String {
+        crate::to_romaji::to_romaji_with_opt(self, options)
     }
 }
 
@@ -169,12 +214,18 @@ impl IsJapaneseStr for &str {
 /// which allows easy checking of whether a `char` is a Japanese character,
 /// number or punctuation.
 pub trait IsJapaneseChar {
+    /// Tests a character. Returns true if the character is [Hiragana](https://en.wikipedia.org/wiki/Hiragana).
     fn is_hiragana(self) -> bool;
+    /// Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).
     fn is_katakana(self) -> bool;
+    /// Tests a character. Returns true if the character is [Hiragana](https://en.wikipedia.org/wiki/Hiragana) or [Katakana](https://en.wikipedia.org/wiki/Katakana).
     fn is_kana(self) -> bool;
+    /// Tests a character. Returns true if the character is a CJK ideograph (kanji).
     fn is_kanji(self) -> bool;
     fn is_japanese(self) -> bool;
+    /// Tests a character. Returns true if the character is considered a Zenkaku number(０-９)
     fn is_japanese_number(self) -> bool;
+    /// Tests a character. Returns true if the character is considered japanese punctuation.
     fn is_japanese_punctuation(self) -> bool;
 }
 
