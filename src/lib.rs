@@ -1,6 +1,6 @@
 //! # ワナカナ <--> WanaKana <--> わなかな
 //!
-//! Utility library for checking and converting between Japanese characters - Kanji,
+//! Utility library for checking and converting between Japanese characters - 
 //! Hiragana, Katakana - and Romaji (Ported from <https://github.com/WaniKani/WanaKana>)
 //!
 //! # Conversions
