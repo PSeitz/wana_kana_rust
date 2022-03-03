@@ -11,7 +11,7 @@ wana_kana = "2.0"
 ```
 
 
- Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana V4.0.2)
+ Utility library for checking and converting between Japanese characters - Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana V4.0.2)
  ## Examples
  ```
  use wana_kana::to_romaji::*;
