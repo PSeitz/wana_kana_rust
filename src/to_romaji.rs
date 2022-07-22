@@ -2470,6 +2470,13 @@ lazy_static! {
                 },
             ),
             (
+                'ゎ',
+                Node {
+                    transitions: None,
+                    output: "wa",
+                },
+            ),
+            (
                 'わ',
                 Node {
                     transitions: None,
