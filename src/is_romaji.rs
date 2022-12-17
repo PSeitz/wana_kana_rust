@@ -19,11 +19,9 @@ use crate::utils::is_char_romaji::*;
 #[cfg(feature = "enable_regex")]
 use regex::Regex;
 
+#[inline]
 pub fn is_romaji(input: &str) -> bool {
-    if input.is_empty() {
-        return false;
-    }
-    input.chars().all(is_char_romaji)
+    !input.is_empty() && input.chars().all(is_char_romaji)
 }
 
 #[cfg(feature = "enable_regex")]

@@ -6,8 +6,10 @@ extern crate speculate;
 #[cfg(test)]
 use speculate::speculate;
 
+#[cfg(feature = "tokenize")]
 use wana_kana::tokenize::*;
 
+#[cfg(feature = "tokenize")]
 speculate! {
 
     it "tokenize() with no input" {

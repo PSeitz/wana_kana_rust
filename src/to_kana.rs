@@ -18,6 +18,7 @@
 use crate::options::Options;
 use crate::utils::hiragana_to_katakana::*;
 
+#[inline]
 pub fn to_kana(input: &str) -> String {
     to_kana_with_opt(input, Options::default())
 }

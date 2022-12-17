@@ -16,9 +16,11 @@ use crate::utils::is_char_english_punctuation::is_char_english_punctuation;
 use crate::utils::katakana_to_hiragana::*;
 use crate::utils::romaji_to_hiragana::romaji_to_hiragana;
 
+#[inline]
 pub fn to_hiragana(input: &str) -> String {
     to_hiragana_with_opt(input, Options::default())
 }
+
 pub fn to_hiragana_with_opt(input: &str, options: Options) -> String {
     let config = options;
     if config.pass_romaji {

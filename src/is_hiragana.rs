@@ -11,10 +11,7 @@
 use crate::utils::is_char_hiragana::*;
 
 pub fn is_hiragana(input: &str) -> bool {
-    if input.is_empty() {
-        return false;
-    }
-    input.chars().all(is_char_hiragana)
+    !input.is_empty() && input.chars().all(is_char_hiragana)
 }
 
 #[test]

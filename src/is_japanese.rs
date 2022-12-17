@@ -16,10 +16,7 @@ use crate::utils::is_char_japanese::*;
 use regex::Regex;
 
 pub fn is_japanese(input: &str) -> bool {
-    if input.is_empty() {
-        return false;
-    }
-    input.chars().all(is_char_japanese)
+    !input.is_empty() && input.chars().all(is_char_japanese)
 }
 
 #[cfg(feature = "enable_regex")]

@@ -66,21 +66,32 @@ pub trait ConvertJapanese {
 }
 
 impl ConvertJapanese for &str {
+    #[inline]
     fn to_kana(self) -> String {
         crate::to_kana::to_kana(self)
     }
+
+    #[inline]
     fn to_kana_with_opt(self, options: Options) -> String {
         crate::to_kana::to_kana_with_opt(self, options)
     }
+
+    #[inline]
     fn to_hiragana(self) -> String {
         crate::to_hiragana::to_hiragana(self)
     }
+
+    #[inline]
     fn to_katakana(self) -> String {
         crate::to_katakana::to_katakana(self)
     }
+
+    #[inline]
     fn to_romaji(self) -> String {
         crate::to_romaji::to_romaji(self)
     }
+
+    #[inline]
     fn to_romaji_with_opt(self, options: Options) -> String {
         crate::to_romaji::to_romaji_with_opt(self, options)
     }
@@ -187,24 +198,37 @@ pub trait IsJapaneseStr {
 }
 
 impl IsJapaneseStr for &str {
+    #[inline]
     fn is_hiragana(self) -> bool {
         crate::is_hiragana::is_hiragana(self)
     }
+
+    #[inline]
     fn is_katakana(self) -> bool {
         crate::is_katakana::is_katakana(self)
     }
+
+    #[inline]
     fn is_kana(self) -> bool {
         crate::is_kana::is_kana(self)
     }
+
+    #[inline]
     fn is_kanji(self) -> bool {
         crate::is_kanji::is_kanji(self)
     }
+
+    #[inline]
     fn is_japanese(self) -> bool {
         crate::is_japanese::is_japanese(self)
     }
+
+    #[inline]
     fn is_romaji(self) -> bool {
         crate::is_romaji::is_romaji(self)
     }
+
+    #[inline]
     fn is_mixed(self) -> bool {
         crate::is_mixed::is_mixed(self)
     }
@@ -230,24 +254,37 @@ pub trait IsJapaneseChar {
 }
 
 impl IsJapaneseChar for char {
+    #[inline]
     fn is_hiragana(self) -> bool {
         crate::utils::is_char_hiragana(self)
     }
+
+    #[inline]
     fn is_katakana(self) -> bool {
         crate::utils::is_char_katakana(self)
     }
+
+    #[inline]
     fn is_kana(self) -> bool {
         crate::utils::is_char_kana(self)
     }
+
+    #[inline]
     fn is_kanji(self) -> bool {
         crate::utils::is_char_kanji(self)
     }
+
+    #[inline]
     fn is_japanese(self) -> bool {
         crate::utils::is_char_japanese(self)
     }
+
+    #[inline]
     fn is_japanese_number(self) -> bool {
         crate::utils::is_char_japanese_number(self)
     }
+
+    #[inline]
     fn is_japanese_punctuation(self) -> bool {
         crate::utils::is_char_japanese_punctuation(self)
     }
