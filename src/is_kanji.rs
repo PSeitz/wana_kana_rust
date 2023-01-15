@@ -14,12 +14,16 @@
 
 use crate::utils::is_char_kanji::*;
 
-#[inline]
 pub fn is_kanji(input: &str) -> bool {
-    !input.is_empty() && input.chars().all(is_char_kanji)
+    if input.is_empty() {
+        return false;
+    }
+    input.chars().all(is_char_kanji)
 }
 
-#[inline]
 pub fn contains_kanji(input: &str) -> bool {
-    !input.is_empty() && input.chars().any(is_char_kanji)
+    if input.is_empty() {
+        return false;
+    }
+    input.chars().any(is_char_kanji)
 }

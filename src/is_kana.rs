@@ -12,7 +12,9 @@
 
 use crate::utils::is_char_kana::*;
 
-#[inline]
 pub fn is_kana(input: &str) -> bool {
-    !input.is_empty() && input.chars().all(is_char_kana)
+    if input.is_empty() {
+        return false;
+    }
+    input.chars().all(is_char_kana)
 }

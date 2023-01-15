@@ -11,7 +11,9 @@
 
 use crate::utils::is_char_katakana::*;
 
-#[inline]
 pub fn is_katakana(input: &str) -> bool {
-    !input.is_empty() && input.chars().all(is_char_katakana)
+    if input.is_empty() {
+        return false;
+    }
+    input.chars().all(is_char_katakana)
 }
