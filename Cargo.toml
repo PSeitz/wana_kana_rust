@@ -9,7 +9,7 @@ license = "MIT"
 name = "wana_kana"
 readme = "README.md"
 repository = "https://github.com/PSeitz/wana_kana_rust"
-version = "2.1.1"
+version = "2.1.2"
 include = ["src/**/*", "LICENSE", "README.md"]
 
 [dependencies]
@@ -24,7 +24,7 @@ speculate = "0.1.2"
 [features]
 enable_regex = ["regex"]
 tokenize = ["itertools"]
-default = []
+default = ["tokenize"]
 
 [[bin]]
 name = "to_kana"
