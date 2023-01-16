@@ -1,6 +1,6 @@
 //! # ワナカナ <--> WanaKana <--> わなかな
 //!
-//! Utility library for checking and converting between Japanese characters - 
+//! Utility library for checking and converting between Japanese characters -
 //! Hiragana, Katakana - and Romaji (Ported from <https://github.com/WaniKani/WanaKana>)
 //!
 //! # Conversions
@@ -66,7 +66,9 @@ pub mod to_kana;
 pub mod to_katakana;
 pub mod to_romaji;
 
+#[cfg(feature = "tokenize")]
 pub mod tokenize;
+#[cfg(feature = "tokenize")]
 pub mod trim_okurigana;
 
 pub mod constants;

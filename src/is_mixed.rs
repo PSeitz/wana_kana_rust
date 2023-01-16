@@ -21,6 +21,7 @@ use crate::utils::is_char_kanji::is_char_kanji;
 use crate::utils::is_char_katakana::is_char_katakana;
 use crate::utils::is_char_romaji::is_char_romaji;
 
+#[inline]
 pub fn is_mixed(input: &str) -> bool {
     is_mixed_pass_kanji(input, true)
 }

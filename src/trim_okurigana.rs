@@ -18,6 +18,7 @@ use crate::tokenize::*;
 use crate::utils::is_char_kana::*;
 use crate::utils::is_char_kanji::*;
 
+#[inline]
 pub fn trim_okurigana(input: &str) -> &str {
     trim_okurigana_with_opt(input, false, None)
 }
@@ -25,6 +26,8 @@ pub fn trim_okurigana(input: &str) -> &str {
 pub fn is_leading_without_initial_kana(input: &str, from_start: bool) -> bool {
     from_start && !is_char_kana(input.chars().next().unwrap())
 }
+
+#[inline]
 pub fn is_trailing_without_final_kana(input: &str, from_start: bool) -> bool {
     !from_start && !is_char_kana(input.chars().last().unwrap())
 }

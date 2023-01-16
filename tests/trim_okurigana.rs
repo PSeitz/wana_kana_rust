@@ -6,8 +6,10 @@ extern crate speculate;
 #[cfg(test)]
 use speculate::speculate;
 
+#[cfg(feature = "tokenize")]
 use wana_kana::trim_okurigana::*;
 
+#[cfg(feature = "tokenize")]
 speculate! {
     it "trim_okurigana() with no input" {
         assert_eq!(trim_okurigana(""), "");
