@@ -5,20 +5,7 @@
 //!
 //! # Conversions
 //!
-//! You can use `to_*` functions in `to_*` modules, e.g. `wana_naka::to_romaji::to_romaji`
-//! to do conversions, for example:
-//!
-//! ```
-//! use wana_kana::to_romaji::*;
-//! use wana_kana::to_kana::*;
-//! use wana_kana::to_hiragana::*;
-//! use wana_kana::Options;
-//! assert_eq!(to_romaji("ワナカナ"), "wanakana");
-//! assert_eq!(to_hiragana("WanaKana"), "わなかな");
-//! assert_eq!(to_kana("WANAKANA"), "ワナカナ");
-//! ```
-//!
-//! We also provide the [`ConvertJapanese`] Trait, which is implemented for `&str`,
+//! We provide the [`ConvertJapanese`] Trait, which is implemented for `&str`,
 //! that allows the same conversions as mentioned above, by calling the
 //! corresponding method directly on the `&str`.
 //!
@@ -78,3 +65,13 @@ pub use crate::options::Options;
 
 pub mod traits;
 pub use traits::{ConvertJapanese, IsJapaneseChar, IsJapaneseStr};
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_regression_11() {
+        assert_eq!("シークヮーサー".to_hiragana(), "しいくゎあさあ");
+    }
+}
