@@ -38,7 +38,7 @@ mod tests {
             #[test]
             fn hiragana_input_to_romaji() {
                 for &[hiragana, _, romaji] in HIRA_KATA_TO_ROMA.iter() {
-                    if hiragana != "" {
+                    if !hiragana.is_empty() {
                         assert_eq!(hiragana.to_romaji(), romaji);
                     }
                 }
@@ -47,7 +47,7 @@ mod tests {
             #[test]
             fn katakana_input_to_romaji() {
                 for &[_, katakana, romaji] in HIRA_KATA_TO_ROMA.iter() {
-                    if katakana != "" {
+                    if !katakana.is_empty() {
                         assert_eq!(katakana.to_romaji(), romaji);
                     }
                 }

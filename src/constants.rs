@@ -68,8 +68,8 @@ lazy_static! {
     /// Includes full-width punctuation and number ranges.
     pub static ref JAPANESE_RANGES: Vec<[u32; 2]> = {
         let mut m = vec![ZENKAKU_UPPERCASE, ZENKAKU_LOWERCASE, ZENKAKU_NUMBERS, COMMON_CJK, RARE_CJK,];
-        m.extend(&KANA_RANGES);
-        m.extend(&JA_PUNCTUATION_RANGES);
+        m.extend(KANA_RANGES);
+        m.extend(JA_PUNCTUATION_RANGES);
         m
     };
 
@@ -77,12 +77,12 @@ lazy_static! {
     /// Includes upper/lowercase long vowels like "ā, ī, ū, ē, ō"
     pub static ref ROMAJI_RANGES: Vec<[u32; 2]> = {
         let mut m = vec![MODERN_ENGLISH,];
-        m.extend(&HEPBURN_MACRON_RANGES);
+        m.extend(HEPBURN_MACRON_RANGES);
         m
     };
     pub static ref EN_PUNCTUATION_RANGES: Vec<[u32; 2]> = {
         let mut m = vec![[0x20, 0x2F], [0x3A, 0x3F], [0x5B, 0x60], [0x7B, 0x7E],];
-        m.extend(&SMART_QUOTE_RANGES);
+        m.extend(SMART_QUOTE_RANGES);
         m
     };
 

@@ -80,7 +80,7 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
             }
         } else if !is_char_long_dash(char) && is_char_katakana(char) {
             // Shift charcode.
-            let code = char as i32 + (HIRAGANA_START as i32 - KATAKANA_START as i32) as i32;
+            let code = char as i32 + (HIRAGANA_START as i32 - KATAKANA_START as i32);
             let hira_char = std::char::from_u32(code as u32).unwrap();
             hira.push(hira_char);
             previous_kana = Some(hira_char);

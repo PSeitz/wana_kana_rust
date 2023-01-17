@@ -4819,12 +4819,7 @@ lazy_static! {
     pub(crate) static ref TO_KANA_NODE_TREE_OBSOLETE: Node = {
         let mut tree = TO_KANA_NODE_TREE.clone();
         let w = tree.find_transition_mut('w').unwrap();
-        w.1.transitions =
-            w.1.transitions
-                .iter()
-                .filter(|x| x.0 != 'i' && x.0 != 'e')
-                .cloned()
-                .collect();
+        w.1.transitions.retain(|x| x.0 != 'i' && x.0 != 'e');
         w.1.transitions.push((
             'i',
             Node {
