@@ -1,6 +1,7 @@
 #[allow(dead_code)]
 pub const JA_PUNC: [char; 18] = [
-    '！', '？', '。', '：', '・', '、', '〜', 'ー', '「', '」', '『', '』', '［', '］', '（', '）', '｛', '｝',
+    '！', '？', '。', '：', '・', '、', '〜', 'ー', '「', '」', '『', '』', '［', '］', '（', '）',
+    '｛', '｝',
 ];
 
 #[allow(dead_code)]
@@ -10,7 +11,7 @@ pub const EN_PUNC: [char; 18] = [
 
 #[allow(dead_code)]
 pub const ROMA_TO_HIRA_KATA: [[&str; 3]; 338] = [
-    /* symbols that should all be the same after conversion */
+    // symbols that should all be the same after conversion
     ["ヶ", "ヶ", "ヶ"],
     ["ヵ", "ヵ", "ヵ"],
     ["1", "1", "1"],
@@ -18,7 +19,7 @@ pub const ROMA_TO_HIRA_KATA: [[&str; 3]; 338] = [
     ["#", "#", "#"],
     ["$", "$", "$"],
     ["%", "%", "%"],
-    /* should all convert */
+    // should all convert
     ["!", "！", "！"],
     ["?", "？", "？"],
     [".", "。", "。"],
@@ -372,7 +373,7 @@ pub const HIRA_KATA_TO_ROMA: [[&str; 3]; 192] = [
     ["けふこえて", "ケフコエテ", "kefukoete"],
     ["あさきゆめみし", "アサキユメミシ", "asakiyumemishi"],
     ["ゑひもせすん", "ヱヒモセスン", "wehimosesun"],
-    /* should all convert */
+    // should all convert
     ["！", "！", "!"],
     ["？", "？", "?"],
     ["。", "。", "."],

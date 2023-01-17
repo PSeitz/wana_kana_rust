@@ -17,7 +17,6 @@ use crate::utils::is_char_slash_dot::*;
 /// hiragana_to_katakana('ひらがな is a type of kana')
 ///
 /// // => "ヒラガナ is a type of kana"
-///
 
 pub fn hiragana_to_katakana(input: &str) -> String {
     let mut kata = vec![];

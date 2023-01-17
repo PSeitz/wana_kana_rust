@@ -6,7 +6,6 @@ pub fn is_char_vowel(char: char) -> bool {
 /// Tests a character and an english vowel. Returns true if the char is a vowel.
 ///
 /// * `include_y` include y as a vowel in test
-///
 pub fn is_char_vowel_opt(char: char, include_y: bool) -> bool {
     match char {
         'a' | 'e' | 'i' | 'o' | 'u' => true,

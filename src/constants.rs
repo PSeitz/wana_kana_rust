@@ -1,6 +1,6 @@
-// CharCode References
-// http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml
-// http://unicode-table.com
+//! CharCode References
+//! <http://www.rikai.com/library/kanjitables/kanji_codes.unicode.shtml>
+//! <http://unicode-table.com>
 
 pub const CJK_SYMBOLS_PUNCTUATION: [u32; 2] = [0x3000, 0x303F];
 pub const KATAKANA_PUNCTUATION: [u32; 2] = [0x30FB, 0x30FC];

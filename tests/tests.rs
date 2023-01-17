@@ -1,263 +1,278 @@
-#![feature(test)]
-#![feature(non_ascii_idents)]
-
-#[cfg(test)]
-extern crate test;
-#[cfg(test)]
-extern crate speculate;
-
-#[cfg(test)]
-use speculate::speculate;
-
-use wana_kana::to_hiragana::*;
-use wana_kana::to_kana;
-use wana_kana::to_kana::*;
-use wana_kana::to_katakana::*;
-
-use wana_kana::to_romaji;
-use wana_kana::to_romaji::*;
 use wana_kana::Options;
 
 mod conversion_tables;
 use conversion_tables::*;
 
-speculate! {
+#[cfg(test)]
+mod tests {
+    use wana_kana::ConvertJapanese;
 
-describe "character_conversion" {
+    use super::*;
 
-    describe "test every conversion table char" {
-        it "to_kana()" {
-            for &[romaji, hiragana, katakana] in ROMA_TO_HIRA_KATA.iter() {
-                let lower = to_kana(romaji);
-                let upper = to_kana(&romaji.to_uppercase());
-                assert_eq!(lower, hiragana);
-                assert_eq!(upper, katakana);
+    mod character_conversion {
+        use super::*;
+
+        mod test_every_conversion_table_char {
+
+            use super::*;
+            #[test]
+            fn to_kana_test() {
+                for &[romaji, hiragana, katakana] in ROMA_TO_HIRA_KATA.iter() {
+                    let lower = romaji.to_kana();
+                    let upper = (&romaji.to_uppercase()).to_kana();
+                    assert_eq!(lower, hiragana);
+                    assert_eq!(upper, katakana);
+                }
             }
-        }
 
-        it "to_hiragana()" {
-            for &[romaji, hiragana, _katakana] in ROMA_TO_HIRA_KATA.iter() {
-                let lower = to_hiragana(romaji);
-                let upper = to_hiragana(&romaji.to_uppercase());
-                assert_eq!(lower, hiragana);
-                assert_eq!(upper, hiragana);
+            #[test]
+            fn to_hiragana_test() {
+                for &[romaji, hiragana, _katakana] in ROMA_TO_HIRA_KATA.iter() {
+                    let lower = romaji.to_hiragana();
+                    let upper = (&romaji.to_uppercase()).to_hiragana();
+                    assert_eq!(lower, hiragana);
+                    assert_eq!(upper, hiragana);
+                }
             }
-        }
 
+            #[test]
+            fn hiragana_input_to_romaji() {
+                for &[hiragana, _, romaji] in HIRA_KATA_TO_ROMA.iter() {
+                    if hiragana != "" {
+                        assert_eq!(hiragana.to_romaji(), romaji);
+                    }
+                }
+            }
 
-        it "Hiragana input to_romaji()" {
-            for &[hiragana, _, romaji] in HIRA_KATA_TO_ROMA.iter() {
-
-                if hiragana != ""{
-                    assert_eq!(to_romaji(hiragana), romaji);
+            #[test]
+            fn katakana_input_to_romaji() {
+                for &[_, katakana, romaji] in HIRA_KATA_TO_ROMA.iter() {
+                    if katakana != "" {
+                        assert_eq!(katakana.to_romaji(), romaji);
+                    }
                 }
             }
         }
 
-        it "Katakana input to_romaji()" {
-            for &[_, katakana, romaji] in HIRA_KATA_TO_ROMA.iter() {
+        mod converting_kana_to_kana {
+            use super::*;
+            #[test]
+            fn k_to_h() {
+                assert_eq!("バケル".to_hiragana(), "ばける");
+            }
+            #[test]
+            fn h_to_k() {
+                assert_eq!(("ばける".to_katakana()), "バケル");
+            }
 
-                if katakana != ""{
-                    assert_eq!(to_romaji(katakana), romaji);
-                }
+            #[test]
+            fn it_survives_only_katakana_to_katakana() {
+                assert_eq!(("スタイル".to_katakana()), "スタイル");
+            }
+            #[test]
+            fn it_survives_only_hiragana_to_hiragana() {
+                assert_eq!(("すたーいる".to_hiragana()), "すたーいる");
+            }
+            #[test]
+            fn mixed_kana_converts_every_char_k_to_h() {
+                assert_eq!(("アメリカじん".to_katakana()), "アメリカジン");
+            }
+            #[test]
+            fn mixed_kana_converts_every_char_h_to_k() {
+                assert_eq!(("アメリカじん".to_hiragana()), "あめりかじん");
+            }
+        }
+        mod long_vowels {
+            use super::*;
+            #[test]
+            fn converts_long_vowels_correctly_from_k_to_h() {
+                assert_eq!(("バツゴー".to_hiragana()), "ばつごう");
+            }
+            #[test]
+            fn preserves_long_dash_from_h_to_k() {
+                assert_eq!("ばつゲーム".to_katakana(), "バツゲーム");
+            }
+            #[test]
+            fn preserves_long_dash_from_h_to_h() {
+                assert_eq!("ばつげーむ".to_hiragana(), "ばつげーむ");
+            }
+            #[test]
+            fn preserves_long_dash_from_k_to_k() {
+                assert_eq!("バツゲーム".to_katakana(), "バツゲーム");
+            }
+            #[test]
+            fn preserves_long_dash_from_mixed_to_k_1() {
+                assert_eq!("バツゲーム".to_katakana(), "バツゲーム");
+            }
+            #[test]
+            fn preserves_long_dash_from_mixed_to_k_2() {
+                assert_eq!("テスーと".to_katakana(), "テスート");
+            }
+            #[test]
+            fn preserves_long_dash_from_mixed_to_h_1() {
+                assert_eq!("てすート".to_hiragana(), "てすーと");
+            }
+            #[test]
+            fn preserves_long_dash_from_mixed_to_h_2() {
+                assert_eq!("てすー戸".to_hiragana(), "てすー戸");
+            }
+            #[test]
+            fn preserves_long_dash_from_mixed_to_h_3() {
+                assert_eq!("手巣ート".to_hiragana(), "手巣ーと");
+            }
+            #[test]
+            fn preserves_long_dash_from_mixed_to_h_4() {
+                assert_eq!("tesート".to_hiragana(), "てsーと");
+            }
+            #[test]
+            fn preserves_long_dash_from_mixed_to_h_5() {
+                assert_eq!("ートtesu".to_hiragana(), "ーとてす");
+            }
+        }
+
+        mod mixed_syllabaries {
+            use super::*;
+            #[test]
+            fn it_passes_non_katakana_through_when_pass_romaji_is_true_k_to_h() {
+                assert_eq!(
+                    "座禅‘zazen’スタイル".to_hiragana_with_opt(Options {
+                        pass_romaji: true,
+                        ..Default::default()
+                    }),
+                    "座禅‘zazen’すたいる"
+                );
+            }
+            #[test]
+            fn it_passes_non_hiragana_through_when_pass_romaji_is_true_h_to_k() {
+                assert_eq!(
+                    "座禅‘zazen’すたいる".to_katakana_with_opt(Options {
+                        pass_romaji: true,
+                        ..Default::default()
+                    }),
+                    "座禅‘zazen’スタイル"
+                );
+            }
+            #[test]
+            fn it_converts_non_katakana_when_pass_romaji_is_false_k_to_h() {
+                assert_eq!(
+                    "座禅‘zazen’スタイル".to_hiragana(),
+                    "座禅「ざぜん」すたいる"
+                );
+            }
+            #[test]
+            fn it_converts_non_hiragana_when_pass_romaji_is_false_h_to_k() {
+                assert_eq!(
+                    "座禅‘zazen’すたいる".to_katakana(),
+                    "座禅「ザゼン」スタイル"
+                );
             }
         }
     }
 
-    describe "converting_kana_to_kana" {
-        it "k -> h" {
-            assert_eq!(to_hiragana("バケル"), "ばける");
-        }
-        it "h -> k" {
-            assert_eq!(to_katakana("ばける"), "バケル");
-        }
+    mod case_sensitivity {
 
-        it "It survives only katakana to_katakana" {
-
-            assert_eq!(to_katakana("スタイル"), "スタイル");
-
+        use super::*;
+        #[test]
+        fn c_ase_do_esn_t_mat_ter_for_to_hiragana() {
+            assert_eq!("aiueo".to_hiragana(), "AIUEO".to_hiragana());
         }
-        it "It survives only hiragana to_hiragana" {
-            assert_eq!(to_hiragana("すたーいる"), "すたーいる");
+        #[test]
+        fn c_ase_do_esn_t_mat_ter_for_to_katakana() {
+            assert_eq!("aiueo".to_katakana(), "AIUEO".to_katakana());
         }
-        it "Mixed kana converts every char k -> h" {
-            assert_eq!(to_katakana("アメリカじん"), "アメリカジン");
-        }
-        it "Mixed kana converts every char h -> k" {
-            assert_eq!(to_hiragana("アメリカじん"), "あめりかじん");
-        }
-    }
-    describe "long_vowels" {
-        it "Converts long vowels correctly from k -> h" {
-          assert_eq!(to_hiragana("バツゴー"), "ばつごう");
-        }
-        it "Preserves long dash from h -> k" {
-          assert_eq!(to_katakana("ばつゲーム"), "バツゲーム");
-        }
-        it "Preserves long dash from h -> h" {
-          assert_eq!(to_hiragana("ばつげーむ"), "ばつげーむ");
-        }
-        it "Preserves long dash from k -> k" {
-          assert_eq!(to_katakana("バツゲーム"), "バツゲーム");
-        }
-        it "Preserves long dash from mixed -> k 1" {
-          assert_eq!(to_katakana("バツゲーム"), "バツゲーム");
-        }
-        it "Preserves long dash from mixed -> k 2" {
-          assert_eq!(to_katakana("テスーと"), "テスート");
-        }
-        it "Preserves long dash from mixed -> h 1" {
-          assert_eq!(to_hiragana("てすート"), "てすーと");
-        }
-        it "Preserves long dash from mixed -> h 2" {
-          assert_eq!(to_hiragana("てすー戸"), "てすー戸");
-        }
-        it "Preserves long dash from mixed -> h 3" {
-          assert_eq!(to_hiragana("手巣ート"), "手巣ーと");
-        }
-        it "Preserves long dash from mixed -> h 4" {
-          assert_eq!(to_hiragana("tesート"), "てsーと");
-        }
-        it "Preserves long dash from mixed -> h 5" {
-          assert_eq!(to_hiragana("ートtesu"), "ーとてす");
+        #[test]
+        fn case_does_matter_for_to_kana() {
+            assert_ne!("aiueo".to_kana(), "AIUEO".to_kana());
         }
     }
 
-    describe "mixed_syllabaries" {
-        it "It passes non-katakana through when pass_romaji is true k -> h" {
-          assert_eq!(to_hiragana_with_opt("座禅‘zazen’スタイル", Options{ pass_romaji: true, .. Default::default() }), "座禅‘zazen’すたいる");
+    mod n_edge_cases {
+
+        use super::*;
+        #[test]
+        fn solo_n() {
+            assert_eq!("n".to_kana(), "ん");
         }
-        it "It passes non-hiragana through when pass_romaji is true h -> k" {
-          assert_eq!(to_katakana_with_opt("座禅‘zazen’すたいる", Options{ pass_romaji: true, .. Default::default() }), "座禅‘zazen’スタイル");
+        #[test]
+        fn double_n() {
+            assert_eq!("onn".to_kana(), "おんん");
         }
-        it "It converts non-katakana when pass_romaji is false k -> h" {
-          assert_eq!(to_hiragana("座禅‘zazen’スタイル"), "座禅「ざぜん」すたいる");
+        #[test]
+        fn n_followed_by_n_syllable() {
+            assert_eq!("onna".to_kana(), "おんな");
         }
-        it "It converts non-hiragana when pass_romaji is false h -> k" {
-          assert_eq!(to_katakana("座禅‘zazen’すたいる"), "座禅「ザゼン」スタイル");
+        #[test]
+        fn triple_n() {
+            assert_eq!("nnn".to_kana(), "んんん");
+        }
+        #[test]
+        fn triple_n_followed_by_n_syllable() {
+            assert_eq!("onnna".to_kana(), "おんんな");
+        }
+        #[test]
+        fn quadruple_n() {
+            assert_eq!("nnnn".to_kana(), "んんんん");
+        }
+        #[test]
+        fn nya_to_にゃ() {
+            assert_eq!("nyan".to_kana(), "にゃん");
+        }
+        #[test]
+        fn nnya_to_んにゃ() {
+            assert_eq!("nnyann".to_kana(), "んにゃんん");
+        }
+        #[test]
+        fn nnnya_to_んにゃ() {
+            assert_eq!("nnnyannn".to_kana(), "んんにゃんんん");
+        }
+        #[test]
+        fn nya_to_んや() {
+            assert_eq!("n'ya".to_kana(), "んや");
+        }
+        #[test]
+        fn kinya_to_きんや() {
+            assert_eq!("kin'ya".to_kana(), "きんや");
+        }
+        #[test]
+        fn shinya_to_しんや() {
+            assert_eq!("shin'ya".to_kana(), "しんや");
+        }
+        #[test]
+        fn kinyou_to_きにょう() {
+            assert_eq!("kinyou".to_kana(), "きにょう");
+        }
+        #[test]
+        fn kinyou_to_きんよう() {
+            assert_eq!("kin'you".to_kana(), "きんよう");
+        }
+        #[test]
+        fn kinyu_to_きんゆ() {
+            assert_eq!("kin'yu".to_kana(), "きんゆ");
+        }
+        #[test]
+        fn properly_add_space_after_nspace() {
+            assert_eq!("ichiban warui".to_kana(), "いちばん わるい");
         }
     }
-}
 
-describe "case_sensitivity" {
-    it "cAse DoEsnT MatTER for to_hiragana()" {
-        assert_eq!(to_hiragana("aiueo"), to_hiragana("AIUEO"));
-    }
-    it "cAse DoEsnT MatTER for to_katakana()" {
-        assert_eq!(to_katakana("aiueo"), to_katakana("AIUEO"));
-    }
-    it "Case DOES matter for to_kana()" {
-        assert_ne!(to_kana("aiueo"), to_kana("AIUEO"));
-    }
-}
+    mod bogus_4_character_sequences {
 
-
-
-describe "n_edge_cases" {
-    it "Solo N" {
-        assert_eq!(to_kana("n"), "ん");
+        use super::*;
+        #[test]
+        fn non_bogus_sequences_work() {
+            assert_eq!("chya".to_kana(), "ちゃ");
+        }
+        #[test]
+        fn bogus_sequences_do_not_work() {
+            assert_eq!("chyx".to_kana(), "chyx");
+        }
+        #[test]
+        fn bogus_sequences_do_not_work_2() {
+            assert_eq!("shyp".to_kana(), "shyp");
+        }
+        #[test]
+        fn bogus_sequences_do_not_work_3() {
+            assert_eq!("ltsb".to_kana(), "ltsb");
+        }
     }
-    it "double N" {
-        assert_eq!(to_kana("onn"), "おんん");
-    }
-    it "N followed by N* syllable" {
-        assert_eq!(to_kana("onna"), "おんな");
-    }
-    it "Triple N" {
-        assert_eq!(to_kana("nnn"), "んんん");
-    }
-    it "Triple N followed by N* syllable" {
-        assert_eq!(to_kana("onnna"), "おんんな");
-    }
-    it "Quadruple N" {
-        assert_eq!(to_kana("nnnn"), "んんんん");
-    }
-    it "nya -> にゃ" {
-        assert_eq!(to_kana("nyan"), "にゃん");
-    }
-    it "nnya -> んにゃ" {
-        assert_eq!(to_kana("nnyann"), "んにゃんん");
-    }
-    it "nnnya -> んにゃ" {
-        assert_eq!(to_kana("nnnyannn"), "んんにゃんんん");
-    }
-    it "n'ya -> んや" {
-        assert_eq!(to_kana("n'ya"), "んや");
-    }
-    it "kin'ya -> きんや" {
-        assert_eq!(to_kana("kin'ya"), "きんや");
-    }
-    it "shin'ya -> しんや" {
-        assert_eq!(to_kana("shin'ya"), "しんや");
-    }
-    it "kinyou -> きにょう" {
-        assert_eq!(to_kana("kinyou"), "きにょう");
-    }
-    it "kin'you -> きんよう" {
-        assert_eq!(to_kana("kin'you"), "きんよう");
-    }
-    it "kin'yu -> きんゆ" {
-        assert_eq!(to_kana("kin'yu"), "きんゆ");
-    }
-    it "Properly add space after n[space]" {
-        assert_eq!(to_kana("ichiban warui"), "いちばん わるい");
-    }
-}
-
-describe "bogus_4_character_sequences" {
-    it "Non bogus sequences work" {
-        assert_eq!(to_kana("chya"), "ちゃ");
-    }
-    it "Bogus sequences do not work" {
-        assert_eq!(to_kana("chyx"), "chyx");
-    }
-    it "Bogus sequences do not work 2" {
-        assert_eq!(to_kana("shyp"), "shyp");
-    }
-    it "Bogus sequences do not work 3" {
-        assert_eq!(to_kana("ltsb"), "ltsb");
-    }
-}
-
-
-}
-
-#[bench]
-fn bench_kana_1(b: &mut test::Bencher) {
-    b.iter(|| to_kana::to_kana("aiueosashisusesonaninunenokakikukeko"))
-}
-
-#[bench]
-fn bench_kana_2(b: &mut test::Bencher) {
-    b.iter(|| to_kana::to_kana("AIUEOSASHISUSESONANINUNENOKAKIKUKEKO"))
-}
-
-#[bench]
-fn bench_romaji_to_hiragana(b: &mut test::Bencher) {
-    b.iter(|| to_hiragana("aiueosashisusesonaninunenokakikukeko"))
-}
-
-#[bench]
-fn bench_katakana_to_hiragana(b: &mut test::Bencher) {
-    b.iter(|| to_hiragana("アイウエオサシスセソナニヌネノカキクケコ"))
-}
-
-#[bench]
-fn bench_romaji_to_katakana(b: &mut test::Bencher) {
-    b.iter(|| to_katakana("aiueosashisusesonaninunenokakikukeko"))
-}
-
-#[bench]
-fn bench_katakana_to_katakana(b: &mut test::Bencher) {
-    b.iter(|| to_katakana("あいうえおさしすせそなにぬねのかきくけこ"))
-}
-
-#[bench]
-fn bench_hiragana_to_romaji(b: &mut test::Bencher) {
-    b.iter(|| to_romaji::to_romaji("あいうえおさしすせそなにぬねのかきくけこ"))
-}
-
-#[bench]
-fn bench_katakana_to_romaji(b: &mut test::Bencher) {
-    b.iter(|| to_romaji::to_romaji("アイウエオサシスセソナニヌネノカキクケコ"))
 }

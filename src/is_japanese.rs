@@ -1,20 +1,9 @@
-//! Test if `input` only includes [Kanji](https://en.wikipedia.org/wiki/Kanji), [Kana](https://en.wikipedia.org/wiki/Kana), zenkaku punctuation, japanese symbols and numbers.
-//!
-//! # Examples
-//! ```
-//! use wana_kana::is_japanese::*;
-//! assert_eq!(is_japanese("泣き虫"), true);
-//! assert_eq!(is_japanese("あア"), true);
-//! assert_eq!(is_japanese("２月"), true); // Zenkaku numbers allowed
-//! assert_eq!(is_japanese("泣き虫。！〜＄"), true); // Zenkaku/JA punctuation
-//! assert_eq!(is_japanese("泣き虫.!~$"), false); // Latin punctuation fails
-//! assert_eq!(is_japanese("A"), false);
-//! ```
-
-use crate::utils::is_char_japanese::*;
 #[cfg(feature = "enable_regex")]
 use regex::Regex;
 
+use crate::utils::is_char_japanese::*;
+
+/// Test if `input` only includes [Kanji](https://en.wikipedia.org/wiki/Kanji), [Kana](https://en.wikipedia.org/wiki/Kana), zenkaku punctuation, japanese symbols and japanese numbers.
 pub fn is_japanese(input: &str) -> bool {
     if input.is_empty() {
         return false;
@@ -23,6 +12,7 @@ pub fn is_japanese(input: &str) -> bool {
 }
 
 #[cfg(feature = "enable_regex")]
+/// Checks if all chars are in the japanese unicode ranges or match the provided regex
 pub fn is_japanese_with_whitelist(input: &str, allowed: Option<&Regex>) -> bool {
     if input.is_empty() {
         return false;

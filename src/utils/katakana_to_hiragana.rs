@@ -11,14 +11,14 @@
 //! katakana_to_hiragana('カタカナ is a type of kana')
 //!
 //! // => "かたかな is a type of kana"
-//!
+
+use fnv::FnvHashMap;
 
 use crate::constants::{HIRAGANA_START, KATAKANA_START};
 use crate::to_romaji::TO_ROMAJI_NODE_TREE;
 use crate::utils::is_char_katakana::*;
 use crate::utils::is_char_long_dash::*;
 use crate::utils::is_char_slash_dot::*;
-use fnv::FnvHashMap;
 
 pub fn is_char_initial_long_dash(char: char, index: usize) -> bool {
     is_char_long_dash(char) && index == 0
@@ -49,17 +49,24 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
     let mut previous_kana: Option<char> = None;
     for (index, char) in input.chars().enumerate() {
         // Short circuit to avoid incorrect codeshift for 'ー' and '・'
-        if is_char_slash_dot(char) || is_char_initial_long_dash(char, index) || is_kana_as_symbol(char) {
+        if is_char_slash_dot(char)
+            || is_char_initial_long_dash(char, index)
+            || is_kana_as_symbol(char)
+        {
             hira.push(char);
         // Transform long vowels: 'オー' to 'おう'
-        } else if let (Some(previous_kana), true) = (previous_kana, is_char_inner_long_dash(char, index)) {
+        } else if let (Some(previous_kana), true) =
+            (previous_kana, is_char_inner_long_dash(char, index))
+        {
             // Transform previous_kana back to romaji, and slice off the vowel
-            let romaji = TO_ROMAJI_NODE_TREE.find_transition_node(previous_kana).unwrap().output;
+            let romaji = TO_ROMAJI_NODE_TREE
+                .find_transition_node(previous_kana)
+                .unwrap()
+                .output;
 
-            let romaji = romaji
-                .chars()
-                .last()
-                .unwrap_or_else(|| panic!("could not find kana {:?} in TO_ROMAJI map", previous_kana));
+            let romaji = romaji.chars().last().unwrap_or_else(|| {
+                panic!("could not find kana {:?} in TO_ROMAJI map", previous_kana)
+            });
             // However, ensure 'オー' => 'おお' => 'oo' if this is a transform on the way to romaji
             if let Some(prev_char) = input.chars().nth(index - 1) {
                 if is_char_katakana(prev_char) && romaji == 'o' && is_destination_romaji {
@@ -89,5 +96,8 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
 #[test]
 fn test_katakana_to_hiragana() {
     assert_eq!(katakana_to_hiragana("カタカナ"), "かたかな");
-    assert_eq!(katakana_to_hiragana("カタカナ is a type of kana"), "かたかな is a type of kana");
+    assert_eq!(
+        katakana_to_hiragana("カタカナ is a type of kana"),
+        "かたかな is a type of kana"
+    );
 }
