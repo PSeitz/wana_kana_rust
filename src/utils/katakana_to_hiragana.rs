@@ -58,6 +58,11 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
         } else if let (Some(previous_kana), true) =
             (previous_kana, is_char_inner_long_dash(char, index))
         {
+            if previous_kana == 'っ' {
+                // Because "っ" is returned as an empty character, "っー" is replaced with "-"
+                hira.push('-');
+                continue;
+            }
             // Transform previous_kana back to romaji, and slice off the vowel
             let romaji = TO_ROMAJI_NODE_TREE
                 .find_transition_node(previous_kana)
