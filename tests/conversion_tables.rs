@@ -355,7 +355,7 @@ pub const ROMA_TO_HIRA_KATA: [[&str; 3]; 338] = [
 ];
 
 #[allow(dead_code)]
-pub const HIRA_KATA_TO_ROMA: [[&str; 3]; 192] = [
+pub const HIRA_KATA_TO_ROMA: [[&str; 3]; 194] = [
     // symbols that should all be the same after conversion
     ["ヶ", "ヶ", "ヶ"],
     ["ヵ", "ヵ", "ヵ"],
@@ -558,4 +558,6 @@ pub const HIRA_KATA_TO_ROMA: [[&str; 3]; 192] = [
     ["", "スーパーマン", "suupaaman"],
     ["", "バレーボール", "bareebooru"],
     ["", "ソール", "sooru"],
+    ["", "ウーッー", "uu-"],
+    ["", "アッー", "a-"],
 ];
