@@ -59,17 +59,12 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
             (previous_kana, is_char_inner_long_dash(input_char, index))
         {
             // Transform previous_kana back to romaji, and slice off the vowel
-            let romaji = TO_ROMAJI_NODE_TREE
-                .find_transition_node(previous_kana)
-                .unwrap_or_else(|| {
-                    panic!(
-                        "Failed to find transition node for previous kana {}",
-                        previous_kana
-                    )
-                })
-                .output;
+            let Some(node) = TO_ROMAJI_NODE_TREE.find_transition_node(previous_kana) else {
+                hira.push(input_char);
+                continue;
+            };
 
-            let romaji_opt = romaji.chars().last();
+            let romaji_opt = node.output.chars().last();
             // However, ensure 'オー' => 'おお' => 'oo' if this is a transform on the way to romaji
             if let Some(prev_char) = input.chars().nth(index - 1) {
                 if is_char_katakana(prev_char) && romaji_opt == Some('o') && is_destination_romaji {
@@ -82,9 +77,20 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
                 hira.push(*hit);
             }
         } else if !is_char_long_dash(input_char) && is_char_katakana(input_char) {
-            // Shift charcode.
-            let code = input_char as i32 + (HIRAGANA_START as i32 - KATAKANA_START as i32);
-            let hira_char = std::char::from_u32(code as u32).unwrap();
+            let hira_char = match input_char {
+                // rare special cases
+                'ヷ' => 'わ', // wa with a voiced mark
+                'ヸ' => 'ゐ', // wi with a voiced mark
+                'ヹ' => 'ゑ', // we with a voiced mark
+                'ヺ' => 'を', // wo with a voiced mark
+                _ => {
+                    // Shift charcode.
+                    let code = input_char as i32 + (HIRAGANA_START as i32 - KATAKANA_START as i32);
+                    // the fallback shouldn't normally happen
+                    std::char::from_u32(code as u32).unwrap_or(input_char)
+                }
+            };
+
             hira.push(hira_char);
             previous_kana = Some(hira_char);
         } else {

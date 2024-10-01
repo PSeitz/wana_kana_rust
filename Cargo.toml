@@ -32,6 +32,9 @@ path = "src/bin/to_kana.rs"
 name = "to_romaji"
 path = "src/bin/to_romaji.rs"
 
+[dev-dependencies]
+proptest = "1.5.0"
+
 # docs.rs-specific configuration
 [package.metadata.docs.rs]
 # document all features

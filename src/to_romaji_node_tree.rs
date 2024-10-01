@@ -43,6 +43,13 @@ lazy_static! {
     pub(crate) static ref TO_ROMAJI_NODE_TREE: Node = {
         let transitions = Some(vec![
             (
+                'ヷ',
+                Node {
+                    transitions: None,
+                    output: "va",
+                },
+            ),
+            (
                 '\u{3000}',
                 Node {
                     transitions: None,

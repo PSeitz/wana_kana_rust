@@ -90,11 +90,53 @@ pub mod traits;
 pub use traits::{ConvertJapanese, IsJapaneseChar, IsJapaneseStr};
 
 #[cfg(test)]
-mod tests {
+mod proptests {
     use super::*;
 
     #[test]
     fn test_regression_11() {
         assert_eq!("シークヮーサー".to_hiragana(), "しいくゎあさあ");
+    }
+
+    use proptest::prelude::*;
+
+    proptest! {
+        #[test]
+        fn to_kana_does_not_panic(input in ".*") {
+            let _ = input.to_kana();
+        }
+
+        #[test]
+        fn to_romaji_does_not_panic(input in ".*") {
+            let _ = &input.to_romaji();
+        }
+
+        #[test]
+        fn to_romaji_does_not_panic_kana_katakana_input(
+            input in r"[ぁ-ゟァ-ヿー]{1,100}"
+        ) {
+                let _ = &input.to_romaji();
+        }
+
+        #[test]
+        fn to_katakana_does_not_panic(input in ".*") {
+            let _ = &input.to_katakana();
+        }
+
+        #[test]
+        fn to_hiragana_does_not_panic(input in ".*") {
+            let _ = &input.to_hiragana();
+        }
+
+        #[test]
+        fn mixed_romaji_kana_katakana_input_does_not_panic(
+            input in r"[A-Za-zぁ-ゟァ-ヿー]{1,100}"
+        ) {
+            let _ = input.to_kana();
+            let _ = input.to_romaji();
+            let _ = input.to_katakana();
+            let _ = input.to_hiragana();
+        }
+
     }
 }
