@@ -10,7 +10,7 @@ name = "wana_kana"
 readme = "README.md"
 repository = "https://github.com/PSeitz/wana_kana_rust"
 version = "4.0.0"
-include = ["src/**/*", "LICENSE", "README.md", "tests/**/*"]
+include = ["src/**/*", "LICENSE", "README.md", "tests/**/*", "benches/**/*"]
 
 [dependencies]
 fnv = "1.0.7"
