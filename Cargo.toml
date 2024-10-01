@@ -2,14 +2,14 @@
 authors = ["Pascal Seitz <pascal.seitz@gmail.com>"]
 categories = ["text-processing"]
 description = "Utility library for checking and converting between Japanese characters - Kanji, Hiragana, Katakana - and Romaji\n"
-edition = "2018"
+edition = "2021"
 homepage = "https://github.com/PSeitz/wana_kana_rust"
 keywords = ["japanese", "katakana", "hiragana", "kana", "romaji"]
 license = "MIT"
 name = "wana_kana"
 readme = "README.md"
 repository = "https://github.com/PSeitz/wana_kana_rust"
-version = "3.0.0"
+version = "4.0.0"
 include = ["src/**/*", "LICENSE", "README.md"]
 
 [dependencies]
