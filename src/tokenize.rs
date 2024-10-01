@@ -58,7 +58,7 @@ pub enum TokenType {
 fn get_type(input: char, compact: bool) -> TokenType {
     if compact {
         match input {
-            ' ' => TokenType::En,   // En Space
+            ' ' => TokenType::En,  // En Space
             '　' => TokenType::Ja, // Ja Space
             input
                 if is_char_japanese_number(input)
@@ -74,7 +74,7 @@ fn get_type(input: char, compact: bool) -> TokenType {
         }
     } else {
         match input {
-            ' ' => TokenType::Space,   // En Space
+            ' ' => TokenType::Space,  // En Space
             '　' => TokenType::Space, // Ja Space
             input if is_char_japanese_number(input) => TokenType::JaNum,
             input if is_char_latin_number(input) => TokenType::EnNum,
