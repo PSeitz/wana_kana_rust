@@ -14,8 +14,8 @@ pub fn is_char_consonant(char: char, include_y: bool) -> bool {
 
 #[test]
 fn is_char_consonant_test() {
-    assert_eq!(is_char_consonant('y', false), false);
-    assert_eq!(is_char_consonant('y', true), true);
-    assert_eq!(is_char_consonant('a', true), false);
-    assert_eq!(is_char_consonant('!', true), false);
+    assert!(!is_char_consonant('y', false));
+    assert!(is_char_consonant('y', true));
+    assert!(!is_char_consonant('a', true));
+    assert!(!is_char_consonant('!', true));
 }

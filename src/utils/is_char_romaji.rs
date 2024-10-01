@@ -10,9 +10,9 @@ pub fn is_char_romaji(char: char) -> bool {
 
 #[test]
 fn is_char_romajin_test() {
-    assert_eq!(is_char_romaji('n'), true);
-    assert_eq!(is_char_romaji('!'), true);
-    assert_eq!(is_char_romaji('ナ'), false);
-    assert_eq!(is_char_romaji('は'), false);
-    assert_eq!(is_char_romaji('缶'), false);
+    assert!(is_char_romaji('n'));
+    assert!(is_char_romaji('!'));
+    assert!(!is_char_romaji('ナ'));
+    assert!(!is_char_romaji('は'));
+    assert!(!is_char_romaji('缶'));
 }

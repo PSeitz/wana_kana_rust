@@ -16,8 +16,8 @@ pub fn is_char_vowel_opt(char: char, include_y: bool) -> bool {
 
 #[test]
 fn is_char_vowel_test() {
-    assert_eq!(is_char_vowel_opt('y', false), false);
-    assert_eq!(is_char_vowel_opt('y', true), true);
-    assert_eq!(is_char_vowel('x'), false);
-    assert_eq!(is_char_vowel('!'), false);
+    assert!(!is_char_vowel_opt('y', false));
+    assert!(is_char_vowel_opt('y', true));
+    assert!(!is_char_vowel('x'));
+    assert!(!is_char_vowel('!'));
 }

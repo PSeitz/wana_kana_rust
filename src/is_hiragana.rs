@@ -10,9 +10,9 @@ pub fn is_hiragana(input: &str) -> bool {
 
 #[test]
 fn check_is_hiragana() {
-    assert_eq!(is_hiragana("げーむ"), true);
-    assert_eq!(is_hiragana("A"), false);
-    assert_eq!(is_hiragana("あア"), false);
+    assert!(is_hiragana("げーむ"));
+    assert!(!is_hiragana("A"));
+    assert!(!is_hiragana("あア"));
 }
 
 #[cfg(test)]
@@ -21,30 +21,30 @@ mod tests {
 
     #[test]
     fn sane_defaults() {
-        assert_eq!(is_hiragana(""), false);
+        assert!(!is_hiragana(""));
     }
     #[test]
     fn あ_is_hiragana() {
-        assert_eq!(is_hiragana("あ"), true);
+        assert!(is_hiragana("あ"));
     }
     #[test]
     fn ああ_is_hiragana() {
-        assert_eq!(is_hiragana("ああ"), true);
+        assert!(is_hiragana("ああ"));
     }
     #[test]
     fn ア_is_not_hiragana() {
-        assert_eq!(is_hiragana("ア"), false);
+        assert!(!is_hiragana("ア"));
     }
     #[test]
     fn a_is_not_hiragana() {
-        assert_eq!(is_hiragana("A"), false);
+        assert!(!is_hiragana("A"));
     }
     #[test]
     fn あア_is_not_hiragana() {
-        assert_eq!(is_hiragana("あア"), false);
+        assert!(!is_hiragana("あア"));
     }
     #[test]
     fn ignores_long_dash_in_hiragana() {
-        assert_eq!(is_hiragana("げーむ"), true);
+        assert!(is_hiragana("げーむ"));
     }
 }

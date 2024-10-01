@@ -8,6 +8,6 @@ pub fn is_char_slash_dot(char: char) -> bool {
 
 #[test]
 fn is_char_slash_dot_test() {
-    assert_eq!(is_char_slash_dot('・'), true);
-    assert_eq!(is_char_slash_dot('/'), false);
+    assert!(is_char_slash_dot('・'));
+    assert!(!is_char_slash_dot('/'));
 }

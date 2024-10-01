@@ -24,60 +24,60 @@ mod tests {
 
     #[test]
     fn sane_defaults() {
-        assert_eq!(is_kanji(""), false);
-        assert_eq!(contains_kanji(""), false);
+        assert!(!is_kanji(""));
+        assert!(!contains_kanji(""));
     }
 
     #[test]
     fn 勢い_contains_kanji() {
-        assert_eq!(contains_kanji("勢い"), true);
+        assert!(contains_kanji("勢い"));
     }
     #[test]
     fn hello_contains_not_kanji() {
-        assert_eq!(contains_kanji("hello"), false);
+        assert!(!contains_kanji("hello"));
     }
     #[test]
     fn 切腹_is_kanji() {
-        assert_eq!(is_kanji("切腹"), true);
+        assert!(is_kanji("切腹"));
     }
     #[test]
     fn 刀_is_kanji() {
-        assert_eq!(is_kanji("刀"), true);
+        assert!(is_kanji("刀"));
     }
     #[test]
     fn emoji_are_not_kanji() {
-        assert_eq!(is_kanji("🐸"), false);
+        assert!(!is_kanji("🐸"));
     }
     #[test]
     fn あ_is_not_kanji() {
-        assert_eq!(is_kanji("あ"), false);
+        assert!(!is_kanji("あ"));
     }
     #[test]
     fn ア_is_not_kanji() {
-        assert_eq!(is_kanji("ア"), false);
+        assert!(!is_kanji("ア"));
     }
     #[test]
     fn あア_is_not_kanji() {
-        assert_eq!(is_kanji("あア"), false);
+        assert!(!is_kanji("あア"));
     }
     #[test]
     fn a_is_not_kanji() {
-        assert_eq!(is_kanji("A"), false);
+        assert!(!is_kanji("A"));
     }
     #[test]
     fn あaア_is_not_kanji() {
-        assert_eq!(is_kanji("あAア"), false);
+        assert!(!is_kanji("あAア"));
     }
     #[test]
     fn number_with_kanj_is_not_kanji1() {
-        assert_eq!(is_kanji("１２隻"), false);
+        assert!(!is_kanji("１２隻"));
     }
     #[test]
     fn number_with_kanj_is_not_kanji2() {
-        assert_eq!(is_kanji("12隻"), false);
+        assert!(!is_kanji("12隻"));
     }
     #[test]
     fn kanji_with_dot_is_not_kanji() {
-        assert_eq!(is_kanji("隻。"), false);
+        assert!(!is_kanji("隻。"));
     }
 }

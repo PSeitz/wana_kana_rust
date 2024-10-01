@@ -9,10 +9,10 @@ pub fn is_char_upper_case(char: char) -> bool {
 
 #[test]
 fn is_char_upper_case_test() {
-    assert_eq!(is_char_upper_case('A'), true);
-    assert_eq!(is_char_upper_case('D'), true);
-    assert_eq!(is_char_upper_case('-'), false);
-    assert_eq!(is_char_upper_case('ー'), false);
-    assert_eq!(is_char_upper_case('a'), false);
-    assert_eq!(is_char_upper_case('d'), false);
+    assert!(is_char_upper_case('A'));
+    assert!(is_char_upper_case('D'));
+    assert!(!is_char_upper_case('-'));
+    assert!(!is_char_upper_case('ー'));
+    assert!(!is_char_upper_case('a'));
+    assert!(!is_char_upper_case('d'));
 }

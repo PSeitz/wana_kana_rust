@@ -10,11 +10,11 @@ pub fn is_char_kanji(char: char) -> bool {
 
 #[test]
 fn is_char_kanji_test() {
-    assert_eq!(is_char_kanji('腹'), true);
-    assert_eq!(is_char_kanji('一'), true); // kanji for いち・1 - not a long hyphen
-    assert_eq!(is_char_kanji('ー'), false); // long hyphen
-    assert_eq!(is_char_kanji('は'), false);
-    assert_eq!(is_char_kanji('ナ'), false);
-    assert_eq!(is_char_kanji('n'), false);
-    assert_eq!(is_char_kanji('!'), false);
+    assert!(is_char_kanji('腹'));
+    assert!(is_char_kanji('一')); // kanji for いち・1 - not a long hyphen
+    assert!(!is_char_kanji('ー')); // long hyphen
+    assert!(!is_char_kanji('は'));
+    assert!(!is_char_kanji('ナ'));
+    assert!(!is_char_kanji('n'));
+    assert!(!is_char_kanji('!'));
 }

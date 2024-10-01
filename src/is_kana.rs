@@ -14,30 +14,30 @@ mod tests {
 
     #[test]
     fn sane_defaults() {
-        assert_eq!(is_kana(""), false);
+        assert!(!is_kana(""));
     }
     #[test]
     fn あ_is_kana() {
-        assert_eq!(is_kana("あ"), true);
+        assert!(is_kana("あ"));
     }
     #[test]
     fn ア_is_kana() {
-        assert_eq!(is_kana("ア"), true);
+        assert!(is_kana("ア"));
     }
     #[test]
     fn あア_is_kana() {
-        assert_eq!(is_kana("あア"), true);
+        assert!(is_kana("あア"));
     }
     #[test]
     fn a_is_not_kana() {
-        assert_eq!(is_kana("A"), false);
+        assert!(!is_kana("A"));
     }
     #[test]
     fn あaア_is_not_kana() {
-        assert_eq!(is_kana("あAア"), false);
+        assert!(!is_kana("あAア"));
     }
     #[test]
     fn ignores_long_dash_in_mixed_kana() {
-        assert_eq!(is_kana("アーあ"), true);
+        assert!(is_kana("アーあ"));
     }
 }

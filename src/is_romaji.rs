@@ -31,11 +31,11 @@ pub fn is_romaji_with_whitelist(input: &str, allowed: Option<&Regex>) -> bool {
 
 #[test]
 fn check_is_romaji() {
-    assert_eq!(is_romaji("Tōkyō and Ōsaka"), true);
-    assert_eq!(is_romaji("12a*b&c-d"), true);
-    assert_eq!(is_romaji("あアA"), false);
-    assert_eq!(is_romaji("お願い"), false);
-    assert_eq!(is_romaji("a！b&cーd"), false);
+    assert!(is_romaji("Tōkyō and Ōsaka"));
+    assert!(is_romaji("12a*b&c-d"));
+    assert!(!is_romaji("あアA"));
+    assert!(!is_romaji("お願い"));
+    assert!(!is_romaji("a！b&cーd"));
 }
 
 #[cfg(test)]
@@ -44,50 +44,50 @@ mod tests {
 
     #[test]
     fn sane_defaults() {
-        assert_eq!(is_romaji(""), false);
+        assert!(!is_romaji(""));
 
         #[cfg(feature = "enable_regex")]
         assert_eq!(is_romaji_with_whitelist("", None), false);
     }
     #[test]
     fn a_is_romaji() {
-        assert_eq!(is_romaji("A"), true);
+        assert!(is_romaji("A"));
     }
     #[test]
     fn x_yz_is_romaji() {
-        assert_eq!(is_romaji("xYz"), true);
+        assert!(is_romaji("xYz"));
     }
     #[test]
     fn tōkyō_and_ōsaka_is_romaji() {
-        assert_eq!(is_romaji("Tōkyō and Ōsaka"), true);
+        assert!(is_romaji("Tōkyō and Ōsaka"));
     }
     #[test]
     fn あアa_is_not_romaji() {
-        assert_eq!(is_romaji("あアA"), false);
+        assert!(!is_romaji("あアA"));
     }
     #[test]
     fn お願い_is_not_romaji() {
-        assert_eq!(is_romaji("お願い"), false);
+        assert!(!is_romaji("お願い"));
     }
     #[test]
     fn 熟成_is_not_romaji() {
-        assert_eq!(is_romaji("熟成"), false);
+        assert!(!is_romaji("熟成"));
     }
     #[test]
     fn passes_latin_punctuation() {
-        assert_eq!(is_romaji("a*b&c-d"), true);
+        assert!(is_romaji("a*b&c-d"));
     }
     #[test]
     fn passes_latin_numbers() {
-        assert_eq!(is_romaji("0123456789"), true);
+        assert!(is_romaji("0123456789"));
     }
     #[test]
     fn fails_zenkaku_punctuation() {
-        assert_eq!(is_romaji("a！b&cーd"), false);
+        assert!(!is_romaji("a！b&cーd"));
     }
     #[test]
     fn fails_zenkaku_latin() {
-        assert_eq!(is_romaji("ｈｅｌｌｏ"), false);
+        assert!(!is_romaji("ｈｅｌｌｏ"));
     }
 
     #[cfg(feature = "enable_regex")]

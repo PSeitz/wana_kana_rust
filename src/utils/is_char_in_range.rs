@@ -14,6 +14,6 @@ pub fn is_char_in_range(char: char, start: u32, end: u32) -> bool {
 #[test]
 fn is_char_in_range_test() {
     use crate::constants::{HIRAGANA_END, HIRAGANA_START};
-    assert_eq!(is_char_in_range('は', HIRAGANA_START, HIRAGANA_END), true);
-    assert_eq!(is_char_in_range('d', HIRAGANA_START, HIRAGANA_END), false);
+    assert!(is_char_in_range('は', HIRAGANA_START, HIRAGANA_END));
+    assert!(!is_char_in_range('d', HIRAGANA_START, HIRAGANA_END));
 }

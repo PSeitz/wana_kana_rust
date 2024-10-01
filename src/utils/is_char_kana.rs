@@ -9,10 +9,10 @@ pub fn is_char_kana(char: char) -> bool {
 
 #[test]
 fn is_char_kana_test() {
-    assert_eq!(is_char_kana('は'), true);
-    assert_eq!(is_char_kana('ナ'), true);
-    assert_eq!(is_char_kana('n'), false);
-    assert_eq!(is_char_kana('!'), false);
-    assert_eq!(is_char_kana('-'), false);
-    assert_eq!(is_char_kana('ー'), true);
+    assert!(is_char_kana('は'));
+    assert!(is_char_kana('ナ'));
+    assert!(!is_char_kana('n'));
+    assert!(!is_char_kana('!'));
+    assert!(!is_char_kana('-'));
+    assert!(is_char_kana('ー'));
 }

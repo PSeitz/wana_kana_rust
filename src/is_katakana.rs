@@ -14,30 +14,30 @@ mod tests {
 
     #[test]
     fn sane_defaults() {
-        assert_eq!(is_katakana(""), false);
+        assert!(!is_katakana(""));
     }
     #[test]
     fn アア_is_katakana() {
-        assert_eq!(is_katakana("アア"), true);
+        assert!(is_katakana("アア"));
     }
     #[test]
     fn ア_is_katakana() {
-        assert_eq!(is_katakana("ア"), true);
+        assert!(is_katakana("ア"));
     }
     #[test]
     fn あ_is_not_katakana() {
-        assert_eq!(is_katakana("あ"), false);
+        assert!(!is_katakana("あ"));
     }
     #[test]
     fn a_is_not_katakana() {
-        assert_eq!(is_katakana("A"), false);
+        assert!(!is_katakana("A"));
     }
     #[test]
     fn あア_is_not_katakana() {
-        assert_eq!(is_katakana("あア"), false);
+        assert!(!is_katakana("あア"));
     }
     #[test]
     fn ignores_long_dash_in_katakana() {
-        assert_eq!(is_katakana("ゲーム"), true);
+        assert!(is_katakana("ゲーム"));
     }
 }

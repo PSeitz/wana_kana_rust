@@ -9,8 +9,8 @@ pub fn is_char_katakana(char: char) -> bool {
 
 #[test]
 fn is_char_katakana_test() {
-    assert_eq!(is_char_katakana('ナ'), true);
-    assert_eq!(is_char_katakana('は'), false);
-    assert_eq!(is_char_katakana('n'), false);
-    assert_eq!(is_char_katakana('!'), false);
+    assert!(is_char_katakana('ナ'));
+    assert!(!is_char_katakana('は'));
+    assert!(!is_char_katakana('n'));
+    assert!(!is_char_katakana('!'));
 }

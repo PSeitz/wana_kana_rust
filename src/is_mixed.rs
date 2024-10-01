@@ -28,50 +28,50 @@ mod tests {
 
     #[test]
     fn sane_defaults() {
-        assert_eq!(is_mixed(""), false);
+        assert!(!is_mixed(""));
     }
     #[test]
     fn aア_is_mixed() {
-        assert_eq!(is_mixed("Aア"), true);
+        assert!(is_mixed("Aア"));
     }
     #[test]
     fn aあ_is_mixed() {
-        assert_eq!(is_mixed("Aあ"), true);
+        assert!(is_mixed("Aあ"));
     }
     #[test]
     fn aあア_is_mixed() {
-        assert_eq!(is_mixed("Aあア"), true);
+        assert!(is_mixed("Aあア"));
     }
     #[test]
     fn number_2あア_is_not_mixed() {
-        assert_eq!(is_mixed("２あア"), false);
+        assert!(!is_mixed("２あア"));
     }
     #[test]
     fn お腹a_is_mixed() {
-        assert_eq!(is_mixed("お腹A"), true);
+        assert!(is_mixed("お腹A"));
     }
     #[test]
     fn お腹a_is_not_mixed_when_pass_kanji_false() {
-        assert_eq!(is_mixed_pass_kanji("お腹A", false), false);
+        assert!(!is_mixed_pass_kanji("お腹A", false));
     }
     #[test]
     fn お腹_is_not_mixed() {
-        assert_eq!(is_mixed("お腹"), false);
+        assert!(!is_mixed("お腹"));
     }
     #[test]
     fn 腹_is_not_mixed() {
-        assert_eq!(is_mixed("腹"), false);
+        assert!(!is_mixed("腹"));
     }
     #[test]
     fn a_is_not_mixed() {
-        assert_eq!(is_mixed("A"), false);
+        assert!(!is_mixed("A"));
     }
     #[test]
     fn あ_is_not_mixed() {
-        assert_eq!(is_mixed("あ"), false);
+        assert!(!is_mixed("あ"));
     }
     #[test]
     fn ア_is_not_mixed() {
-        assert_eq!(is_mixed("ア"), false);
+        assert!(!is_mixed("ア"));
     }
 }

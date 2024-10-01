@@ -5,7 +5,7 @@ pub(crate) struct Node {
 }
 
 impl Node {
-    pub(crate) fn get<'a>(&self, chars: &'a [char]) -> (Option<&'static str>, usize) {
+    pub(crate) fn get(&self, chars: &[char]) -> (Option<&'static str>, usize) {
         let mut i = 0;
         let mut curr_node = self;
         for char in chars.iter() {

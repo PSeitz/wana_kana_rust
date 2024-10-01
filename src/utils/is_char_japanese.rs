@@ -11,15 +11,15 @@ pub fn is_char_japanese(char: char) -> bool {
 
 #[test]
 fn is_char_japanese_test() {
-    assert_eq!(is_char_japanese('１'), true);
-    assert_eq!(is_char_japanese('ナ'), true);
-    assert_eq!(is_char_japanese('は'), true);
-    assert_eq!(is_char_japanese('缶'), true);
-    assert_eq!(is_char_japanese('〜'), true);
-    assert_eq!(is_char_japanese('ｎ'), true);
-    assert_eq!(is_char_japanese('Ｋ'), true);
-    assert_eq!(is_char_japanese('1'), false);
-    assert_eq!(is_char_japanese('n'), false);
-    assert_eq!(is_char_japanese('K'), false);
-    assert_eq!(is_char_japanese('!'), false);
+    assert!(is_char_japanese('１'));
+    assert!(is_char_japanese('ナ'));
+    assert!(is_char_japanese('は'));
+    assert!(is_char_japanese('缶'));
+    assert!(is_char_japanese('〜'));
+    assert!(is_char_japanese('ｎ'));
+    assert!(is_char_japanese('Ｋ'));
+    assert!(!is_char_japanese('1'));
+    assert!(!is_char_japanese('n'));
+    assert!(!is_char_japanese('K'));
+    assert!(!is_char_japanese('!'));
 }
