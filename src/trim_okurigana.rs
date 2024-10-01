@@ -23,11 +23,17 @@ pub fn trim_okurigana(input: &str) -> &str {
 }
 
 pub(crate) fn is_leading_without_initial_kana(input: &str, trim_from_start: bool) -> bool {
+    if input.is_empty() {
+        return false;
+    }
     trim_from_start && !is_char_kana(input.chars().next().unwrap())
 }
 
 #[inline]
 pub(crate) fn is_trailing_without_final_kana(input: &str, trim_from_start: bool) -> bool {
+    if input.is_empty() {
+        return false;
+    }
     !trim_from_start && !is_char_kana(input.chars().last().unwrap())
 }
 
@@ -77,7 +83,9 @@ pub fn trim_okurigana_with_opt<'a>(
     } else {
         tokenize(input)
     };
-    dbg!(&tokens);
+    if tokens.is_empty() {
+        return input;
+    }
 
     if trim_from_start {
         input.trim_start_matches(&tokens[0])

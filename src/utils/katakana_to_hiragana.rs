@@ -47,46 +47,49 @@ pub fn katakana_to_hiragana(input: &str) -> String {
 pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: bool) -> String {
     let mut hira = Vec::with_capacity(input.chars().count());
     let mut previous_kana: Option<char> = None;
-    for (index, char) in input.chars().enumerate() {
+    for (index, input_char) in input.chars().enumerate() {
         // Short circuit to avoid incorrect codeshift for 'ー' and '・'
-        if is_char_slash_dot(char)
-            || is_char_initial_long_dash(char, index)
-            || is_kana_as_symbol(char)
+        if is_char_slash_dot(input_char)
+            || is_char_initial_long_dash(input_char, index)
+            || is_kana_as_symbol(input_char)
         {
-            hira.push(char);
+            hira.push(input_char);
         // Transform long vowels: 'オー' to 'おう'
         } else if let (Some(previous_kana), true) =
-            (previous_kana, is_char_inner_long_dash(char, index))
+            (previous_kana, is_char_inner_long_dash(input_char, index))
         {
             // Transform previous_kana back to romaji, and slice off the vowel
             let romaji = TO_ROMAJI_NODE_TREE
                 .find_transition_node(previous_kana)
-                .unwrap()
+                .unwrap_or_else(|| {
+                    panic!(
+                        "Failed to find transition node for previous kana {}",
+                        previous_kana
+                    )
+                })
                 .output;
 
-            let romaji = romaji.chars().last().unwrap_or_else(|| {
-                panic!("could not find kana {:?} in TO_ROMAJI map", previous_kana)
-            });
+            let romaji_opt = romaji.chars().last();
             // However, ensure 'オー' => 'おお' => 'oo' if this is a transform on the way to romaji
             if let Some(prev_char) = input.chars().nth(index - 1) {
-                if is_char_katakana(prev_char) && romaji == 'o' && is_destination_romaji {
+                if is_char_katakana(prev_char) && romaji_opt == Some('o') && is_destination_romaji {
                     hira.push('お');
                     continue;
                 }
             }
 
-            if let Some(hit) = LONG_VOWELS.get(&romaji) {
+            if let Some(hit) = romaji_opt.and_then(|romaji| LONG_VOWELS.get(&romaji)) {
                 hira.push(*hit);
             }
-        } else if !is_char_long_dash(char) && is_char_katakana(char) {
+        } else if !is_char_long_dash(input_char) && is_char_katakana(input_char) {
             // Shift charcode.
-            let code = char as i32 + (HIRAGANA_START as i32 - KATAKANA_START as i32);
+            let code = input_char as i32 + (HIRAGANA_START as i32 - KATAKANA_START as i32);
             let hira_char = std::char::from_u32(code as u32).unwrap();
             hira.push(hira_char);
             previous_kana = Some(hira_char);
         } else {
             // Pass non katakana chars through
-            hira.push(char);
+            hira.push(input_char);
             previous_kana = None;
         }
     }
