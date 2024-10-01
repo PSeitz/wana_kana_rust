@@ -29,7 +29,7 @@ pub fn to_kana_with_opt(input: &str, options: Options) -> String {
         };
 
         // nothing found, pass through
-        if result.1 == 0 {
+        if result.1 == 0 || result.0.is_none() {
             ouput.push(chars[curr_pos]);
             curr_pos += 1;
         } else {
