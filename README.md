@@ -7,7 +7,7 @@
  ### ワナカナ <--> WanaKana <--> わなかな
 ```toml,ignore
 [dependencies]
-wana_kana = "2.0"
+wana_kana = "4.0"
 ```
 
 
