@@ -59,12 +59,8 @@ mod tests {
 
     #[test]
     fn is_char_english_punctuation_test() {
-        assert!(
-            EN_PUNC.iter().cloned().all(is_char_english_punctuation)
-        );
-        assert!(
-            !JA_PUNC.iter().cloned().all(is_char_english_punctuation)
-        );
+        assert!(EN_PUNC.iter().cloned().all(is_char_english_punctuation));
+        assert!(!JA_PUNC.iter().cloned().all(is_char_english_punctuation));
         assert!(is_char_english_punctuation(' '));
         assert!(!is_char_english_punctuation('a'));
         assert!(!is_char_english_punctuation('ふ'));
@@ -84,12 +80,8 @@ mod tests {
 
     #[test]
     fn is_char_japanese_punctuation_test() {
-        assert!(
-            !EN_PUNC.iter().cloned().all(is_char_japanese_punctuation)
-        );
-        assert!(
-            JA_PUNC.iter().cloned().all(is_char_japanese_punctuation)
-        );
+        assert!(!EN_PUNC.iter().cloned().all(is_char_japanese_punctuation));
+        assert!(JA_PUNC.iter().cloned().all(is_char_japanese_punctuation));
         assert!(is_char_japanese_punctuation('　'));
         assert!(!is_char_japanese_punctuation('?'));
         assert!(!is_char_japanese_punctuation('a'));

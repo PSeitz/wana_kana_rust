@@ -42,9 +42,7 @@ mod tests {
     }
     #[test]
     fn kanji_with_zenkaku_punctuation_is_japanese() {
-        assert!(
-            "泣き虫。＃！〜〈〉《》〔〕［］【】（）｛｝〝〟".is_japanese()
-        );
+        assert!("泣き虫。＃！〜〈〉《》〔〕［］【】（）｛｝〝〟".is_japanese());
     }
     #[test]
     fn kanji_with_romaji_punctuation_is_not_japanese() {

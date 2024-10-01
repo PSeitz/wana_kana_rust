@@ -4,17 +4,16 @@ extern crate test;
 
 #[cfg(test)]
 mod tests {
-    use test::Bencher;
-    use wana_kana::{to_kana, to_romaji, *};
+    use wana_kana::*;
 
     #[bench]
     fn bench_kana_1(b: &mut test::Bencher) {
-        b.iter(|| to_kana::to_kana("aiueosashisusesonaninunenokakikukeko"))
+        b.iter(|| "aiueosashisusesonaninunenokakikukeko".to_kana())
     }
 
     #[bench]
     fn bench_kana_2(b: &mut test::Bencher) {
-        b.iter(|| to_kana::to_kana("AIUEOSASHISUSESONANINUNENOKAKIKUKEKO"))
+        b.iter(|| "AIUEOSASHISUSESONANINUNENOKAKIKUKEKO".to_kana())
     }
 
     #[bench]
@@ -39,11 +38,11 @@ mod tests {
 
     #[bench]
     fn bench_hiragana_to_romaji(b: &mut test::Bencher) {
-        b.iter(|| to_romaji::to_romaji("あいうえおさしすせそなにぬねのかきくけこ"))
+        b.iter(|| "あいうえおさしすせそなにぬねのかきくけこ".to_romaji())
     }
 
     #[bench]
     fn bench_katakana_to_romaji(b: &mut test::Bencher) {
-        b.iter(|| to_romaji::to_romaji("アイウエオサシスセソナニヌネノカキクケコ"))
+        b.iter(|| "アイウエオサシスセソナニヌネノカキクケコ".to_romaji())
     }
 }
