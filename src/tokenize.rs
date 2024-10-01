@@ -1,7 +1,7 @@
 //! Splits input into array of strings separated by opinionated
-//! [`TokenType`](crate::tokenize::TokenType).
+//! [`TokenType`].
 //!
-//! [`tokenize_detailed`](crate::tokenize::tokenize_detailed) returns an
+//! [`tokenize_detailed`] returns an
 //! array containing `{ TokenType, String }` instead of `String`
 //!
 //! # Example
@@ -91,7 +91,7 @@ fn get_type(input: char, compact: bool) -> TokenType {
 }
 
 /// Tokenizes the text. Splits input into array of strings separated by opinionated
-/// [`TokenType`](crate::tokenize::TokenType).
+/// [`TokenType`].
 ///
 /// # Example
 /// ```
@@ -107,7 +107,7 @@ pub fn tokenize(input: &str) -> Vec<String> {
 }
 
 /// Tokenizes the text. Splits input into array of strings separated by opinionated
-/// [`TokenType`](crate::tokenize::TokenType).
+/// [`TokenType`].
 ///
 /// If `compact` is set, many same-language tokens are combined (spaces + text, kanji + kana,
 /// numeral + punctuation).
