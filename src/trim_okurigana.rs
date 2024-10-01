@@ -45,7 +45,7 @@ pub(crate) fn is_invalid_matcher(input: &str, match_kanji: Option<&str>) -> bool
 ///
 /// * `trim_from_start` - trim the start of the text. If unset will trim the end of the text
 /// * `match_kanji` - In case input is all Kana, the kanji needs to be provided to know where to
-/// trim
+///   trim
 ///
 /// # Examples
 /// ```rust

@@ -169,7 +169,7 @@ pub trait IsJapaneseStr {
     /// assert_eq!("A".is_hiragana(), false);
     /// assert_eq!("あア".is_hiragana(), false);
     /// ```
-    fn is_hiragana(self) -> bool;
+    fn is_hiragana(&self) -> bool;
     /// Test if all chars of `input` are [Katakana](https://en.wikipedia.org/wiki/Katakana)
     ///
     /// # Examples
@@ -180,7 +180,7 @@ pub trait IsJapaneseStr {
     /// assert_eq!("A".is_katakana(), false);
     /// assert_eq!("あア".is_katakana(), false);
     /// ```
-    fn is_katakana(self) -> bool;
+    fn is_katakana(&self) -> bool;
     /// Test if all chars of `input` are [Kana](https://en.wikipedia.org/wiki/Kana) ([Katakana](https://en.wikipedia.org/wiki/Katakana) and/or [Hiragana](https://en.wikipedia.org/wiki/Hiragana))
     ///
     /// # Examples
@@ -192,7 +192,7 @@ pub trait IsJapaneseStr {
     /// assert_eq!("A".is_kana(), false);
     /// assert_eq!("あAア".is_kana(), false);
     /// ```
-    fn is_kana(self) -> bool;
+    fn is_kana(&self) -> bool;
     /// Test if every char in `input` is [Romaji](https://en.wikipedia.org/wiki/Romaji) (allowing [Hepburn romanisation](https://en.wikipedia.org/wiki/Hepburn_romanization))
     ///
     /// # Examples
@@ -209,7 +209,7 @@ pub trait IsJapaneseStr {
     /// assert_eq!("a！b&cーd".is_romaji(), false);
     /// assert_eq!("ｈｅｌｌｏ".is_romaji(), false);
     /// ```
-    fn is_romaji(self) -> bool;
+    fn is_romaji(&self) -> bool;
 
     #[cfg_attr(docsrs, doc(cfg(feature = "enable_regex")))]
     #[cfg(feature = "enable_regex")]
@@ -224,7 +224,7 @@ pub trait IsJapaneseStr {
     ///     true
     /// );
     /// ```
-    fn is_romaji_with_whitelist(self, allowed: Option<&Regex>) -> bool;
+    fn is_romaji_with_whitelist(&self, allowed: Option<&Regex>) -> bool;
 
     /// Test if all chars of `input` are [Kanji](https://en.wikipedia.org/wiki/Kanji) ([Japanese CJK ideographs](https://en.wikipedia.org/wiki/CJK_Unified_Ideographs))
     ///
@@ -237,7 +237,7 @@ pub trait IsJapaneseStr {
     /// assert_eq!("あAア".is_kanji(), false);
     /// assert_eq!("🐸".is_kanji(), false);
     /// ```
-    fn is_kanji(self) -> bool;
+    fn is_kanji(&self) -> bool;
 
     /// Test if any chars of `input` are [Kanji](https://en.wikipedia.org/wiki/Kanji) ([Japanese CJK ideographs](https://en.wikipedia.org/wiki/CJK_Unified_Ideographs))
     ///
@@ -247,7 +247,7 @@ pub trait IsJapaneseStr {
     /// assert_eq!("勢い".contains_kanji(), true);
     /// assert_eq!("hello".contains_kanji(), false);
     /// ```
-    fn contains_kanji(self) -> bool;
+    fn contains_kanji(&self) -> bool;
 
     /// Test if `input` only includes [Kanji](https://en.wikipedia.org/wiki/Kanji), [Kana](https://en.wikipedia.org/wiki/Kana), zenkaku punctuation, japanese symbols and japanese numbers.
     ///
@@ -262,7 +262,7 @@ pub trait IsJapaneseStr {
     /// assert_eq!("泣き虫.!~$".is_japanese(), false); // Latin punctuation fails
     /// assert_eq!("A".is_japanese(), false);
     /// ```
-    fn is_japanese(self) -> bool;
+    fn is_japanese(&self) -> bool;
 
     #[cfg_attr(docsrs, doc(cfg(feature = "enable_regex")))]
     #[cfg(feature = "enable_regex")]
@@ -290,7 +290,7 @@ pub trait IsJapaneseStr {
     /// assert_eq!("２あア".is_mixed(), false);
     /// assert_eq!("お腹A".is_mixed(), true);
     /// ```
-    fn is_mixed(self) -> bool;
+    fn is_mixed(&self) -> bool;
 
     /// Test if `input` contains a mix of [Romaji](https://en.wikipedia.org/wiki/Romaji) and [Kana](https://en.wikipedia.org/wiki/Kana),
     /// or [Kanji](https://en.wikipedia.org/wiki/Kanji)
@@ -304,32 +304,32 @@ pub trait IsJapaneseStr {
     /// assert_eq!("ab".is_mixed_pass_kanji(true), false);
     /// assert_eq!("あア".is_mixed_pass_kanji(true), false);
     /// ```
-    fn is_mixed_pass_kanji(self, pass_kanji: bool) -> bool;
+    fn is_mixed_pass_kanji(&self, pass_kanji: bool) -> bool;
 }
 
 impl IsJapaneseStr for &str {
     #[inline]
-    fn is_hiragana(self) -> bool {
+    fn is_hiragana(&self) -> bool {
         crate::is_hiragana::is_hiragana(self)
     }
 
     #[inline]
-    fn is_katakana(self) -> bool {
+    fn is_katakana(&self) -> bool {
         crate::is_katakana::is_katakana(self)
     }
 
     #[inline]
-    fn is_kana(self) -> bool {
+    fn is_kana(&self) -> bool {
         crate::is_kana::is_kana(self)
     }
 
     #[inline]
-    fn is_kanji(self) -> bool {
+    fn is_kanji(&self) -> bool {
         crate::is_kanji::is_kanji(self)
     }
 
     #[inline]
-    fn contains_kanji(self) -> bool {
+    fn contains_kanji(&self) -> bool {
         crate::is_kanji::contains_kanji(self)
     }
 
@@ -340,28 +340,28 @@ impl IsJapaneseStr for &str {
     }
 
     #[inline]
-    fn is_japanese(self) -> bool {
+    fn is_japanese(&self) -> bool {
         crate::is_japanese::is_japanese(self)
     }
 
     #[inline]
-    fn is_romaji(self) -> bool {
+    fn is_romaji(&self) -> bool {
         crate::is_romaji::is_romaji(self)
     }
 
     #[cfg(feature = "enable_regex")]
     #[inline]
-    fn is_romaji_with_whitelist(self, allowed: Option<&Regex>) -> bool {
+    fn is_romaji_with_whitelist(&self, allowed: Option<&Regex>) -> bool {
         crate::is_romaji::is_romaji_with_whitelist(self, allowed)
     }
 
     #[inline]
-    fn is_mixed(self) -> bool {
+    fn is_mixed(&self) -> bool {
         crate::is_mixed::is_mixed(self)
     }
 
     #[inline]
-    fn is_mixed_pass_kanji(self, pass_kanji: bool) -> bool {
+    fn is_mixed_pass_kanji(&self, pass_kanji: bool) -> bool {
         crate::is_mixed::is_mixed_pass_kanji(self, pass_kanji)
     }
 }
@@ -371,54 +371,54 @@ impl IsJapaneseStr for &str {
 /// number or punctuation.
 pub trait IsJapaneseChar {
     /// Tests a character. Returns true if the character is [Hiragana](https://en.wikipedia.org/wiki/Hiragana).
-    fn is_hiragana(self) -> bool;
+    fn is_hiragana(&self) -> bool;
     /// Tests a character. Returns true if the character is [Katakana](https://en.wikipedia.org/wiki/Katakana).
-    fn is_katakana(self) -> bool;
+    fn is_katakana(&self) -> bool;
     /// Tests a character. Returns true if the character is [Hiragana](https://en.wikipedia.org/wiki/Hiragana) or [Katakana](https://en.wikipedia.org/wiki/Katakana).
-    fn is_kana(self) -> bool;
+    fn is_kana(&self) -> bool;
     /// Tests a character. Returns true if the character is a CJK ideograph (kanji).
-    fn is_kanji(self) -> bool;
+    fn is_kanji(&self) -> bool;
     /// Checks if a char is in any of the japanese unicode ranges.
-    fn is_japanese(self) -> bool;
+    fn is_japanese(&self) -> bool;
     /// Tests a character. Returns true if the character is considered a Zenkaku number(０-９)
-    fn is_japanese_number(self) -> bool;
+    fn is_japanese_number(&self) -> bool;
     /// Tests a character. Returns true if the character is considered japanese punctuation.
-    fn is_japanese_punctuation(self) -> bool;
+    fn is_japanese_punctuation(&self) -> bool;
 }
 
 impl IsJapaneseChar for char {
     #[inline]
-    fn is_hiragana(self) -> bool {
-        crate::utils::is_char_hiragana(self)
+    fn is_hiragana(&self) -> bool {
+        crate::utils::is_char_hiragana(*self)
     }
 
     #[inline]
-    fn is_katakana(self) -> bool {
-        crate::utils::is_char_katakana(self)
+    fn is_katakana(&self) -> bool {
+        crate::utils::is_char_katakana(*self)
     }
 
     #[inline]
-    fn is_kana(self) -> bool {
-        crate::utils::is_char_kana(self)
+    fn is_kana(&self) -> bool {
+        crate::utils::is_char_kana(*self)
     }
 
     #[inline]
-    fn is_kanji(self) -> bool {
-        crate::utils::is_char_kanji(self)
+    fn is_kanji(&self) -> bool {
+        crate::utils::is_char_kanji(*self)
     }
 
     #[inline]
-    fn is_japanese(self) -> bool {
-        crate::utils::is_char_japanese(self)
+    fn is_japanese(&self) -> bool {
+        crate::utils::is_char_japanese(*self)
     }
 
     #[inline]
-    fn is_japanese_number(self) -> bool {
-        crate::utils::is_char_japanese_number(self)
+    fn is_japanese_number(&self) -> bool {
+        crate::utils::is_char_japanese_number(*self)
     }
 
     #[inline]
-    fn is_japanese_punctuation(self) -> bool {
-        crate::utils::is_char_japanese_punctuation(self)
+    fn is_japanese_punctuation(&self) -> bool {
+        crate::utils::is_char_japanese_punctuation(*self)
     }
 }
