@@ -13,14 +13,23 @@ wana_kana = "4.0"
 
  Utility library for checking and converting between Japanese characters - Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana V4.0.2)
  ## Examples
- ```
+ ```rust
  use wana_kana::to_romaji::*;
  use wana_kana::to_kana::*;
  use wana_kana::to_hiragana::*;
  use wana_kana::Options;
+ use wana_kana::ConvertJapanese;
  assert_eq!(to_romaji("ワナカナ"), "wanakana");
  assert_eq!(to_hiragana("WanaKana"), "わなかな");
  assert_eq!(to_kana("WANAKANA"), "ワナカナ");
+ ```
+
+ or 
+ 
+ ```rust
+ use wana_kana::ConvertJapanese;
+ let foo = "ワナカナ" ;
+ assert_eq!(foo.to_romaji(), "wanakana");
  ```
 
 ## Tests
