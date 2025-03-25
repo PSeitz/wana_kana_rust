@@ -18,7 +18,6 @@ wana_kana = "4.0"
  use wana_kana::to_kana::*;
  use wana_kana::to_hiragana::*;
  use wana_kana::Options;
- use wana_kana::ConvertJapanese;
  assert_eq!(to_romaji("ワナカナ"), "wanakana");
  assert_eq!(to_hiragana("WanaKana"), "わなかな");
  assert_eq!(to_kana("WANAKANA"), "ワナカナ");
@@ -28,7 +27,7 @@ wana_kana = "4.0"
  
  ```rust
  use wana_kana::ConvertJapanese;
- let foo = "ワナカナ" ;
+ let foo = "ワナカナ";
  assert_eq!(foo.to_romaji(), "wanakana");
  ```
 
