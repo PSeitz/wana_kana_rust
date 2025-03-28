@@ -228,6 +228,27 @@ mod tests {
         }
     }
 
+    mod halfwidth_katakana {
+        use super::*;
+        #[test]
+        fn converts_to_hiragana() {
+            assert_eq!(to_romaji("ｱｲｳｴｵｶｷｸｹｺ"), "aiueokakikukeko");
+            assert_eq!(to_romaji("ｻｼｽｾｿﾀﾁﾂﾃﾄ"), "sashisusesotachitsuteto");
+            assert_eq!(to_romaji("ﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎ"), "naninunenohahifuheho");
+            assert_eq!(to_romaji("ﾏﾐﾑﾒﾓﾔﾕﾖ"), "mamimumemoyayuyo");
+            assert_eq!(to_romaji("ﾗﾘﾙﾚﾛﾜｦﾝ"), "rarirurerowawon");
+            assert_eq!(to_romaji("ｧｨｩｪｫｬｭｮ"), "aiueoyayuyo");
+            assert_eq!(to_romaji("ｯ"), "");
+            assert_eq!(to_romaji("ｸﾞｯﾄﾞ"), "guddo");
+            assert_eq!(to_romaji("ｶﾞｷﾞｸﾞｹﾞｺﾞ"), "gagigugego");
+            assert_eq!(to_romaji("ｻﾞｼﾞｽﾞｾﾞｿﾞ"), "zajizuzezo");
+            assert_eq!(to_romaji("ﾀﾞﾁﾞﾂﾞﾃﾞﾄﾞ"), "dajizudedo");
+            assert_eq!(to_romaji("ﾊﾞﾋﾞﾌﾞﾍﾞﾎﾞ"), "babibubebo");
+            assert_eq!(to_romaji("ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ"), "papipupepo");
+            assert_eq!(to_romaji("ｳﾞ"), "vo");
+        }
+    }
+
     #[test]
     fn check_panic_issue_13() {
         assert_eq!(to_romaji("ウーッー"), "uu");
