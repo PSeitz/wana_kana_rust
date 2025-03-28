@@ -20,6 +20,11 @@ use wana_kana::ConvertJapanese;
 assert_eq!("ワナカナ".to_romaji(), "wanakana");
 assert_eq!("WanaKana".to_hiragana(), "わなかな");
 assert_eq!("WANAKANA".to_kana(), "ワナカナ");
+
+// half-width katakana is supported
+assert_eq!("ﾜﾅｶﾅ".to_romaji(), "wanakana");
+assert_eq!("ﾜﾅｶﾅ".to_hiragana(), "わなかな");
+assert_eq!("ﾜﾅｶﾅ".to_katakana(), "ワナカナ");
 ```
 
 ## Tests
