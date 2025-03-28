@@ -115,8 +115,8 @@ mod tests {
     #[test]
     fn non_romaji_will_be_passed_through() {
         assert_eq!(
-            to_kana("ワニカニ AiUeO 鰐蟹 12345 @#$%"),
-            "ワニカニ アいウえオ 鰐蟹 12345 @#$%"
+            to_kana("ワニカニ AiUeO ｱｲｳｴｵ 鰐蟹 12345 @#$%"),
+            "ワニカニ アいウえオ ｱｲｳｴｵ 鰐蟹 12345 @#$%"
         );
     }
 

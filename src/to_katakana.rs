@@ -1,6 +1,8 @@
+use crate::is_katakana::is_mixed_halfwidth_katakana;
 use crate::is_mixed::*;
 use crate::is_romaji::*;
 use crate::options::Options;
+use crate::utils::halfwidth_katakana_to_hiragana::halfwidth_katakana_to_hiragana;
 use crate::utils::hiragana_to_katakana::*;
 use crate::utils::romaji_to_hiragana::*;
 
@@ -11,6 +13,13 @@ pub fn to_katakana(input: &str) -> String {
 /// Convert input to [Katakana](https://en.wikipedia.org/wiki/Katakana)
 pub fn to_katakana_with_opt(input: &str, options: Options) -> String {
     let config = options;
+
+    let input = if is_mixed_halfwidth_katakana(input) {
+        &halfwidth_katakana_to_hiragana(input)
+    } else {
+        input
+    };
+
     if config.pass_romaji {
         hiragana_to_katakana(input)
     } else if is_romaji(input) || is_mixed(input) {
@@ -116,6 +125,25 @@ mod tests {
                 ),
                 "only カナ"
             );
+        }
+    }
+
+    mod hankaku_katakana {
+        use super::*;
+        #[test]
+        fn converts_to_hiragana() {
+            assert_eq!(to_katakana("ｱｲｳｴｵｶｷｸｹｺ"), "アイウエオカキクケコ");
+            assert_eq!(to_katakana("ｻｼｽｾｿﾀﾁﾂﾃﾄ"), "サシスセソタチツテト");
+            assert_eq!(to_katakana("ﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎ"), "ナニヌネノハヒフヘホ");
+            assert_eq!(to_katakana("ﾏﾐﾑﾒﾓﾔﾕﾖ"), "マミムメモヤユヨ");
+            assert_eq!(to_katakana("ﾗﾘﾙﾚﾛﾜｦﾝ"), "ラリルレロワヲン");
+            assert_eq!(to_katakana("ｧｨｩｪｫｬｭｮｯｰ･｢｣"), "ァィゥェォャュョッー・「」");
+            assert_eq!(to_katakana("ｶﾞｷﾞｸﾞｹﾞｺﾞ"), "ガギグゲゴ");
+            assert_eq!(to_katakana("ｻﾞｼﾞｽﾞｾﾞｿﾞ"), "ザジズゼゾ");
+            assert_eq!(to_katakana("ﾀﾞﾁﾞﾂﾞﾃﾞﾄﾞ"), "ダヂヅデド");
+            assert_eq!(to_katakana("ﾊﾞﾋﾞﾌﾞﾍﾞﾎﾞ"), "バビブベボ");
+            assert_eq!(to_katakana("ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ"), "パピプペポ");
+            assert_eq!(to_katakana("ｳﾞ"), "ヴ");
         }
     }
 }
