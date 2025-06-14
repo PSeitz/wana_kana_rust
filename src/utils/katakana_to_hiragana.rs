@@ -15,7 +15,9 @@
 use fnv::FnvHashMap;
 
 use crate::constants::{HIRAGANA_START, KATAKANA_START};
+use crate::halfwidth_to_hiragana_node_tree::HALFWIDTH_KATAKANA_TO_HIRAGANA_NODE_TREE;
 use crate::to_romaji::TO_ROMAJI_NODE_TREE;
+use crate::utils::is_char_halfwidth_katakana::is_char_halfwidth_katakana;
 use crate::utils::is_char_katakana::*;
 use crate::utils::is_char_long_dash::*;
 use crate::utils::is_char_slash_dot::*;
@@ -47,6 +49,8 @@ pub fn katakana_to_hiragana(input: &str) -> String {
 pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: bool) -> String {
     let mut hira = Vec::with_capacity(input.chars().count());
     let mut previous_kana: Option<char> = None;
+    let chars = input.chars().collect::<Vec<_>>();
+
     for (index, input_char) in input.chars().enumerate() {
         // Short circuit to avoid incorrect codeshift for 'ー' and '・'
         if is_char_slash_dot(input_char)
@@ -93,6 +97,9 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
 
             hira.push(hira_char);
             previous_kana = Some(hira_char);
+        } else if is_char_halfwidth_katakana(input_char) {
+            let result = HALFWIDTH_KATAKANA_TO_HIRAGANA_NODE_TREE.get(&chars[index..]);
+            result.0.chars().for_each(|char| hira.push(char));
         } else {
             // Pass non katakana chars through
             hira.push(input_char);
@@ -105,6 +112,7 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
 #[test]
 fn test_katakana_to_hiragana() {
     assert_eq!(katakana_to_hiragana("カタカナ"), "かたかな");
+    assert_eq!(katakana_to_hiragana("ｶﾀｶﾅ"), "かたかな");
     assert_eq!(
         katakana_to_hiragana("カタカナ is a type of kana"),
         "かたかな is a type of kana"

@@ -1,3 +1,4 @@
+use crate::utils::is_char_halfwidth_katakana::is_char_halfwidth_katakana;
 use crate::utils::is_char_katakana::*;
 
 /// Test if all chars of `input` are [Katakana](https://en.wikipedia.org/wiki/Katakana)
@@ -6,6 +7,14 @@ pub fn is_katakana(input: &str) -> bool {
         return false;
     }
     input.chars().all(is_char_katakana)
+}
+
+/// Test if `input` contains any [Half-width Katakana](https://en.wikipedia.org/wiki/Half-width_kana)
+pub fn is_mixed_halfwidth_katakana(input: &str) -> bool {
+    if input.is_empty() {
+        return false;
+    }
+    input.chars().any(is_char_halfwidth_katakana)
 }
 
 #[cfg(test)]

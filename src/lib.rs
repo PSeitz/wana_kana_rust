@@ -66,6 +66,7 @@ pub(crate) mod is_katakana;
 pub(crate) mod is_mixed;
 pub(crate) mod is_romaji;
 
+pub(crate) mod halfwidth_to_hiragana_node_tree;
 pub(crate) mod to_hiragana;
 pub(crate) mod to_kana;
 pub(crate) mod to_kana_node_tree;
@@ -87,6 +88,7 @@ mod options;
 pub use crate::options::Options;
 
 pub mod traits;
+
 pub use traits::{ConvertJapanese, IsJapaneseChar, IsJapaneseStr};
 
 #[cfg(test)]
