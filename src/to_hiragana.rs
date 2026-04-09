@@ -13,12 +13,13 @@ pub fn to_hiragana(input: &str) -> String {
 
 /// Convert input to [Hiragana](https://en.wikipedia.org/wiki/Hiragana)
 pub fn to_hiragana_with_opt(input: &str, options: Options) -> String {
+    let keep_prolonged = options.keep_prolonged_sound_mark;
     let config = options;
     if config.pass_romaji {
-        katakana_to_hiragana(input)
+        katakana_to_hiragana_with_opt(input, false, keep_prolonged)
     } else if is_mixed(input) {
-        let romaji = katakana_to_hiragana(input);
-        romaji_to_hiragana(&romaji, config)
+        let intermediate = katakana_to_hiragana_with_opt(input, false, keep_prolonged);
+        romaji_to_hiragana(&intermediate, config)
     } else if is_romaji(input)
         || input
             .chars()
@@ -30,7 +31,7 @@ pub fn to_hiragana_with_opt(input: &str, options: Options) -> String {
         // src\utils\isCharEnglishPunctuation.js)
         romaji_to_hiragana(input, config)
     } else {
-        katakana_to_hiragana(input)
+        katakana_to_hiragana_with_opt(input, false, keep_prolonged)
     }
 }
 
@@ -150,6 +151,61 @@ mod tests {
         fn converts_to_hiragana_long_vowels() {
             assert_eq!(to_hiragana("スーパー"), "すうぱあ");
             assert_eq!(to_hiragana("バンゴー"), "ばんごう");
+        }
+    }
+
+    mod keep_prolonged_sound_mark {
+        use super::*;
+
+        fn keep_prolonged() -> Options {
+            Options {
+                keep_prolonged_sound_mark: true,
+                ..Default::default()
+            }
+        }
+
+        #[test]
+        fn keeps_fullwidth_prolonged_mark() {
+            assert_eq!(
+                to_hiragana_with_opt("スーパー", keep_prolonged()),
+                "すーぱー"
+            );
+            assert_eq!(
+                to_hiragana_with_opt("バンゴー", keep_prolonged()),
+                "ばんごー"
+            );
+        }
+
+        #[test]
+        fn keeps_halfwidth_prolonged_mark_normalized_to_fullwidth() {
+            assert_eq!(to_hiragana_with_opt("ｽｰﾊﾟｰ", keep_prolonged()), "すーぱー");
+        }
+
+        #[test]
+        fn halfwidth_and_fullwidth_agree_when_enabled() {
+            assert_eq!(
+                to_hiragana_with_opt("スーパー", keep_prolonged()),
+                to_hiragana_with_opt("ｽｰﾊﾟｰ", keep_prolonged()),
+            );
+        }
+
+        #[test]
+        fn default_still_expands_long_vowels() {
+            assert_eq!(to_hiragana("スーパー"), "すうぱあ");
+            assert_eq!(to_hiragana("バンゴー"), "ばんごう");
+            assert_eq!(to_hiragana("ｽｰﾊﾟｰ"), "すうぱあ");
+        }
+
+        #[test]
+        fn initial_prolonged_mark_normalized() {
+            assert_eq!(to_hiragana_with_opt("ー", keep_prolonged()), "ー");
+            assert_eq!(to_hiragana_with_opt("ｰ", keep_prolonged()), "ー");
+        }
+
+        #[test]
+        fn mixed_with_romaji_keeps_long_dash() {
+            let result = to_hiragana_with_opt("abc スーパー", keep_prolonged());
+            assert!(result.contains("すーぱー"), "got: {}", result);
         }
     }
 

@@ -10,7 +10,7 @@ pub fn to_romaji(input: &str) -> String {
 
 /// Convert kana to romaji
 pub fn to_romaji_with_opt(orig: &str, options: Options) -> String {
-    let kana = katakana_to_hiragana_with_opt(orig, true);
+    let kana = katakana_to_hiragana_with_opt(orig, true, false);
     let orig_chars = orig.chars().collect::<Vec<_>>();
     let chars = kana.chars().collect::<Vec<_>>();
     let mut ouput = String::with_capacity(orig.len());

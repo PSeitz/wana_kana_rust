@@ -15,4 +15,11 @@ pub struct Options {
 
     /// Set to true to handle conversion while it is being typed
     pub imemode: bool,
+
+    /// Set to true to keep the prolonged sound mark 'ー' (chōonpu) as-is
+    /// instead of expanding it to a repeated vowel when converting katakana
+    /// to hiragana.
+    /// to_hiragana_with_opt("スーパー", Options { keep_prolonged_sound_mark: true, ..Default::default() })
+    /// => "すーぱー"   (default: "すうぱあ")
+    pub keep_prolonged_sound_mark: bool,
 }
