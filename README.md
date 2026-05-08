@@ -7,11 +7,16 @@
  ### ワナカナ <--> WanaKana <--> わなかな
 ```toml,ignore
 [dependencies]
-wana_kana = "4.0"
+wana_kana = "5.0"
 ```
 
 
- Utility library for checking and converting between Japanese characters - Hiragana, Katakana - and Romaji (Ported from https://github.com/WaniKani/WanaKana V4.0.2)
+ Utility library for checking and converting between Japanese characters - Hiragana, Katakana - and Romaji.
+
+This crate was originally ported from [WanaKana](https://github.com/WaniKani/WanaKana) v4.0.2. 
+It has since deviated from upstream to add some improvements. 
+PRs are welcome to close compatibility gaps with upstream WanaKana.
+
  ## Examples
  
 ```rust
