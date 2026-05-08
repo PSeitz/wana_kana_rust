@@ -86,6 +86,7 @@ pub trait ConvertJapanese {
     /// use wana_kana::Options;
     /// assert_eq!("only かな".to_hiragana_with_opt(Options {pass_romaji: true, ..Default::default() } ), "only かな");
     /// assert_eq!("wi".to_hiragana_with_opt(Options {use_obsolete_kana: true, ..Default::default() } ), "ゐ");
+    /// assert_eq!("スーパー".to_hiragana_with_opt(Options {keep_prolonged_sound_mark: true, ..Default::default() } ), "すーぱー");
     /// ```
     fn to_hiragana_with_opt(self, options: Options) -> String;
 

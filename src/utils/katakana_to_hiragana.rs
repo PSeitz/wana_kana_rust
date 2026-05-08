@@ -43,10 +43,14 @@ lazy_static! {
 }
 
 pub fn katakana_to_hiragana(input: &str) -> String {
-    katakana_to_hiragana_with_opt(input, false)
+    katakana_to_hiragana_with_opt(input, false, false)
 }
 
-pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: bool) -> String {
+pub(crate) fn katakana_to_hiragana_with_opt(
+    input: &str,
+    is_destination_romaji: bool,
+    keep_prolonged_sound_mark: bool,
+) -> String {
     let chars = input.chars().collect::<Vec<_>>();
     let mut hira = Vec::with_capacity(chars.len());
     let mut previous_kana: Option<char> = None;
@@ -59,11 +63,24 @@ pub(crate) fn katakana_to_hiragana_with_opt(input: &str, is_destination_romaji: 
             || is_char_initial_long_dash(input_char, count)
             || is_kana_as_symbol(input_char)
         {
-            hira.push(input_char);
+            if keep_prolonged_sound_mark && is_char_initial_long_dash(input_char, count) {
+                // Normalize halfwidth 'ｰ' to fullwidth 'ー' so fullwidth/halfwidth inputs agree.
+                hira.push('ー');
+            } else {
+                hira.push(input_char);
+            }
         // Transform long vowels: 'オー' to 'おう'
         } else if let (Some(previous_kana), true) =
             (previous_kana, is_char_inner_long_dash(input_char, count))
         {
+            // Opt-out: keep the prolonged sound mark as-is. Normalize halfwidth
+            // 'ｰ' to fullwidth 'ー' so fullwidth/halfwidth inputs agree.
+            if keep_prolonged_sound_mark {
+                hira.push('ー');
+                count += 1;
+                continue;
+            }
+
             // Transform previous_kana back to romaji, and slice off the vowel
             let Some(node) = TO_ROMAJI_NODE_TREE.find_transition_node(previous_kana) else {
                 hira.push(input_char);
