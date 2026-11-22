@@ -247,6 +247,13 @@ mod tests {
             assert_eq!(to_romaji("ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ"), "papipupepo");
             assert_eq!(to_romaji("ｳﾞ"), "vo");
         }
+
+        #[test]
+        fn passes_through_lone_voiced_marks() {
+            assert_eq!(to_romaji("ﾞ"), "ﾞ");
+            assert_eq!(to_romaji("ﾟ"), "ﾟ");
+            assert_eq!(to_romaji("ｱﾞｶ"), "aﾞka");
+        }
     }
 
     #[test]
