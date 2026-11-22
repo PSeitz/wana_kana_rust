@@ -120,12 +120,18 @@ pub(crate) fn katakana_to_hiragana_with_opt(
             hira.push(hira_char);
             previous_kana = Some(hira_char);
         } else if is_char_halfwidth_katakana(input_char) {
-            let result = HALFWIDTH_KATAKANA_TO_HIRAGANA_NODE_TREE.get(&chars[count..]);
-            hira.extend(result.0.chars());
-            // Track the last produced kana so a following 'ー' can trigger
-            // the long-vowel transformation (e.g. 'ｽｰ' => 'すう').
-            previous_kana = result.0.chars().last();
-            count += result.1 - 1;
+            let (output, consumed) = HALFWIDTH_KATAKANA_TO_HIRAGANA_NODE_TREE.get(&chars[count..]);
+            if consumed == 0 {
+                // No match (e.g. a lone 'ﾞ' or 'ﾟ'): pass it through.
+                hira.push(input_char);
+                previous_kana = None;
+            } else {
+                hira.extend(output.chars());
+                // Track the last produced kana so a following 'ー' can trigger
+                // the long-vowel transformation (e.g. 'ｽｰ' => 'すう').
+                previous_kana = output.chars().last();
+                count += consumed - 1;
+            }
         } else {
             // Pass non katakana chars through
             hira.push(input_char);

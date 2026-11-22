@@ -227,6 +227,13 @@ mod tests {
             assert_eq!(to_hiragana("ｳﾞ"), "ゔ");
             assert_eq!(to_hiragana("スーパー"), to_hiragana("ｽｰﾊﾟｰ"));
         }
+
+        #[test]
+        fn passes_through_lone_voiced_marks() {
+            assert_eq!(to_hiragana("ﾞ"), "ﾞ");
+            assert_eq!(to_hiragana("ﾟ"), "ﾟ");
+            assert_eq!(to_hiragana("ｱﾟｶ"), "あﾟか");
+        }
     }
 
     #[test]
